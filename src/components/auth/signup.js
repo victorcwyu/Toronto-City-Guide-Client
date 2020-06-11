@@ -22,7 +22,8 @@ function Signup () {
 								 <Button variant='contained' type='submit'>Submit</Button>
               </form>
             </Container>
-        </div>
+						
+        </div>  
     )
 }
 
