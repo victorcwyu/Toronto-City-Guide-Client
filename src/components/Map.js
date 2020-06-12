@@ -21,7 +21,7 @@ export default function Map({ options, onMount, className, onMountProps }) {
 
   return (
     <div
-      style={{ height: `300px`, width: `400px`, margin: `1em 0`, borderRadius: `0.5em` }}
+      style={{ height: `300px`, width: `400px`, margin: `100px auto`, borderRadius: `0.5em` }}
       {...{ ref, className }}
     />
   )
