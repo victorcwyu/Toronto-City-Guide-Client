@@ -1,5 +1,11 @@
 import { functions, isEqual, omit } from 'lodash'
 import React, { useState, useEffect, useRef } from 'react'
+import '../styles/Map.scss';
+
+const mapStyles = {
+  width: '400px',
+  height: '300px',
+};
 
 function Map({ options, onMount, className, onMountProps }) {
   const ref = useRef()
@@ -25,10 +31,12 @@ function Map({ options, onMount, className, onMountProps }) {
   if (map && typeof onMount === `function`) onMount(map, onMountProps)
 
   return (
-    <div
-      style={{ height: `300px`, width: `400px`, margin: `100px auto`, borderRadius: `0.5em` }}
-      {...{ ref, className }}
-    />
+    <div id="map-container">
+      <div
+        style={mapStyles}
+        {...{ ref, className }}
+      />
+    </div>
   )
 }
 
