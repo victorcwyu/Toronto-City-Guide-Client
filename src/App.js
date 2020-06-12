@@ -11,8 +11,8 @@ import Map from './components/Map';
 function App() {
   return (
     <div className="App">
-      <header className="App-header">
-      </header>
+      {/* <header className="App-header">
+      </header> */}
       <Signup />
 <<<<<<< HEAD
       <Login />
