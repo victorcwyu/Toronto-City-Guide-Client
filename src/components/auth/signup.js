@@ -12,12 +12,7 @@ export default function Signup () {
 
 	const handleSignUp = (e) => {
 		e.preventDefault();
-		const userData = {...userInfo}
-		console.log(userData);
-		axios.post('http://localhost:5000/signup', userData,{
-			headers: {
-				'Content-Type': 'application/x-www-form-urlencoded'
-			}})
+		axios.post('http://localhost:5000/signup', userInfo)
 		.then(res => console.log(res.data))
 		.catch(err => console.log(err));
 	}
