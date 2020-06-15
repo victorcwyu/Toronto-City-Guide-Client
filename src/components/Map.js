@@ -1,6 +1,7 @@
 import { functions, isEqual, omit } from "lodash"
 import React, { useState, useEffect, useRef } from "react"
 import "../styles/Map.scss";
+import SearchLocationInput from "./SearchLocationInput"
 
 // outside function to avoid too many rerenders
 const mapStyles = {
@@ -36,6 +37,7 @@ function Map({ options, onMount, className, onMountProps }) {
 
   return (
     <div id="map-container">
+      <SearchLocationInput />
       <h1>WELCOME TO TORONTO!</h1>
       <div
         style={mapStyles}
