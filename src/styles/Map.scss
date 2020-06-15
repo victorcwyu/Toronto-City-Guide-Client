@@ -1,9 +1,19 @@
 #map-container {
+  position: relative;
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 400px;
-  width: 500px;
+  height: 800px;
+  width: 1000px;
   margin: 100px auto;
   border: 1em solid black;
+  h1 {
+    position: absolute;
+    top: 1rem;
+    left: 1rem;
+    color: black;
+    z-index: 420;
+    margin: 0;
+    padding: 0;
+  }
 }
