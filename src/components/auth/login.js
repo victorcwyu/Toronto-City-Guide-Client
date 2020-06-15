@@ -11,7 +11,7 @@ export default function Login () {
 	const handleLogin = (e) => {
 		e.preventDefault();
 		axios.post('http://localhost:5000/login', userInfo)
-		.then(res => console.log(res.locals))
+		.then(res => console.log(res.data.token))
 		.catch(err => console.log(err));
 	}
 	
