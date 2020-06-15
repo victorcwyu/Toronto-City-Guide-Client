@@ -1,8 +1,8 @@
-import React from 'react';
-import './App.css';
-import Signup from './components/auth/signup';
-import Schedule from './components/Schedule';
-import Map from './components/Map';
+import React from "react";
+import "./App.css";
+import Signup from "./components/auth/signup";
+import Schedule from "./components/Schedule";
+import Map from "./components/Map";
 
 function App() {
   return (
@@ -11,9 +11,8 @@ function App() {
       </header> */}
       <Signup />
       <Map />
-      <Schedule/>
+      <Schedule />
     </div>
   );
 }
-
 export default App;
