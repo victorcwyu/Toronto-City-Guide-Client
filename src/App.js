@@ -2,10 +2,9 @@ import React, { useState, useEffect }  from 'react';
 import { BrowserRouter, Switch, Route} from 'react-router-dom';
 import './App.css';
 import Signup from './components/auth/Signup';
-import Schedule from './components/Schedule';
-import Login from './components/auth/Login'
-import Map from './components/Map';
-import Header from './components/Layout/Header'
+import Login from './components/auth/Login';
+import Home from './components/Home';
+import Header from './components/Layout/Header';
 import UserContext from './context/UserContext';
 import Axios from 'axios';
 
@@ -50,13 +49,12 @@ function App() {
       {/* Added temp header to handdle nav to cut down on clutter we can add a proper styled nav */}
       <Header />
         <Switch>
+          <Route exact path="/" component={Home} />
           <Route path="/login" component={Login} />
           <Route path='/signup' component={Signup} />
         </Switch>
       {/* <header className="App-header">
       </header> */}
-      <Map />
-      <Schedule/>
       </UserContext.Provider>
       </BrowserRouter>
     </div>
