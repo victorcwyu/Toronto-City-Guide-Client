@@ -2,7 +2,8 @@ import React from 'react';
 import './App.css';
 import Signup from './components/auth/signup';
 import Schedule from './components/Schedule';
-import Map from './components/Map';
+// import Map from './components/Map';
+import SearchAndMap from './components/SearchAndMap';
 
 function App() {
   return (
@@ -10,8 +11,9 @@ function App() {
       {/* <header className="App-header">
       </header> */}
       <Signup />
-      <Map />
+      {/* <Map /> */}
       <Schedule/>
+      <SearchAndMap />
     </div>
   );
 }
