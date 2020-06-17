@@ -7,6 +7,7 @@ import Home from './components/Home';
 import Header from './components/Layout/Header';
 import UserContext from './context/UserContext';
 import Axios from 'axios';
+import Map from './components/Map';
 
 
 function App() {
@@ -52,6 +53,7 @@ function App() {
           <Route exact path="/" component={Home} />
           <Route path="/login" component={Login} />
           <Route path='/signup' component={Signup} />
+          <Route path='/map' component={Map} />
         </Switch>
       {/* <header className="App-header">
       </header> */}
