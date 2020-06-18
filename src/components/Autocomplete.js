@@ -1,4 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
+import { FormControl, FormLabel, FormControlLabel, RadioGroup, Radio } from "@material-ui/core";
 import "../styles/Autocomplete.scss";
 
 const countryRestrict = { 'country': 'ca' };
@@ -197,9 +198,31 @@ const Autocomplete = () => {
     <>
       <div id="map-page-autocomplete">
         <div className="hotel-search">
+
+
           <div id="findhotels">
-            Find accommodation near:
+            <h2>Find</h2>
+            <FormControl component="fieldset">
+              {/* <FormLabel component="legend">Find</FormLabel> */}
+              {/* <RadioGroup aria-label="place-type" name="place-type" value={value} onChange={handleChange}> */}
+              <RadioGroup aria-label="place-type" name="place-type">
+              {/* <RadioGroup aria-label="place-type" name="place-type"> */}
+                <FormControlLabel value="lodging" control={<Radio />} label="accommodation" />
+                <FormControlLabel value="convenience_store" control={<Radio />} label="convenience store" />
+                <FormControlLabel value="tourist_attraction" control={<Radio />} label="tourist attraction" />
+                {/* <FormControlLabel value="disabled" disabled control={<Radio />} label="(Disabled option)" /> */}
+              </RadioGroup>
+            </FormControl>
           </div>
+
+{/* use local storage to save the selection
+clear when changed.
+call this in search method above:
+if accommodation {
+
+} else if supermarket etc... */}
+
+
           <div id="locationField">
             <input id="autocomplete" placeholder="Enter a location" type="text" ref={placeInputRef} />
           </div>
