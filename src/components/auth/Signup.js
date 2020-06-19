@@ -12,7 +12,7 @@ export default function Signup () {
 
 	const handleSignUp = (e) => {
 		e.preventDefault();
-		axios.post('http://localhost:5000/signup', userInfo)
+		axios.post('http://localhost:5000/auth/signup', userInfo)
 		.then(res => console.log(res.data))
 		.catch(err => console.log(err));
 	}
