@@ -7,10 +7,10 @@ export default function UserProfile() {
 
     // Make this grab the data from usercontext 
 
-    // const {userData, setUserData} = useContext(UserContext);
+    const {userData, setUserData} = useContext(UserContext);
     // const {userData, setUserData} = UserContext.value 
     // // const [state, setState] = useContext(userData);
-    // console.log("this", userData)
+    console.log("this", userData)
 
     const [input , setInput] = useState('')
     const [seachdata, setSeachdata] = useState(null)
