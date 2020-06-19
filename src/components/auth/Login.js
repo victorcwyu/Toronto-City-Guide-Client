@@ -1,4 +1,6 @@
-import React, {useState} from 'react';
+import React, {useState, useContext} from 'react';
+import {useHistory} from 'react-router-dom';
+import UserContext from '../../context/UserContext';
 import { Container, Typography, Button, FormControl, InputLabel, Input } from '@material-ui/core';
 import axios from 'axios'
 
@@ -6,12 +8,17 @@ export default function Login () {
 	const [userInfo, setUserInfo] = useState({
 		username: '',
 		password: ''
-	});
+  });
+  const {userData, setUserData} = useContext(UserContext)
+  const history = useHistory();
 
 	const handleLogin = async (e) => {
 		e.preventDefault();
 		const loginRes = await axios.post('http://localhost:5000/auth/login', userInfo);
     localStorage.setItem('auth-token', loginRes.data.token);
+    const token = localStorage.getItem('auth-token');
+    setUserData({...userData, token: token})
+    history.push('/');
 	}
 	
     return (
