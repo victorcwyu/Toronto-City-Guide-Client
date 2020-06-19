@@ -7,6 +7,7 @@ import Home from './components/Home';
 import Header from './components/Layout/Header';
 import UserContext from './context/UserContext';
 import Axios from 'axios';
+import ScheduleDetails from './components/Schedule/ScheduleDetails';
 
 
 function App() {
@@ -49,9 +50,10 @@ function App() {
       {/* Added temp header to handdle nav to cut down on clutter we can add a proper styled nav */}
       <Header />
         <Switch>
-          <Route exact path="/" component={Home} />
-          <Route path="/login" component={Login} />
-          <Route path='/signup' component={Signup} />
+        <Route exact path="/" component={Home} />
+          <Route exact path="/login" component={Login} />
+          <Route exact path='/signup' component={Signup} />
+          <Route exact path='/schedule' component={ScheduleDetails} />
         </Switch>
       {/* <header className="App-header">
       </header> */}
