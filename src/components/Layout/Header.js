@@ -14,6 +14,10 @@ export default function Header() {
             <Link to="/signup">
             Sign Up
             </Link>
+            <Link to="/userProfile">
+             User Profile
+            </Link>
+
         </nav>
     )
 }
