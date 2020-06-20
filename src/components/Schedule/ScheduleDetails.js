@@ -22,13 +22,13 @@ export default function ScheduleDetails() {
     setState({ ...state, date: date });
   };
 
-  const handleSchedule = (e) => {
+ /* const handleSchedule = (e) => {
     e.preventDefault();
     const token = localStorage.getItem("auth-token");
     try {
       axios
         .post(
-          "http://localhost:5000/schedules/schedules",
+          "http://localhost:5000/api/schedules",
           { scheduleData: state },
           {
             headers: {
@@ -42,7 +42,14 @@ export default function ScheduleDetails() {
     } catch (err) {
       console.error(err);
     }
-  };
+  };*/
+
+
+	const handleSchedule = async (e) => {
+		e.preventDefault();
+		const scheduleRes = await axios.post('http://localhost:5000/api/schedules', state);
+    console.log('output',scheduleRes);
+	}
 
   return (
     <Container className="schedule-details">
