@@ -28,10 +28,10 @@ function App() {
       }});
 
       if (tokenRes.data) {
-        console.log('token:', token);
         const userRes = await Axios.post('http://localhost:5000/getActiveUser', null, {headers: {
           "x-auth-token": token
         }});
+
         
         setUserData({
           token: token,
@@ -39,7 +39,6 @@ function App() {
         })
       }
     }
-
     checkLoggedIn()
   }, [userData.token])
 
