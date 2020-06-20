@@ -2,14 +2,13 @@ import React, { useState, useContext } from 'react'
 import UserContext from '../context/UserContext'
 import axios from "axios"
 
+import UserContactInfo from './UserContactInfo';
+
 export default function UserProfile() {
 
-
-    // Make this grab the data from usercontext 
-
     const {userData, setUserData} = useContext(UserContext);
-    // const {userData, setUserData} = UserContext.value 
-    // // const [state, setState] = useContext(userData);
+    console.log(userData)
+
     console.log("this", userData)
 
     const [input , setInput] = useState('')
@@ -33,6 +32,7 @@ export default function UserProfile() {
         console.error(err)
       }
     }
+
     const handleAddContact = async e => {
       e.preventDefault();
       
@@ -71,6 +71,11 @@ export default function UserProfile() {
               >+</div>
             </div>
           )}
+          {/* {userData.user.contacts.map(contact => {
+            <UserContactInfo 
+            contactName={contact} 
+            />
+          })} */}
         </div>
     )
 }
