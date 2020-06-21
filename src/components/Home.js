@@ -1,14 +1,13 @@
 import React from 'react'
-import Map from './Map';
+import HomeMap from './Map/HomeMap';
 import Schedule from './Schedule/index';
 
 export default function Home() {
     return (
         <div>
             <h1>Home Page</h1>
+            <HomeMap />
             <Schedule />
-            <Map />
-            
         </div>
     )
 }
