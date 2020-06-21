@@ -9,7 +9,7 @@ import Header from './components/Layout/Header';
 import UserContext from './context/UserContext';
 import UserProfile from './components/UserProfile'
 import Axios from 'axios';
-import Map from './components/Map';
+import Map from './components/Map/Map';
 import ScheduleDetails from './components/Schedule/ScheduleDetails';
 
 function App() {
