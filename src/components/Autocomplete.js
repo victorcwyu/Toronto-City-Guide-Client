@@ -84,10 +84,12 @@ const Autocomplete = () => {
         bounds: map.getBounds(),
         types: [`${searchPlaceType}`],
       };
+      // Clear results and markers when a new search is made
+      // Ensures the results table is blank if no places are found
+      clearResults();
+      clearMarkers(); 
       places.nearbySearch(search, function (results, status) {
         if (status === window.google.maps.places.PlacesServiceStatus.OK) {
-          clearResults();
-          clearMarkers(); 
           // Create a marker for each place type found, and
           // assign a letter of the alphabetic to each marker icon.
           for (var i = 0; i < results.length; i++) {

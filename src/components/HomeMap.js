@@ -1,6 +1,8 @@
 import { functions, isEqual, omit } from "lodash"
 import React, { useState, useEffect, useRef } from "react"
 import "../styles/HomeMap.scss";
+import { Link } from "react-router-dom";
+
 
 // outside function to avoid too many rerenders
 const mapStyles = {
@@ -34,13 +36,19 @@ function Map({ options, onMount, className, onMountProps }) {
   // onMount allows for customization, i.e. adding markers
   if (map && typeof onMount === `function`) onMount(map, onMountProps);
 
+  // <Link to="/schedule">Book Your Schedule</Link>
+
+
+
   return (
-    <div id="map-container">
-      <div
-        style={mapStyles}
-        {...{ ref, className }}
-      />
-    </div>
+    <Link to="/map">
+      <div id="map-container">
+        <div
+          style={mapStyles}
+          {...{ ref, className }}
+        />
+      </div>
+    </Link>
   );
 }
 
@@ -66,5 +74,6 @@ Map.defaultProps = {
   options: {
     center: { lat: 43.6560811, lng: -79.3823601 },
     zoom: 14,
+    disableDefaultUI: true
   },
 };
