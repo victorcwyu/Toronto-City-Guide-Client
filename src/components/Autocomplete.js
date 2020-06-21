@@ -32,6 +32,12 @@ const Autocomplete = () => {
       disableDefaultUI: true
     });
 
+    // Initialize central marker
+    let locationSelection = new window.google.maps.Marker({
+      position: map.center,
+      map: map
+    });
+
     // Initialize infoWindow
     const infoWindow = new window.google.maps.InfoWindow({
       content: document.getElementById('info-content')
@@ -54,12 +60,13 @@ const Autocomplete = () => {
 
     // When autocomplete selection made, pan to and zoom in on selected location
     new window.google.maps.event.addListener(autocomplete, "place_changed", function () {
-      let place = autocomplete.getPlace();
+      let place = autocomplete.getPlace();     
       if (place.geometry) {
+        locationSelection.setMap(null);
         map.panTo(place.geometry.location);
         map.setZoom(15);
         // Create location marker
-        new window.google.maps.Marker({
+        locationSelection = new window.google.maps.Marker({
           position: place.geometry.location,
           map: map,
         });
@@ -80,8 +87,7 @@ const Autocomplete = () => {
       places.nearbySearch(search, function (results, status) {
         if (status === window.google.maps.places.PlacesServiceStatus.OK) {
           clearResults();
-          clearMarkers();
-          
+          clearMarkers(); 
           // Create a marker for each place type found, and
           // assign a letter of the alphabetic to each marker icon.
           for (var i = 0; i < results.length; i++) {
