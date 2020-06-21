@@ -1,8 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import "../styles/Autocomplete.scss";
 import PlaceTypeSelector from "./PlaceTypeSelector"
-
-
+import axios from "axios";
 const countryRestrict = { 'country': 'ca' };
 var markers = [];
 var MARKER_PATH = 'https://developers.google.com/maps/documentation/javascript/images/marker_green';
@@ -56,7 +55,8 @@ const Autocomplete = () => {
       });
 
     // initialize Google Places
-    const places = new window.google.maps.places.PlacesService(map);
+    // const places = new window.google.maps.places.PlacesService(map);
+    window.places = new window.google.maps.places.PlacesService(map);
 
     // When autocomplete selection made, pan to and zoom in on selected location
     new window.google.maps.event.addListener(autocomplete, "place_changed", function () {
@@ -88,7 +88,7 @@ const Autocomplete = () => {
       // Ensures the results table is blank if no places are found
       clearResults();
       clearMarkers(); 
-      places.nearbySearch(search, function (results, status) {
+      window.places.nearbySearch(search, function (results, status) {
         if (status === window.google.maps.places.PlacesServiceStatus.OK) {
           // Create a marker for each place type found, and
           // assign a letter of the alphabetic to each marker icon.
@@ -156,8 +156,8 @@ const Autocomplete = () => {
     // anchored on the marker for the place that the user selected.
     function showInfoWindow() {
       var marker = this;
-      // Unique ID for selected place
-      places.getDetails({ placeId: marker.placeResult.place_id },
+      window.uniqueId = marker.placeResult.place_id;
+      window.places.getDetails({ placeId: marker.placeResult.place_id },
         function (place, status) {
           if (status !== window.google.maps.places.PlacesServiceStatus.OK) {
             return;
@@ -214,9 +214,16 @@ const Autocomplete = () => {
     }
   };
 
-
-  // API call for place details result in JSON format
-  // https://maps.googleapis.com/maps/api/place/details/json?place_id=ChIJVVWZQMI0K4gRKe_7Jz45mHU&fields=name,rating,formatted_phone_number&key=AIzaSyAsV2bUlCYWHvm-KvtfdSoEAOdPiH1JvUM
+  const handleAddFavourite = e => {
+    e.preventDefault();    
+    window.places.getDetails({ placeId: window.uniqueId },
+      function (place, status) {
+        if (status !== window.google.maps.places.PlacesServiceStatus.OK) {
+          return;
+        }
+        console.log("data", place)
+      });
+  }
 
   return (
     <>
@@ -242,7 +249,9 @@ const Autocomplete = () => {
             <table>
               <tbody>
                 {/* add a button here to add to favourites */}
-                <h1>+</h1>
+                <div onClick={handleAddFavourite}>
+                  +
+                </div>
                 <tr id="iw-url-row" className="iw_table_row">
                   <td id="iw-icon" className="iw_table_icon"></td>
                   <td id="iw-url"></td>
