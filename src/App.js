@@ -11,6 +11,7 @@ import UserProfile from './components/UserProfile'
 import Axios from 'axios';
 import Map from './components/Map/Map';
 import ScheduleDetails from './components/Schedule/ScheduleDetails';
+import Messages from './components/Message';
 
 function App() {
 
@@ -58,9 +59,8 @@ function App() {
           <Route path='/map' component={Map} />
           <Route path='/userProfile' component={UserProfile} />
           <Route exact path='/schedule' component={ScheduleDetails} />
+          <Route path='/message' component={Messages} />
         </Switch>
-      {/* <header className="App-header">
-      </header> */}
       </UserContext.Provider>
       </BrowserRouter>
     </div>

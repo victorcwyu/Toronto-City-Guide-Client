@@ -71,9 +71,10 @@ export default function UserProfile() {
               >+</div>
             </div>
           )}
+          <h1>Contacts</h1>
           {userData && userData.user.contacts.map((contact, index) => {
             return (<UserContactInfo 
-            ket={index}
+            key={index}
             contactName={contact.username} 
             />)
           })}
@@ -82,3 +83,6 @@ export default function UserProfile() {
         </div>
     )
 }
+
+// BUGS:
+// When we refresh there is no userdata
