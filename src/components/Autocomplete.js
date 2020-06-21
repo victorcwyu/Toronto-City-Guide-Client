@@ -214,14 +214,27 @@ const Autocomplete = () => {
     }
   };
 
-  const handleAddFavourite = e => {
+  const handleAddFavourite = async e => {
     e.preventDefault();    
+    const token = localStorage.getItem('auth-token');
     window.places.getDetails({ placeId: window.uniqueId },
       function (place, status) {
         if (status !== window.google.maps.places.PlacesServiceStatus.OK) {
           return;
         }
-        console.log("data", place)
+        try {
+          axios.post("http://localhost:5000/addFavourite", { place }, {
+            headers: {
+              "x-auth-token": token
+            }
+          })
+            .then(res => {
+              console.log(res)
+            })
+        }
+        catch (err) {
+          console.error(err)
+        }
       });
   }
 
