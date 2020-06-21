@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
-import "../styles/Autocomplete.scss";
+import "../../styles/Autocomplete.scss";
 import PlaceTypeSelector from "./PlaceTypeSelector"
 import axios from "axios";
 const countryRestrict = { 'country': 'ca' };

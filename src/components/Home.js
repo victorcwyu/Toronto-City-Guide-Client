@@ -1,5 +1,5 @@
 import React from 'react'
-import HomeMap from './HomeMap';
+import HomeMap from './Map/HomeMap';
 import Schedule from './Schedule/index';
 
 export default function Home() {
