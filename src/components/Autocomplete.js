@@ -156,6 +156,7 @@ const Autocomplete = () => {
     // anchored on the marker for the place that the user selected.
     function showInfoWindow() {
       var marker = this;
+      // Unique ID for selected place
       places.getDetails({ placeId: marker.placeResult.place_id },
         function (place, status) {
           if (status !== window.google.maps.places.PlacesServiceStatus.OK) {
@@ -213,6 +214,10 @@ const Autocomplete = () => {
     }
   };
 
+
+  // API call for place details result in JSON format
+  // https://maps.googleapis.com/maps/api/place/details/json?place_id=ChIJVVWZQMI0K4gRKe_7Jz45mHU&fields=name,rating,formatted_phone_number&key=AIzaSyAsV2bUlCYWHvm-KvtfdSoEAOdPiH1JvUM
+
   return (
     <>
       <div id="map-page-autocomplete">
@@ -236,6 +241,8 @@ const Autocomplete = () => {
           <div id="info-content">
             <table>
               <tbody>
+                {/* add a button here to add to favourites */}
+                <h1>+</h1>
                 <tr id="iw-url-row" className="iw_table_row">
                   <td id="iw-icon" className="iw_table_icon"></td>
                   <td id="iw-url"></td>
