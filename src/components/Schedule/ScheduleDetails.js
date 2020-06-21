@@ -72,9 +72,7 @@ export default function ScheduleDetails() {
         <br />
         <button  onClick={handleSchedule}>
         <Link to='/'>
-        
-          Save
-        
+        Save
         </Link>
         </button>
       </FormControl>
