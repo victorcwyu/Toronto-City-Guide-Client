@@ -10,6 +10,7 @@ import {
 import DatePicker from "react-date-picker";
 import "../../styles/ScheduleDetails.scss";
 import axios from "axios";
+import { Link } from "react-router-dom";
 
 export default function ScheduleDetails() {
   const [state, setState] = useState({
@@ -69,9 +70,13 @@ export default function ScheduleDetails() {
         <br />
         <DatePicker onChange={handleChange} value={state.date} />
         <br />
-        <Button variant="contained" color="primary" onClick={handleSchedule}>
+        <button  onClick={handleSchedule}>
+        <Link to='/'>
+        
           Save
-        </Button>
+        
+        </Link>
+        </button>
       </FormControl>
       <br />
     </Container>
