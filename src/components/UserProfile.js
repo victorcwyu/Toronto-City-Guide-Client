@@ -7,7 +7,7 @@ import UserContactInfo from './UserContactInfo';
 export default function UserProfile() {
 
     const {userData, setUserData} = useContext(UserContext);
-    console.log(userData)
+    console.log(userData.user)
 
     console.log("this", userData)
 
@@ -50,7 +50,7 @@ export default function UserProfile() {
         console.error(err)
       }
     }
-
+    
     return (
         <div className="contacts">
           <input
@@ -71,11 +71,14 @@ export default function UserProfile() {
               >+</div>
             </div>
           )}
-          {/* {userData.user.contacts.map(contact => {
-            <UserContactInfo 
-            contactName={contact} 
-            />
-          })} */}
+          {userData && userData.user.contacts.map((contact, index) => {
+            return (<UserContactInfo 
+            ket={index}
+            contactName={contact.username} 
+            />)
+          })}
+          <div>
+          </div>
         </div>
     )
 }
