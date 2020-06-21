@@ -1,6 +1,7 @@
 import { functions, isEqual, omit } from "lodash"
 import React, { useState, useEffect, useRef } from "react"
 import "../styles/Map.scss";
+import SearchLocationInput from "./SearchLocationInput"
 
 // outside function to avoid too many rerenders
 const mapStyles = {
@@ -23,7 +24,7 @@ function Map({ options, onMount, className, onMountProps }) {
       const script = document.createElement(`script`);
       script.src =
         `https://maps.googleapis.com/maps/api/js?key=` +
-        process.env.REACT_APP_GOOGLE_MAPS_API_KEY;
+        process.env.REACT_APP_GOOGLE_MAPS_API_KEY + `& libraries=places`;
       // Append the 'script' element to 'head'
       document.head.append(script);
       script.addEventListener(`load`, onLoad);
@@ -36,10 +37,13 @@ function Map({ options, onMount, className, onMountProps }) {
 
   return (
     <div id="map-container">
+      <SearchLocationInput />
+      <h1>WELCOME TO TORONTO!</h1>
       <div
         style={mapStyles}
         {...{ ref, className }}
-      />
+      >
+      </div>
     </div>
   );
 }
@@ -65,6 +69,9 @@ export default React.memo(Map, shouldNotUpdate);
 Map.defaultProps = {
   options: {
     center: { lat: 43.6560811, lng: -79.3823601 },
-    zoom: 14,
+    // zoom: 14,
+    zoom: 8,
+    disableDefaultUI: true,
+    zoomControl: true
   },
 };

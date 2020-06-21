@@ -1,6 +1,10 @@
 import React, { useState, useEffect }  from 'react';
 import { BrowserRouter, Switch, Route} from 'react-router-dom';
 import './App.css';
+import Signup from './components/auth/signup';
+import Schedule from './components/Schedule';
+// import Map from './components/Map';
+import SearchAndMap from './components/SearchAndMap';
 import Signup from './components/auth/Signup';
 import Login from './components/auth/Login';
 import Home from './components/Home';
@@ -9,7 +13,6 @@ import UserContext from './context/UserContext';
 import UserProfile from './components/UserProfile'
 import Axios from 'axios';
 import ScheduleDetails from './components/Schedule/ScheduleDetails';
-
 
 function App() {
   const [userData, setUserData] = useState({
