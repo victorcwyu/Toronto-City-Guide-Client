@@ -13,12 +13,14 @@ import Map from './components/Map';
 import ScheduleDetails from './components/Schedule/ScheduleDetails';
 
 function App() {
+
   const [userData, setUserData] = useState({
     token: undefined,
     user: undefined
   });  
 
   useEffect(() => {
+
     const checkLoggedIn = async () => {
       let token = localStorage.getItem('auth-token');
       if (token === null) {
@@ -33,7 +35,6 @@ function App() {
         const userRes = await Axios.post('http://localhost:5000/getActiveUser', null, {headers: {
           "x-auth-token": token
         }});
-
         
         setUserData({
           token: token,
