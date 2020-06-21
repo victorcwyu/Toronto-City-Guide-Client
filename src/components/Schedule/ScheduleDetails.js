@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, { useState } from "react";
 import {
   Container,
   FormControl,
@@ -7,34 +7,73 @@ import {
   Button,
   TextField,
 } from "@material-ui/core";
-import DatePicker from 'react-date-picker';
-import '../../styles/ScheduleDetails.scss';
+import DatePicker from "react-date-picker";
+import "../../styles/ScheduleDetails.scss";
+import axios from "axios";
 
 export default function ScheduleDetails() {
+  const [state, setState] = useState({
+    date: new Date(),
+    title: "",
+    description: "",
+  });
 
   const handleChange = (date) => {
-    setSelectedDate(() => date);
-  }
+    setState({ ...state, date: date });
+  };
 
-  let [selectedDate,setSelectedDate] = useState(new Date());
+ /* const handleSchedule = (e) => {
+    e.preventDefault();
+    const token = localStorage.getItem("auth-token");
+    try {
+      axios
+        .post(
+          "http://localhost:5000/api/schedules",
+          { scheduleData: state },
+          {
+            headers: {
+              "x-auth-token": token,
+            },
+          }
+        )
+        .then((res) => {
+          console.log(res.data);
+        });
+    } catch (err) {
+      console.error(err);
+    }
+  };*/
+
+
+	const handleSchedule = async (e) => {
+		e.preventDefault();
+		const scheduleRes = await axios.post('http://localhost:5000/api/schedules', state);
+    console.log('output',scheduleRes);
+	}
+
   return (
     <Container className="schedule-details">
       <h1>Schedule Details</h1>
       <FormControl>
-      <TextField id="title" label="Title" />
-      <TextField id="description" label="Description" />
-      <br/>
-      <br/>
-        <DatePicker
-          onChange={handleChange}
-          value={selectedDate}
+        <TextField
+          id="title"
+          label="Title"
+          onChange={(e) => setState({ ...state, title: e.target.value })}
         />
-        <br/>
-       <Button variant="contained" color="primary">
-       Save
-      </Button>
-       </FormControl>
-       <br/>
+        <TextField
+          id="description"
+          label="Description"
+          onChange={(e) => setState({ ...state, description: e.target.value })}
+        />
+        <br />
+        <br />
+        <DatePicker onChange={handleChange} value={state.date} />
+        <br />
+        <Button variant="contained" color="primary" onClick={handleSchedule}>
+          Save
+        </Button>
+      </FormControl>
+      <br />
     </Container>
   );
 }

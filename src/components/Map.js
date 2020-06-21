@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import Autocomplete from './Autocomplete';
 import "../styles/Map.scss";
+import SearchLocationInput from "./SearchLocationInput"
 
 
 const GOOGLE_MAP_API_KEY = process.env.REACT_APP_GOOGLE_MAPS_API_KEY;
