@@ -1,5 +1,4 @@
 import React, { useEffect, useRef, useState } from "react";
-// import { FormControl, FormLabel, FormControlLabel, RadioGroup, Radio } from "@material-ui/core";
 import "../styles/Autocomplete.scss";
 import PlaceTypeSelector from "./PlaceTypeSelector"
 
@@ -13,7 +12,6 @@ const noDisplay = {
 }
 const mapStyles = {
   width: "440px",
-  // width: "100%",
   height: "430px",
 };
 
@@ -25,24 +23,25 @@ const Autocomplete = () => {
     initPlaceAPI();
   }, []);
 
-  // initialize the google place autocomplete
+  // Initialize the Google Place autocomplete
   const initPlaceAPI = () => {
-    // initialize the google map
+    // Initialize the Google map
     const map = new window.google.maps.Map(googleMapRef.current, {
       center: { lat: 43.6560811, lng: -79.3823601 },
       zoom: 14,
       disableDefaultUI: true
     });
 
+    // Initialize infoWindow
     const infoWindow = new window.google.maps.InfoWindow({
       content: document.getElementById('info-content')
     });
 
+    // Restrict the search to Canada, in the lat/lng bounds of Toronto.
     const bounds = new window.google.maps.LatLngBounds(
       new window.google.maps.LatLng(43.619132, -79.480562),
       new window.google.maps.LatLng(43.95843, -78.320516)
     );
-    // Restrict the search to Canada, in the lat/lng bounds of Toronto.
     let autocomplete = new window.google.maps.places.Autocomplete(
       placeInputRef.current,
       {
@@ -50,8 +49,10 @@ const Autocomplete = () => {
         componentRestrictions: countryRestrict
       });
 
+    // initialize Google Places
     const places = new window.google.maps.places.PlacesService(map);
 
+    // When autocomplete selection made, pan to and zoom in on selected location
     new window.google.maps.event.addListener(autocomplete, "place_changed", function () {
       let place = autocomplete.getPlace();
       if (place.geometry) {
@@ -63,17 +64,19 @@ const Autocomplete = () => {
       }
     });
 
-    // Search for hotels near the selected location, within the viewport of the map.
+    // Search for a place type near the selected location, within the viewport of the map.
     function search() {
+      const searchPlaceType = localStorage.getItem('searchPlaceType');
+
       var search = {
         bounds: map.getBounds(),
-        types: ['lodging'],
+        types: [`${searchPlaceType}`],
       };
       places.nearbySearch(search, function (results, status) {
         if (status === window.google.maps.places.PlacesServiceStatus.OK) {
           clearResults();
           clearMarkers();
-          // Create a marker for each hotel found, and
+          // Create a marker for each place type found, and
           // assign a letter of the alphabetic to each marker icon.
           for (var i = 0; i < results.length; i++) {
             var markerLetter = String.fromCharCode('A'.charCodeAt(0) + (i % 26));
@@ -135,8 +138,8 @@ const Autocomplete = () => {
         results.removeChild(results.childNodes[0]);
       }
     }
-    // Get the place details for a hotel. Show the information in an info window,
-    // anchored on the marker for the hotel that the user selected.
+    // Get the place details for a place type. Show the information in an info window,
+    // anchored on the marker for the place that the user selected.
     function showInfoWindow() {
       var marker = this;
       places.getDetails({ placeId: marker.placeResult.place_id },
@@ -162,8 +165,8 @@ const Autocomplete = () => {
       } else {
         document.getElementById('iw-phone-row').style.display = 'none';
       }
-      // Assign a five-star rating to the hotel, using a black star ('&#10029;')
-      // to indicate the rating the hotel has earned, and a white star ('&#10025;')
+      // Assign a five-star rating to the place, using a black star ('&#10029;')
+      // to indicate the rating the place has earned, and a white star ('&#10025;')
       // for the rating points not achieved.
       if (place.rating) {
         var ratingHtml = '';

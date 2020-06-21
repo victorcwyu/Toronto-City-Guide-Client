@@ -1,50 +1,7 @@
-// import React, { useEffect, useRef, useState } from "react";
-// import { FormControl, FormLabel, FormControlLabel, RadioGroup, Radio } from "@material-ui/core";
-// import "../styles/Autocomplete.scss";
-
-// function PlaceTypeSelector() {
-//   let placeType = "";
-
-//   return(
-//     <div id="findhotels">
-//       <h2>Find</h2>
-//       <FormControl component="fieldset">
-//         {/* <FormLabel component="legend">Find</FormLabel> */}
-//         {/* <RadioGroup aria-label="place-type" name="place-type" value={value} onChange={handleChange}> */}
-//         <RadioGroup 
-//           aria-label="place-type" 
-//           name="place-type"
-//           // value="convenience_store"
-//           // onChange={(e, { value }) => {
-//           //   // placeType = value
-//           //   // console.log("HIIIII", value)
-//           // }}
-//         >
-//           {/* <RadioGroup aria-label="place-type" name="place-type"> */}
-//           <FormControlLabel value="lodging" control={<Radio />} label="accommodation" />
-//           <FormControlLabel value="convenience_store" control={<Radio />} label="convenience store" />
-//           <FormControlLabel value="tourist_attraction" control={<Radio />} label="tourist attraction" />
-//           {/* <FormControlLabel value="disabled" disabled control={<Radio />} label="(Disabled option)" /> */}
-//         </RadioGroup>
-//       </FormControl>
-//     </div>
-//   );
-// }
-// export default PlaceTypeSelector;
-
-
-
-
-
-
-
-
-
 import React, { useState } from "react";
 import { makeStyles } from '@material-ui/core/styles';
 import InputLabel from '@material-ui/core/InputLabel';
 import MenuItem from '@material-ui/core/MenuItem';
-import FormHelperText from '@material-ui/core/FormHelperText';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
 
@@ -59,16 +16,14 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function PlaceTypeSelector() {
+
   const classes = useStyles();
   const [placeType, setPlaceType] = useState("");
 
-  const clearLocalStorage = () => localStorage.removeItem("searchPlaceType");
-
-  const handleChange = (event) => {
-    clearLocalStorage()
-    setPlaceType(event.target.value);
-    // Async???
-    localStorage.setItem("searchPlaceType", JSON.stringify(placeType))
+  function handleChange(event) {
+    setPlaceType(event.target.value)
+    // Store place type in local storage for autocomplete to use as an option when searching
+    localStorage.setItem("searchPlaceType", event.target.value)
   };
 
   return (
