@@ -40,7 +40,7 @@
 
 
 
-import React from 'react';
+import React, { useState } from "react";
 import { makeStyles } from '@material-ui/core/styles';
 import InputLabel from '@material-ui/core/InputLabel';
 import MenuItem from '@material-ui/core/MenuItem';
@@ -60,11 +60,13 @@ const useStyles = makeStyles((theme) => ({
 
 export default function PlaceTypeSelector() {
   const classes = useStyles();
-  const [age, setAge] = React.useState('');
+  const [placeType, setPlaceType] = useState('');
 
   const handleChange = (event) => {
-    setAge(event.target.value);
+    setPlaceType(event.target.value);
   };
+
+  console.log("haiiiii", placeType);
 
   return (
     <div>
@@ -73,7 +75,7 @@ export default function PlaceTypeSelector() {
         <Select
           labelId="demo-simple-select-outlined-label"
           id="demo-simple-select-outlined"
-          value={age}
+          value={placeType}
           onChange={handleChange}
           label="place-type"
         >
