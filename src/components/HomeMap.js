@@ -25,8 +25,6 @@ function Map({ options, onMount, className, onMountProps }) {
       // Create the script tag, set the appropriate attributes
       const script = document.createElement(`script`);
       script.src =
-        // `https://maps.googleapis.com/maps/api/js?key=` +
-        // process.env.REACT_APP_GOOGLE_MAPS_API_KEY;
         `https://maps.googleapis.com/maps/api/js?key=${GOOGLE_MAP_API_KEY}&libraries=places`;
         // Append the 'script' element to 'head'
       document.head.append(script);
@@ -37,10 +35,6 @@ function Map({ options, onMount, className, onMountProps }) {
 
   // onMount allows for customization, i.e. adding markers
   if (map && typeof onMount === `function`) onMount(map, onMountProps);
-
-  // <Link to="/schedule">Book Your Schedule</Link>
-
-
 
   return (
     <Link to="/map">
