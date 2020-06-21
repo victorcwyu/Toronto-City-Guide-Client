@@ -12,13 +12,33 @@ import Axios from 'axios';
 import Map from './components/Map';
 import ScheduleDetails from './components/Schedule/ScheduleDetails';
 
+// const GOOGLE_MAP_API_KEY = process.env.REACT_APP_GOOGLE_MAPS_API_KEY;
+// // load google map script
+// const loadGoogleMapScript = (callback) => {
+//   if (typeof window.google === 'object' && typeof window.google.maps === 'object') {
+//     callback();
+//   } else {
+//     const googleMapScript = document.createElement("script");
+//     googleMapScript.src = `https://maps.googleapis.com/maps/api/js?key=${GOOGLE_MAP_API_KEY}&libraries=places`;
+//     window.document.body.appendChild(googleMapScript);
+//     googleMapScript.addEventListener("load", callback);
+//   }
+// };
+
 function App() {
+  // const [loadMap, setLoadMap] = useState(false);
+
   const [userData, setUserData] = useState({
     token: undefined,
     user: undefined
   });  
 
   useEffect(() => {
+
+    // loadGoogleMapScript(() => {
+    //   setLoadMap(true);
+    // });
+
     const checkLoggedIn = async () => {
       let token = localStorage.getItem('auth-token');
       if (token === null) {
@@ -33,7 +53,6 @@ function App() {
         const userRes = await Axios.post('http://localhost:5000/getActiveUser', null, {headers: {
           "x-auth-token": token
         }});
-
         
         setUserData({
           token: token,

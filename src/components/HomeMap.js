@@ -13,6 +13,7 @@ const mapStyles = {
 function Map({ options, onMount, className, onMountProps }) {
   const ref = useRef();
   const [map, setMap] = useState();
+  const GOOGLE_MAP_API_KEY = process.env.REACT_APP_GOOGLE_MAPS_API_KEY;
 
   useEffect(() => {
     // The Google Maps API modifies the options object passed tos
@@ -24,9 +25,10 @@ function Map({ options, onMount, className, onMountProps }) {
       // Create the script tag, set the appropriate attributes
       const script = document.createElement(`script`);
       script.src =
-        `https://maps.googleapis.com/maps/api/js?key=` +
-        process.env.REACT_APP_GOOGLE_MAPS_API_KEY;
-      // Append the 'script' element to 'head'
+        // `https://maps.googleapis.com/maps/api/js?key=` +
+        // process.env.REACT_APP_GOOGLE_MAPS_API_KEY;
+        `https://maps.googleapis.com/maps/api/js?key=${GOOGLE_MAP_API_KEY}&libraries=places`;
+        // Append the 'script' element to 'head'
       document.head.append(script);
       script.addEventListener(`load`, onLoad);
       return () => script.removeEventListener(`load`, onLoad);
