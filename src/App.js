@@ -3,8 +3,6 @@ import { BrowserRouter, Switch, Route} from 'react-router-dom';
 import './App.css';
 import Signup from './components/auth/signup';
 import Schedule from './components/Schedule';
-// import Map from './components/Map';
-import SearchAndMap from './components/SearchAndMap';
 import Signup from './components/auth/Signup';
 import Login from './components/auth/Login';
 import Home from './components/Home';
@@ -12,6 +10,7 @@ import Header from './components/Layout/Header';
 import UserContext from './context/UserContext';
 import UserProfile from './components/UserProfile'
 import Axios from 'axios';
+import Map from './components/Map';
 import ScheduleDetails from './components/Schedule/ScheduleDetails';
 
 function App() {
@@ -53,13 +52,12 @@ function App() {
       {/* Added temp header to handle nav to cut down on clutter we can add a proper styled nav */}
       <Header />
         <Switch>
-         
           <Route exact path="/" component={Home} />
           <Route path="/login" component={Login} />
           <Route path='/signup' component={Signup} />
+          <Route path='/map' component={Map} />
           <Route path='/userProfile' component={UserProfile} />
           <Route exact path='/schedule' component={ScheduleDetails} />
-          
         </Switch>
       {/* <header className="App-header">
       </header> */}
