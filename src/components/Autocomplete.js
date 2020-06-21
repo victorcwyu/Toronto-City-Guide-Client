@@ -58,6 +58,11 @@ const Autocomplete = () => {
       if (place.geometry) {
         map.panTo(place.geometry.location);
         map.setZoom(15);
+        // Create location marker
+        new window.google.maps.Marker({
+          position: place.geometry.location,
+          map: map,
+        });
         search();
       } else {
         document.getElementById('autocomplete').placeholder = 'Enter a location';
@@ -76,6 +81,7 @@ const Autocomplete = () => {
         if (status === window.google.maps.places.PlacesServiceStatus.OK) {
           clearResults();
           clearMarkers();
+          
           // Create a marker for each place type found, and
           // assign a letter of the alphabetic to each marker icon.
           for (var i = 0; i < results.length; i++) {
