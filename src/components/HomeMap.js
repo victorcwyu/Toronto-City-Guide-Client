@@ -1,8 +1,8 @@
 import { functions, isEqual, omit } from "lodash"
-import React, { useState, useEffect, useRef } from "react"
+import React, { useState, useEffect, useRef, useContext } from "react"
 import "../styles/HomeMap.scss";
 import { Link } from "react-router-dom";
-
+import UserContext from '../context/UserContext';
 
 // outside function to avoid too many rerenders
 const mapStyles = {
@@ -11,6 +11,8 @@ const mapStyles = {
 };
 
 function Map({ options, onMount, className, onMountProps }) {
+  const { userData, setUserData } = useContext(UserContext);
+
   const ref = useRef();
   const [map, setMap] = useState();
   const GOOGLE_MAP_API_KEY = process.env.REACT_APP_GOOGLE_MAPS_API_KEY;
@@ -34,17 +36,32 @@ function Map({ options, onMount, className, onMountProps }) {
   }, [options]);
 
   // onMount allows for customization, i.e. adding markers
-  if (map && typeof onMount === `function`) onMount(map, onMountProps);
+  // if (map && typeof onMount === `function`) onMount(map, onMountProps);
+  if (map && userData.token) {
+    map.setOptions({ draggable: false });
+  }
 
   return (
-    <Link to="/map">
-      <div id="map-container">
-        <div
-          style={mapStyles}
-          {...{ ref, className }}
-        />
-      </div>
-    </Link>
+    <div>
+      {!userData.token && 
+        <div id="map-container">
+          <div
+            style={mapStyles}
+            {...{ ref, className }}
+          />
+        </div>
+      }
+      {userData.token && 
+      <Link to="/map">
+        <div id="map-container">
+          <div
+            style={mapStyles}
+            {...{ ref, className }}
+          />
+        </div>
+      </Link>
+      }
+    </div>
   );
 }
 
@@ -70,6 +87,7 @@ Map.defaultProps = {
   options: {
     center: { lat: 43.6560811, lng: -79.3823601 },
     zoom: 14,
-    disableDefaultUI: true
+    disableDefaultUI: true,
+    draggable: true
   },
-};
+}
