@@ -60,13 +60,16 @@ const useStyles = makeStyles((theme) => ({
 
 export default function PlaceTypeSelector() {
   const classes = useStyles();
-  const [placeType, setPlaceType] = useState('');
+  const [placeType, setPlaceType] = useState("");
+
+  const clearLocalStorage = () => localStorage.removeItem("searchPlaceType");
 
   const handleChange = (event) => {
+    clearLocalStorage()
     setPlaceType(event.target.value);
+    // Async???
+    localStorage.setItem("searchPlaceType", JSON.stringify(placeType))
   };
-
-  console.log("haiiiii", placeType);
 
   return (
     <div>
