@@ -7,7 +7,7 @@ import UserContactInfo from './UserContactInfo';
 export default function UserProfile() {
 
     const {userData, setUserData} = useContext(UserContext);
-    console.log(userData)
+    console.log(userData.user)
 
     console.log("this", userData)
 
@@ -50,7 +50,7 @@ export default function UserProfile() {
         console.error(err)
       }
     }
-
+    
     return (
         <div className="contacts">
           <input
@@ -71,11 +71,18 @@ export default function UserProfile() {
               >+</div>
             </div>
           )}
-          {/* {userData.user.contacts.map(contact => {
-            <UserContactInfo 
-            contactName={contact} 
-            />
-          })} */}
+          <h1>Contacts</h1>
+          {userData && userData.user.contacts.map((contact, index) => {
+            return (<UserContactInfo 
+            key={index}
+            contactName={contact.username} 
+            />)
+          })}
+          <div>
+          </div>
         </div>
     )
 }
+
+// BUGS:
+// When we refresh there is no userdata

@@ -11,6 +11,8 @@ import UserProfile from './components/UserProfile'
 import Axios from 'axios';
 import Map from './components/Map/Map';
 import ScheduleDetails from './components/Schedule/ScheduleDetails';
+import Messages from './components/Message';
+import io from 'socket.io-client';
 
 function App() {
 
@@ -43,7 +45,15 @@ function App() {
       }
     }
     checkLoggedIn()
-  }, [userData.token])
+  }, [userData.token]);
+
+  let socket;
+
+  useEffect(() => {
+      socket = io.connect('http://localhost:5000');
+      return () => socket.disconnect();
+
+  }, []) 
 
   return (
     <div className="App">
@@ -58,9 +68,8 @@ function App() {
           <Route path='/map' component={Map} />
           <Route path='/userProfile' component={UserProfile} />
           <Route exact path='/schedule' component={ScheduleDetails} />
+          <Route path='/message' component={Messages} />
         </Switch>
-      {/* <header className="App-header">
-      </header> */}
       </UserContext.Provider>
       </BrowserRouter>
     </div>
