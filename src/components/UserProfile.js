@@ -75,6 +75,7 @@ export default function UserProfile() {
           {userData && userData.user.contacts.map((contact, index) => {
             return (<UserContactInfo 
             key={index}
+            contactId={contact.id}
             contactName={contact.username} 
             />)
           })}
@@ -85,4 +86,4 @@ export default function UserProfile() {
 }
 
 // BUGS:
-// When we refresh there is no userdata
+// When we refresh there is no userdata, restrict this if user data is undefined 
