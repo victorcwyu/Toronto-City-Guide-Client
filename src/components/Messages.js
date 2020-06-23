@@ -1,39 +1,48 @@
 import React, {useEffect, useContext, useState} from 'react';
 import io from 'socket.io-client';
 import UserContext from '../context/UserContext';
-import { TextField, Container } from '@material-ui/core';
-
-const ENDPOINT = process.env.ENDPOINT || 5000;
+import { TextField, Container, Button } from '@material-ui/core';
 
 const Messages = (props) => {
     const {contactId} = props;
     const {userData, setUserData} = useContext(UserContext);
+    
+    const [message, setMessage] = useState('');
+    const [messages, setMessages] = useState('');
+    
+    
+    console.log('USERDATA: ', userData);
 
-    const {message, setMessage} = useState('');
-    const {messages, setMessages} = useState('');
-
-
-    console.log('Contact ID: ', userData.contactId);
-    console.log('User ID: ', userData.user.id)
-   
-    let socket;
-    console.log('USERDATA: ', userData)
-
-   useEffect(() => {
-       socket = io('http://localhost:5000');
+    let socket = io('http://localhost:5000');
+    
+    useEffect(() => {
        socket.emit('userData', {
            userId: userData.user.id,
            contactId: userData.contactId
        })
        return () => socket.disconnect();
    }, []);
+
+   const sendMessage = (e) => {
+       e.preventDefault();
+       if (message) {
+           socket.emit('clientMessage', message);
+           console.log('SENT MESSAGE: ', message);
+           setMessage('');
+       }
+   } 
    
  
     return (
         <div>
             <Container>
             <h1>Messages</h1>
-            <TextField />
+            <input
+                value={message}
+                onChange={e => setMessage(e.target.value)} 
+                onKeyPress={e => e.key === 'Enter' ? sendMessage(e) : null}
+                />
+                <Button onClick={sendMessage}>Submit</Button>
             <div className="display">
                 <p>Messages Here</p>
             </div>
