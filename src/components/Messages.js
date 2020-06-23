@@ -14,14 +14,25 @@ const Messages = (props) => {
     console.log('USERDATA: ', userData);
 
     let socket = io('http://localhost:5000');
-    
+    let roomId;  
+
     useEffect(() => {
        socket.emit('userData', {
            userId: userData.user.id,
            contactId: userData.contactId
        })
+
+       socket.on('roomData', data => {
+           console.log('ROOMDATA: ', data);
+           roomId = data._id;
+           setMessages(data.messages)
+        socket.emit('join', roomId);
+        })
+
+        socket.on('joinResponse', data => console.log(data));
        return () => socket.disconnect();
    }, []);
+
 
    const sendMessage = (e) => {
        e.preventDefault();
