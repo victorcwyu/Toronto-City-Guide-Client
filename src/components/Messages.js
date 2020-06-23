@@ -1,12 +1,18 @@
-import React, {useEffect, useContext} from 'react';
+import React, {useEffect, useContext, useState} from 'react';
 import io from 'socket.io-client';
 import UserContext from '../context/UserContext';
+import { TextField, Container } from '@material-ui/core';
 
 const ENDPOINT = process.env.ENDPOINT || 5000;
 
 const Messages = (props) => {
     const {contactId} = props;
     const {userData, setUserData} = useContext(UserContext);
+
+    const {message, setMessage} = useState('');
+    const {messages, setMessages} = useState('');
+
+
     console.log('Contact ID: ', userData.contactId);
     console.log('User ID: ', userData.user.id)
    
@@ -20,11 +26,19 @@ const Messages = (props) => {
            contactId: userData.contactId
        })
        return () => socket.disconnect();
-   }, []) 
+   }, []);
+   
  
     return (
         <div>
+            <Container>
             <h1>Messages</h1>
+            <TextField />
+            <div className="display">
+                <p>Messages Here</p>
+            </div>
+            </Container>
+
         </div>
     )
 }
