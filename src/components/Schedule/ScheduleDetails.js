@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState} from "react";
 import {
   Container,
   FormControl,
@@ -48,7 +48,11 @@ export default function ScheduleDetails() {
 
 	const handleSchedule = async (e) => {
 		e.preventDefault();
-		const scheduleRes = await axios.post('http://localhost:5000/api/schedules', state);
+		const scheduleRes = await axios.post('http://localhost:5000/api/schedules', state,{
+      headers: {
+        "x-auth-token": localStorage.getItem('auth-token')
+      }
+    });
     console.log('output',scheduleRes);
 	}
 
