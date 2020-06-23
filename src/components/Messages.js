@@ -25,19 +25,28 @@ const Messages = (props) => {
        socket.on('roomData', data => {
            console.log('ROOMDATA: ', data);
            roomId = data._id;
-           setMessages(data.messages)
+           setMessages(data)
         socket.emit('join', roomId);
         })
-
+        
         socket.on('joinResponse', data => console.log(data));
-       return () => socket.disconnect();
-   }, []);
-
+        
+        socket.on('serverMessage', data => {
+            setMessages(data)
+        })
+        return () => socket.disconnect();
+    }, []);
+    
+    // useEffect(() => {
+    // }, [messages])
 
    const sendMessage = (e) => {
        e.preventDefault();
        if (message) {
-           socket.emit('clientMessage', message);
+           socket.emit('clientMessage', {
+            message,
+            messages
+        });
            console.log('SENT MESSAGE: ', message);
            setMessage('');
        }
