@@ -35,7 +35,7 @@ export default function Schedule() {
         schedules.schedules &&
         schedules.schedules.map((schedule) => {
           return (
-            <div key={schedule._id}>
+            <div key={schedule._id} className = "schedule-item">
               <div>{schedule.bookedDate}</div>
               <div>{schedule.title}</div>
               <div>{schedule.description}</div>
