@@ -1,8 +1,7 @@
 import React, { useState, useContext, useEffect } from "react";
-import { Container, Button } from "@material-ui/core";
+import { Container} from "@material-ui/core";
 import "../../styles/Schedule.scss";
 import { Link } from "react-router-dom";
-import ScheduleDetails from "./ScheduleDetails";
 import axios from "axios";
 import UserContext from "../../context/UserContext";
 
@@ -10,10 +9,13 @@ export default function Schedule() {
   const [schedules, setSchedules] = useState();
   const { userData, setUserData } = useContext(UserContext);
   console.log("userData", userData);
+ 
+  
 
   useEffect(() => {
     getData();
-  }, []);
+
+  }, [schedules]);
 
   const getData = () => {
     axios
@@ -29,16 +31,16 @@ export default function Schedule() {
 
   return (
     <Container className="schedule">
-      <Link to="/schedule">Book Your Schedule</Link>
-
-      {schedules &&
+      <Link to="/schedule"><p className="schedule-title">Book Your Schedule</p></Link>
+           {schedules &&
         schedules.schedules &&
         schedules.schedules.map((schedule) => {
           return (
             <div key={schedule._id} className = "schedule-item">
-              <div>{schedule.bookedDate}</div>
-              <div>{schedule.title}</div>
-              <div>{schedule.description}</div>
+               <div  className="item-div">{schedule.title}</div>
+              <div className="item-div"><p className="item">Date :  </p>{schedule.bookedDate}</div>
+              
+             <div className="item-div"><p className="item">Description :  </p>{schedule.description}</div>
             </div>
           );
         })}

@@ -1,6 +1,6 @@
  .schedule{
   border: 1em solid black;
- 
+  background-color:  #b3ffd9;
   padding: 20px;
   margin: 100px;
   width: 500px;
@@ -9,5 +9,22 @@
 .schedule-item{
 
    border: 1px solid black;
+   font-weight: bold;
+   color: blue;
     
+}
+
+.item{
+   display: inline;
+   font-weight: bold;
+   color: black;
+}
+
+.schedule-title{
+   color: red;
+   font-weight: bold;
+}
+
+.item-div{
+   padding: 10px;
 }
