@@ -39,30 +39,28 @@ function Map({ options, onMount, className, onMountProps }) {
   // if (map && typeof onMount === `function`) onMount(map, onMountProps);
   if (map && userData.token) {
     map.setOptions({ draggable: false });
+  };
+
+  function handleClick(e) {
+    if (!userData.token) {
+      e.preventDefault();
+    };
   }
 
   return (
-    <div>
-      {!userData.token && 
-        <div id="map-container">
-          <div
-            style={mapStyles}
-            {...{ ref, className }}
-          />
-        </div>
-      }
-      {userData.token && 
-      <Link to="/map">
-        <div id="map-container">
-          <div
-            style={mapStyles}
-            {...{ ref, className }}
-          />
-        </div>
-      </Link>
-      }
-    </div>
+    <Link 
+      onClick={handleClick}
+      to="/map"
+    >
+      <div id="map-container">
+        <div
+          style={mapStyles}
+          {...{ ref, className }}
+        />
+      </div>
+    </Link>
   );
+
 }
 
 // By default, the Map component will rerender whenever the parent component rerenders.
