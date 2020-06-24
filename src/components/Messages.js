@@ -31,21 +31,21 @@ const Messages = (props) => {
         
         socket.on('joinResponse', data => console.log(data));
         
-        socket.on('serverMessage', data => {
-            setMessages(data)
-        })
         return () => socket.disconnect();
     }, []);
     
-    // useEffect(() => {
-    // }, [messages])
+    useEffect(() => {
+        socket.on('serverMessage', data => {
+            setMessages({...messages, messageHistory: data.messages.messageHistory});
+        })
+    }, [message])
 
    const sendMessage = (e) => {
        e.preventDefault();
        if (message) {
            socket.emit('clientMessage', {
             message,
-            messages
+            messages,
         });
            console.log('SENT MESSAGE: ', message);
            setMessage('');
