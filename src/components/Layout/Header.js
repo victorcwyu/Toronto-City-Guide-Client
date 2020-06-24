@@ -11,17 +11,20 @@ const useStyles = makeStyles({
     navbar: {
         display: 'flex',
         justifyContent: 'center',
-        alignItems: 'center'
+        alignItems: 'center',
     },
     navItem: {
         color: "#fff",
-        textDecoration: 'none'
+        textDecoration: 'none',
+        margin: '5px 5px 0 5px'
+    },
+    navButton: {
+        border: "none",
+        backgroundColor: '#444',
+        color: '#fff',
+        cursor: 'pointer'
     }
 })
-
-
-
-
 
 
 export default function Header() {
@@ -64,7 +67,7 @@ export default function Header() {
             </Link>
         }
         {userData.token &&
-            <button onClick={handleLogOut}>Log Out</button>
+            <button className={classes.navButton} onClick={handleLogOut}>Log Out</button>
         }
         </div>
         </nav>
