@@ -7,47 +7,31 @@ import {
   Button,
   TextField,
 } from "@material-ui/core";
-import DatePicker from "react-date-picker";
+//import DateFnsUtils from '@date-io/date-fns';
+//import DatePicker from "react-date-picker";
+//import DateTimePicker from "react-datetime-picker";
 import "../../styles/ScheduleDetails.scss";
 import axios from "axios";
 import { Link } from "react-router-dom";
+import DateFnsUtils from '@date-io/date-fns';
+
+import {KeyboardDateTimePicker,MuiPickersUtilsProvider}  from "@material-ui/pickers";
 
 export default function ScheduleDetails() {
   const [state, setState] = useState({
-    date: new Date(),
+    bookedDate: null,
     title: "",
     description: "",
   });
 
   const handleChange = (date) => {
-    setState({ ...state, date: date });
+    console.log('date:',date);
+    setState({ ...state, bookedDate: date });
   };
 
- /* const handleSchedule = (e) => {
-    e.preventDefault();
-    const token = localStorage.getItem("auth-token");
-    try {
-      axios
-        .post(
-          "http://localhost:5000/api/schedules",
-          { scheduleData: state },
-          {
-            headers: {
-              "x-auth-token": token,
-            },
-          }
-        )
-        .then((res) => {
-          console.log(res.data);
-        });
-    } catch (err) {
-      console.error(err);
-    }
-  };*/
-
-
 	const handleSchedule = async (e) => {
-		e.preventDefault();
+    e.preventDefault();
+ 
 		const scheduleRes = await axios.post('http://localhost:5000/api/schedules', state,{
       headers: {
         "x-auth-token": localStorage.getItem('auth-token')
@@ -72,7 +56,18 @@ export default function ScheduleDetails() {
         />
         <br />
         <br />
-        <DatePicker onChange={handleChange} value={state.date} />
+  <MuiPickersUtilsProvider utils={DateFnsUtils}>
+            <KeyboardDateTimePicker
+        variant="inline"
+        ampm={false}
+        label="With keyboard"
+        value={state.bookedDate}
+        onChange={handleChange}
+        onError={console.log}
+        disablePast
+        format="yyyy/MM/dd HH:mm"
+      />
+     </MuiPickersUtilsProvider>
         <br />
         <button  onClick={handleSchedule}>
         <Link to='/'>
