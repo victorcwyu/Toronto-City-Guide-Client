@@ -1,8 +1,7 @@
 import React, { useState, useContext, useEffect } from "react";
-import { Container, Button } from "@material-ui/core";
+import { Container} from "@material-ui/core";
 import "../../styles/Schedule.scss";
-import { Link,useLocation } from "react-router-dom";
-import ScheduleDetails from "./ScheduleDetails";
+import { Link } from "react-router-dom";
 import axios from "axios";
 import UserContext from "../../context/UserContext";
 
