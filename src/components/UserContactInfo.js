@@ -10,8 +10,8 @@ export default function UserContactInfo(props) {
     const {userData, setUserData} = useContext(UserContext);
     
     const renderMessages = () => {
-        const contactID = document.querySelector('#contactId');
-        userData.contactId = contactID.value
+        const contactID = contactId
+        setUserData({...userData, contactId: contactID})
         history.push('/messages');
     }
 

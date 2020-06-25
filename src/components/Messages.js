@@ -2,16 +2,13 @@ import React, {useEffect, useContext, useState} from 'react';
 import io from 'socket.io-client';
 import UserContext from '../context/UserContext';
 import { TextField, Container, Button } from '@material-ui/core';
+import MessageDisplay from './MessageDisplay';
 
-const Messages = (props) => {
-    const {contactId} = props;
+const Messages = () => {
     const {userData, setUserData} = useContext(UserContext);
     
     const [message, setMessage] = useState('');
     const [messages, setMessages] = useState('');
-    
-    
-    console.log('USERDATA: ', userData);
 
     let socket = io('http://localhost:5000');
     let roomId;  
@@ -48,7 +45,6 @@ const Messages = (props) => {
             messages,
             userId: userData.user.id
         });
-           console.log('SENT MESSAGE: ', message);
            setMessage('');
        }
    } 
@@ -58,15 +54,21 @@ const Messages = (props) => {
         <div>
             <Container>
             <h1>Messages</h1>
+            <div className="display">
+                {messages.messageHistory && messages.messageHistory.map(message => {
+                    return <MessageDisplay 
+                    message={message.text}
+                    senderId={message.senderId}
+                    time={message.timeStamp}
+                />
+                })}
+            </div>
             <input
                 value={message}
                 onChange={e => setMessage(e.target.value)} 
                 onKeyPress={e => e.key === 'Enter' ? sendMessage(e) : null}
                 />
                 <Button onClick={sendMessage}>Submit</Button>
-            <div className="display">
-                <p>Messages Here</p>
-            </div>
             </Container>
 
         </div>
