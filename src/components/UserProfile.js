@@ -7,9 +7,9 @@ import UserContactInfo from './UserContactInfo';
 export default function UserProfile() {
 
     const {userData, setUserData} = useContext(UserContext);
-    console.log(userData.user)
+    // console.log(userData.user)
 
-    console.log("this", userData)
+    // console.log("this", userData)
 
     const [input , setInput] = useState('')
     const [seachdata, setSeachdata] = useState(null)
