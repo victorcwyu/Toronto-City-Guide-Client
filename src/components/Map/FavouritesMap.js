@@ -1,7 +1,6 @@
-import React, { useEffect, useRef, useContext, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import "../../styles/FavouritesMap.scss";
 import axios from "axios";
-import UserContext from '../../context/UserContext';
 
 var markers = [];
 var MARKER_PATH = 'https://developers.google.com/maps/documentation/javascript/images/marker_green';
@@ -14,40 +13,21 @@ const mapStyles = {
 
 const FavouritesMap = () => {
 
-  // const { userData } = useContext(UserContext)
-  const placeInputRef = useRef(null);
   const googleMapRef = useRef(null);
-  const [favourites, setFavourites] = useState(null);
-
+  const [favourites, setFavourites] = useState([]);
   const token = localStorage.getItem("auth-token");
 
-  // const getFavouritesData = () => {
-  //   let favouritesData = "TEST"
-  //   axios.get("http://localhost:5000/getFavourites", { headers: { "x-auth-token": token } })
-  //     .then((data) => {
-  //       favouritesData = data.data.favourites
-  //     })
-  //     .catch(err => console.log(err))
-  //     return favouritesData
-  // }
-
-
-  let favouritesData = ""
-  axios.get("http://localhost:5000/getFavourites", { headers: { "x-auth-token": token } })
-    .then((data) => {
-      // console.log("DATA", data)
-      return favouritesData = data.data.favourites
-      // console.log("DATAAFTER", favouritesData)
-    })
-    .then(() => console.log("HIIII", favouritesData))
-    .catch(err => console.log(err))
-  // return favouritesData
-
-  console.log("YOOOO",favouritesData)
-
   useEffect(() => {
+    getFavourites();
     initPlaceAPI();
   }, []);
+
+  // called inside useEffect (avoid rerender when fetching data)
+  const getFavourites = async () => {
+    let res = await axios.get("http://localhost:5000/getFavourites", { headers: { "x-auth-token": token } });
+    let favouritesData = res.data.favourites;
+    setFavourites(favouritesData);
+  };
 
   // Initialize the Google Place autocomplete
   const initPlaceAPI = () => {
