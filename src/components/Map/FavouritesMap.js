@@ -1,6 +1,7 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef, useContext } from "react";
 import "../../styles/FavouritesMap.scss";
-import axios from "axios";
+// import axios from "axios";
+import UserContext from '../../context/UserContext';
 
 var markers = [];
 var MARKER_PATH = 'https://developers.google.com/maps/documentation/javascript/images/marker_green';
@@ -14,23 +15,20 @@ const mapStyles = {
 const FavouritesMap = () => {
 
   const googleMapRef = useRef(null);
-  const [favourites, setFavourites] = useState([]);
-  const token = localStorage.getItem("auth-token");
+  const { userData, setUserData } = useContext(UserContext);
 
   useEffect(() => {
-    getFavourites();
     initPlaceAPI();
   }, []);
 
-  // called inside useEffect (avoid rerender when fetching data)
-  const getFavourites = async () => {
-    let res = await axios.get("http://localhost:5000/getFavourites", { headers: { "x-auth-token": token } });
-    let favouritesData = res.data.favourites;
-    setFavourites(favouritesData);
-  };
-
   // Initialize the Google Place autocomplete
   const initPlaceAPI = () => {
+
+
+    // map through favourites array, get the latitude and longitude of each place
+    const favourites = userData.user.favourites;
+    console.log("lat: ", favourites[0].geometry.location.lat, "lng: ", favourites[0].geometry.location.lng)
+
     // Initialize the Google map
     const map = new window.google.maps.Map(googleMapRef.current, {
       center: { lat: 43.6560811, lng: -79.3823601 },
@@ -39,7 +37,7 @@ const FavouritesMap = () => {
     });
 
     // Initialize central marker
-    let locationSelection = new window.google.maps.Marker({
+    new window.google.maps.Marker({
       position: map.center,
       map: map
     });
@@ -88,6 +86,7 @@ const FavouritesMap = () => {
         }
       });
     }
+    
     function clearMarkers() {
       for (var i = 0; i < markers.length; i++) {
         if (markers[i]) {
