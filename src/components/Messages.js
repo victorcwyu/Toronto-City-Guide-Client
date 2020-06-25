@@ -31,7 +31,6 @@ const Messages = () => {
         return () => socket.disconnect();
     }, []);
     
-    // Put into the other use Effect
     useEffect(() => {
         socket.on('serverMessage', data => {
             setMessages({...messages, messageHistory: data.messages.messageHistory});
