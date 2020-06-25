@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react';
 import Autocomplete from './Autocomplete';
 import "../../styles/Map.scss";
 
+import FavouritesMap from './FavouritesMap';
+
 const GOOGLE_MAP_API_KEY = process.env.REACT_APP_GOOGLE_MAPS_API_KEY;
 // load google map script
 const loadGoogleMapScript = (callback) => {
@@ -27,6 +29,7 @@ export default function Map() {
     <div id="map-page">
       <h1>Map</h1>
       {!loadMap ? <div>Loading...</div> : <Autocomplete />}
+      {!loadMap ? <div>Loading...</div> : <FavouritesMap />}
     </div>
   )
 }
