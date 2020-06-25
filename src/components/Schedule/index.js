@@ -7,10 +7,6 @@ import UserContext from "../../context/UserContext";
 
 export default function Schedule() {
   const [schedules, setSchedules] = useState();
-  const { userData, setUserData } = useContext(UserContext);
-  console.log("userData", userData);
- 
-  
 
   useEffect(() => {
     getData();
