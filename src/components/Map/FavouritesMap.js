@@ -25,9 +25,15 @@ const FavouritesMap = () => {
   const initPlaceAPI = () => {
 
 
-    // map through favourites array, get the latitude and longitude of each place
+    // map through favourites array, extract the latitude and longitude of each place
     const favourites = userData.user.favourites;
-    console.log("lat: ", favourites[0].geometry.location.lat, "lng: ", favourites[0].geometry.location.lng)
+
+    const favouritesCoordinates = favourites.map((favourite) => {
+      return { lat: favourite.geometry.location.lat, lng: favourite.geometry.location.lng }
+    })
+    
+    // console.log("lat: ", favourites[0].geometry.location.lat, "lng: ", favourites[0].geometry.location.lng)
+    console.log("PLZ", favouritesCoordinates);
 
     // Initialize the Google map
     const map = new window.google.maps.Map(googleMapRef.current, {
@@ -41,6 +47,12 @@ const FavouritesMap = () => {
       position: map.center,
       map: map
     });
+
+    // map through favouritesCoordinates array and add marker for each place
+    favouritesCoordinates.forEach((place) => {
+      new window.google.maps.Marker({ position: place, map: map });
+      console.log("HI", place)
+    })
 
     // Initialize infoWindow
     const infoWindow = new window.google.maps.InfoWindow({
