@@ -46,7 +46,6 @@ const Messages = () => {
             messages,
             userId: userData.user.id
         });
-           console.log('SENT MESSAGE: ', message);
            setMessage('');
        }
    } 
