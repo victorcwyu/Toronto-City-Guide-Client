@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useContext } from "react";
+import React, { useEffect, useRef, useContext, useState } from "react";
 import "../../styles/FavouritesMap.scss";
 import axios from "axios";
 import UserContext from '../../context/UserContext';
@@ -9,12 +9,15 @@ const mapStyles = {
   width: "800px",
   height: "430px",
 };
-let markers = []
+let markers = [];
+let infowindows = [];
 
 const FavouritesMap = () => {
 
   const googleMapRef = useRef(null);
   const { userData, setUserData } = useContext(UserContext);
+  const [input, setInput] = useState(''); // '' is the initial state value
+
   
   // const token = userData.token
   // const getFavourites = async () => {
@@ -49,18 +52,22 @@ const FavouritesMap = () => {
       zoom: 14,
       disableDefaultUI: true
     });
-
+  
     // map through favouritesCoordinates array and add marker for each place
     // open an infowindow when the marker is clicked
     favouritesCoordinates.forEach((place, i) => {
       markers[i] = new window.google.maps.Marker({ position: place[0], map: map });
-      let infowindow = new window.google.maps.InfoWindow({
-        content: `<b>${place[1]}</b><br>${place[2]}`
+      infowindows[i] = new window.google.maps.InfoWindow({
+        content: `<b>${place[1]}</b>
+          <br>
+          ${place[2]}
+          <br>
+        `
       });
       markers[i].addListener('click', function () {
-        infowindow.open(map, markers[i]);
+        infowindows[i].open(map, markers[i]);
       });
-
+      // create list of favourites
       var favouritesResults = document.getElementById('favouritesResults');
       var tr = document.createElement('tr');
       tr.style.backgroundColor = (i % 2 === 0 ? '#F0F0F0' : '#FFFFFF');
@@ -72,82 +79,14 @@ const FavouritesMap = () => {
       nameTd.appendChild(name);
       tr.appendChild(nameTd);
       favouritesResults.appendChild(tr);
-
-
-      // addResult(favouritesCoordinates);
-      // function addResult(favouritesData, i) {
-
-      //   var favouritesResults = document.getElementById('favouritesResults');
-      //   var tr = document.createElement('tr');
-      //   tr.style.backgroundColor = (i % 2 === 0 ? '#F0F0F0' : '#FFFFFF');
-      //   tr.onclick = function () {
-      //     window.google.maps.event.trigger(window.marker[i], 'click');
-      //   };
-      //   var nameTd = document.createElement('td');
-      //   var name = document.createTextNode(favouritesCoordinates[1]);
-      //   nameTd.appendChild(name);
-      //   tr.appendChild(nameTd);
-      //   favouritesResults.appendChild(tr);
-      // }
-
-
     });
 
-    // for (let i = 0; i < favouritesCoordinates.length; i++) {
-    //   addResult(favouritesCoordinates[i], i);
-    // }
 
-    // function addResult(favouritesCoordinates, i) {
-    //   var favouritesResults = document.getElementById('favouritesResults');
-    //   var tr = document.createElement('tr');
-    //   tr.style.backgroundColor = (i % 2 === 0 ? '#F0F0F0' : '#FFFFFF');
-    //   tr.onclick = function () {
-    //     window.google.maps.event.trigger(window.markers[i], 'click');
-    //   };
-    //   var nameTd = document.createElement('td');
-    //   var name = document.createTextNode(favouritesCoordinates[1]);
-    //   nameTd.appendChild(name);
-    //   tr.appendChild(nameTd);
-    //   favouritesResults.appendChild(tr);
-    // }
-
-
-
-
-    // // Load the place information into the HTML elements used by the info window.
-    // function buildIWContent(place) {
-    //   document.getElementById('iw-icon').innerHTML = '<img class="hotelIcon" ' +
-    //     'src="' + place.icon + '"/>';
-    //   document.getElementById('iw-url').innerHTML = '<b><a href="' + place.url +
-    //     '">' + place.name + '</a></b>';
-    //   document.getElementById('iw-address').textContent = place.vicinity;
-    //   if (place.formatted_phone_number) {
-    //     document.getElementById('iw-phone-row').style.display = '';
-    //     document.getElementById('iw-phone').textContent =
-    //       place.formatted_phone_number;
-    //   } else {
-    //     document.getElementById('iw-phone-row').style.display = 'none';
-    //   }
-
-    //   // The regexp isolates the first part of the URL (domain plus subdomain)
-    //   // to give a short URL for displaying in the info window.
-    //   if (place.website) {
-    //     var fullUrl = place.website;
-    //     var website = hostnameRegexp.exec(place.website);
-    //     if (website === null) {
-    //       website = 'http://' + place.website + '/';
-    //       fullUrl = website;
-    //     }
-    //     document.getElementById('iw-website-row').style.display = '';
-    //     document.getElementById('iw-website').textContent = website;
-    //   } else {
-    //     document.getElementById('iw-website-row').style.display = 'none';
-    //   }
-    // }
   };
 
   return (
     <>
+      <h1>Favourites Map</h1>
       <div
         id="favourite-map"
         ref={googleMapRef}
@@ -155,7 +94,9 @@ const FavouritesMap = () => {
       />
       <div id="listing">
         <table id="resultsTable">
-          <tbody id="favouritesResults"></tbody>
+          <tbody id="favouritesResults">
+            <h1>Favourite Places</h1>
+          </tbody>
         </table>
       </div>
     </>

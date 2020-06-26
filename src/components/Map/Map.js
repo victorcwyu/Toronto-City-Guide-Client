@@ -4,6 +4,8 @@ import "../../styles/Map.scss";
 
 import FavouritesMap from './FavouritesMap';
 
+import MapToggle from './MapToggle';
+
 const GOOGLE_MAP_API_KEY = process.env.REACT_APP_GOOGLE_MAPS_API_KEY;
 // load google map script
 const loadGoogleMapScript = (callback) => {
@@ -28,6 +30,11 @@ export default function Map() {
   return (
     <div id="map-page">
       <h1>Map</h1>
+      <div id="toggle">
+        <h2>Search</h2>
+        <MapToggle />
+        <h2>Favourites</h2>
+      </div>
       {!loadMap ? <div>Loading...</div> : <Autocomplete />}
       {!loadMap ? <div>Loading...</div> : <FavouritesMap />}
     </div>
