@@ -1,9 +1,7 @@
-import React, { useEffect, useRef, useContext, useState } from "react";
+import React, { useEffect, useRef, useContext } from "react";
 import "../../styles/FavouritesMap.scss";
 import axios from "axios";
 import UserContext from '../../context/UserContext';
-
-// var hostnameRegexp = new RegExp('^https?://.+?/');
 
 const mapStyles = {
   width: "800px",
@@ -16,28 +14,22 @@ const FavouritesMap = () => {
 
   const googleMapRef = useRef(null);
   const { userData, setUserData } = useContext(UserContext);
-  const [input, setInput] = useState(''); // '' is the initial state value
 
-  
-  // const token = userData.token
-  // const getFavourites = async () => {
-  //   let res = await axios.get("http://localhost:5000/getFavourites", { headers: {"x-auth-token": token} });
-  //   let favouritesData= res.data;
-  //   console.log("this", favouritesData)
-  // };
+  const token = userData.token
+  const getFavourites = async () => {
+    let res = await axios.get("http://localhost:5000/getFavourites", { headers: {"x-auth-token": token} });
+    return res.data.favourites;
+  };
 
   useEffect(() => {
-    // getFavourites();
     initPlaceAPI();
   }, []);
 
   // Initialize the Google Place autocomplete
-  const initPlaceAPI = () => {
-
+  const initPlaceAPI =  async () => {
 
     // map through favourites array, extract the latitude and longitude of each place
-    const favourites = userData.user.favourites;
-
+    let favourites = await getFavourites();
     const favouritesCoordinates = favourites.map((favourite) => {
       return [
         { lat: favourite.geometry.location.lat, lng: favourite.geometry.location.lng },
@@ -67,7 +59,7 @@ const FavouritesMap = () => {
       markers[i].addListener('click', function () {
         infowindows[i].open(map, markers[i]);
       });
-      // create list of favourites
+      // create list/table of favourites
       var favouritesResults = document.getElementById('favouritesResults');
       var tr = document.createElement('tr');
       tr.style.backgroundColor = (i % 2 === 0 ? '#F0F0F0' : '#FFFFFF');
@@ -80,8 +72,6 @@ const FavouritesMap = () => {
       tr.appendChild(nameTd);
       favouritesResults.appendChild(tr);
     });
-
-
   };
 
   return (
