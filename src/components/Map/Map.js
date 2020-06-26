@@ -1,12 +1,8 @@
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useState, useEffect } from 'react';
 import Autocomplete from './Autocomplete';
 import "../../styles/Map.scss";
-
 import FavouritesMap from './FavouritesMap';
-
-// import MapToggle from './MapToggle';
 import Switch from '@material-ui/core/Switch';
-import UserContext from '../../context/UserContext';
 
 const GOOGLE_MAP_API_KEY = process.env.REACT_APP_GOOGLE_MAPS_API_KEY;
 // load google map script
@@ -23,8 +19,6 @@ const loadGoogleMapScript = (callback) => {
 
 export default function Map() {
   const [loadMap, setLoadMap] = useState(false);
-
-
   const [favouritesOn, setFavouritesOn] = useState(false);
 
   const handleChange = (event) => {
