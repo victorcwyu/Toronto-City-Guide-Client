@@ -74,54 +74,25 @@ const FavouritesMap = () => {
       favouritesResults.appendChild(tr);
     });
   };
-
-//   if (userData.user.favourites[0] === {}) {
-//     return (
-//       <>
-//         <div
-//           id="favourite-map"
-//           ref={googleMapRef}
-//           style={mapStyles}
-//         />
-//         <div id="listing">
-//           <table id="resultsTable">
-//             <tbody id="favouritesResults">
-//               <h1>Favourite Places</h1>
-//             </tbody>
-//           </table>
-//         </div>  
-//       </>
-//     );
-//   } else if (userData.user.favourites[0] === undefined) {
-//     return (
-//       <>
-//         <h1>No favourites added yet!</h1>
-//         <div
-//           id="favourite-map"
-//           ref={googleMapRef}
-//           style={mapStyles}
-//         />
-//       </>
-//     )
-//   } return null
-// };
-
-    return (
-      <>
-        <div
-          id="favourite-map"
-          ref={googleMapRef}
-          style={mapStyles}
-        />
-        <div id="listing">
-          <table id="resultsTable">
-            <tbody id="favouritesResults">
-              <h1>Favourite Places</h1>
-            </tbody>
-          </table>
-        </div>
-      </>
-    );
-};
+  
+  return (
+    <>
+      <div
+        id="favourite-map"
+        ref={googleMapRef}
+        style={mapStyles}
+      />
+      {(userData.user.favourites[0] != undefined) &&
+      <div id="listing">
+        <table id="resultsTable">
+          <tbody id="favouritesResults">
+            <h1>Favourite Places</h1>
+          </tbody>
+        </table>
+      </div>  
+      }
+    </>
+  );
+}
 
 export default FavouritesMap;
