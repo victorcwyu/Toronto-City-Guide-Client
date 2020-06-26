@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import Autocomplete from './Autocomplete';
 import "../../styles/Map.scss";
+import FavouritesMap from './FavouritesMap';
+import Switch from '@material-ui/core/Switch';
 
 const GOOGLE_MAP_API_KEY = process.env.REACT_APP_GOOGLE_MAPS_API_KEY;
 // load google map script
@@ -17,6 +19,12 @@ const loadGoogleMapScript = (callback) => {
 
 export default function Map() {
   const [loadMap, setLoadMap] = useState(false);
+  const [favouritesOn, setFavouritesOn] = useState(false);
+
+  const handleChange = (event) => {
+    setFavouritesOn(!favouritesOn);
+  };
+
   useEffect(() => {
     loadGoogleMapScript(() => {
       setLoadMap(true);
@@ -26,7 +34,18 @@ export default function Map() {
   return (
     <div id="map-page">
       <h1>Map</h1>
-      {!loadMap ? <div>Loading...</div> : <Autocomplete />}
+      <div id="toggle">
+        <h2>Search</h2>
+        <Switch
+          selection={favouritesOn}
+          onChange={handleChange}
+          inputProps={{ 'aria-label': 'primary checkbox' }}
+        />
+        <h2>Favourites</h2>
+      </div>
+      {!loadMap && <div>Loading...</div> }
+      {!favouritesOn && <Autocomplete />}
+      {favouritesOn && <FavouritesMap />}
     </div>
   )
 }

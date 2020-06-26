@@ -1,7 +1,8 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef } from "react";
 import "../../styles/Autocomplete.scss";
 import PlaceTypeSelector from "./PlaceTypeSelector"
 import axios from "axios";
+
 const countryRestrict = { 'country': 'ca' };
 var markers = [];
 var MARKER_PATH = 'https://developers.google.com/maps/documentation/javascript/images/marker_green';
@@ -214,14 +215,27 @@ const Autocomplete = () => {
     }
   };
 
+  // get favourites to check if place has already been added
+  // used Axios instead of userData (comes back as object instead of array?)
+  let token = localStorage.getItem("auth-token")
+  const getFavourites = async () => {
+    let res = await axios.get("http://localhost:5000/getFavourites", { headers: { "x-auth-token": token } });
+    return res.data.favourites;
+  };
+
+  const alreadyInFavourites = () =>
+    alert("This place is already in your favourites!");
+
   const handleAddFavourite = async e => {
-    e.preventDefault();    
-    const token = localStorage.getItem('auth-token');
+    e.preventDefault();   
     window.places.getDetails({ placeId: window.uniqueId },
-      function (place, status) {
+      async function (place, status) {
         if (status !== window.google.maps.places.PlacesServiceStatus.OK) {
           return;
         }
+      let favourites = await getFavourites();
+      let doesFavouriteExist = await favourites.filter(favourite => favourite.place_id != place.place_id);
+      if ((doesFavouriteExist.length === favourites.length)) {
         try {
           axios.post("http://localhost:5000/addFavourite", { place }, {
             headers: {
@@ -229,13 +243,16 @@ const Autocomplete = () => {
             }
           })
             .then(res => {
-              console.log(res)
-            })
+              console.log(res);
+            });
         }
         catch (err) {
-          console.error(err)
-        }
-      });
+          console.error(err);
+        };
+      } else {
+        alreadyInFavourites();
+      };
+    });
   }
 
   return (
@@ -261,10 +278,9 @@ const Autocomplete = () => {
           <div id="info-content">
             <table>
               <tbody>
-                {/* add a button here to add to favourites */}
-                <div onClick={handleAddFavourite}>
-                  +
-                </div>
+                <button onClick={handleAddFavourite}>
+                  Add to favourites
+                </button>
                 <tr id="iw-url-row" className="iw_table_row">
                   <td id="iw-icon" className="iw_table_icon"></td>
                   <td id="iw-url"></td>
