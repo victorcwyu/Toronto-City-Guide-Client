@@ -28,13 +28,6 @@ const FavouritesMap = () => {
   // Initialize the Google Place autocomplete
   const initPlaceAPI =  async () => {
 
-    // Initialize the Google map
-    const map = new window.google.maps.Map(googleMapRef.current, {
-      center: { lat: 43.6560811, lng: -79.3823601 },
-      zoom: 14,
-      disableDefaultUI: true
-    });
-
     // map through favourites array, extract the latitude and longitude of each place
     let favourites = await getFavourites();
 
@@ -46,6 +39,13 @@ const FavouritesMap = () => {
       ];
     })
   
+    // Initialize the Google map
+    const map = new window.google.maps.Map(googleMapRef.current, {
+      center: { lat: 43.6560811, lng: -79.3823601 },
+      zoom: 14,
+      disableDefaultUI: true
+    });
+
     // map through favouritesCoordinates array and add marker for each place
     // open an infowindow when the marker is clicked
     favouritesCoordinates.forEach((place, i) => {
@@ -75,34 +75,53 @@ const FavouritesMap = () => {
     });
   };
 
-  if (userData.user.favourites = []) {
+//   if (userData.user.favourites[0] === {}) {
+//     return (
+//       <>
+//         <div
+//           id="favourite-map"
+//           ref={googleMapRef}
+//           style={mapStyles}
+//         />
+//         <div id="listing">
+//           <table id="resultsTable">
+//             <tbody id="favouritesResults">
+//               <h1>Favourite Places</h1>
+//             </tbody>
+//           </table>
+//         </div>  
+//       </>
+//     );
+//   } else if (userData.user.favourites[0] === undefined) {
+//     return (
+//       <>
+//         <h1>No favourites added yet!</h1>
+//         <div
+//           id="favourite-map"
+//           ref={googleMapRef}
+//           style={mapStyles}
+//         />
+//       </>
+//     )
+//   } return null
+// };
+
     return (
       <>
-        <h1>No favourites added yet!</h1>
         <div
           id="favourite-map"
           ref={googleMapRef}
           style={mapStyles}
         />
+        <div id="listing">
+          <table id="resultsTable">
+            <tbody id="favouritesResults">
+              <h1>Favourite Places</h1>
+            </tbody>
+          </table>
+        </div>
       </>
-    )
-  }
-  return (
-    <>
-      <div
-        id="favourite-map"
-        ref={googleMapRef}
-        style={mapStyles}
-      />
-      <div id="listing">
-        <table id="resultsTable">
-          <tbody id="favouritesResults">
-            <h1>Favourite Places</h1>
-          </tbody>
-        </table>
-      </div>  
-    </>
-  );
+    );
 };
 
 export default FavouritesMap;
