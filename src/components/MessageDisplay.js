@@ -14,7 +14,7 @@ const useStyle = makeStyles({
 const MessageDisplay = ({message, senderId, time}) => {
     let classes = useStyle();
     const {userData} = useContext(UserContext);
-    console.log(userData.user.id === senderId)
+    // console.log(userData.user.id === senderId)
 
 
   return (
