@@ -12,43 +12,46 @@ const Messages = () => {
 
     let socket = io('http://localhost:5000');
     let roomId;  
+    
+    
+    const sendMessage = (e) => {
+        e.preventDefault();
+        if (message) {
+            socket.emit('clientMessage', {
+                message,
+                messages,
+                userId: userData.user.id
+            });
+            setMessage('');
+        }
+    } 
+    
+    socket.on('serverMessage', data => {
+        setMessages(data.messages);
+    });
 
     useEffect(() => {
-       socket.emit('userData', {
-           userId: userData.user.id,
-           contactId: userData.contactId
-       })
+        console.log('rerender')
 
-       socket.on('roomData', data => {
-           console.log('ROOMDATA: ', data);
-           roomId = data._id;
-           setMessages(data)
-        socket.emit('join', roomId);
+        socket.emit('userData', {
+            userId: userData.user.id,
+            contactId: userData.contactId
         })
         
-        socket.on('joinResponse', data => console.log(data));
+        socket.on('roomData', data => {
+            console.log('ROOMDATA: ', data);
+            roomId = data._id;
+            setMessages(data)
+            // socket.emit('join', roomId);
+        })
         
         return () => socket.disconnect();
     }, []);
     
-    useEffect(() => {
-        socket.on('serverMessage', data => {
-            setMessages({...messages, messageHistory: data.messages.messageHistory});
-        })
-    }, [message])
+    // useEffect(() => {
+        
+    // }, [])
 
-   const sendMessage = (e) => {
-       e.preventDefault();
-       if (message) {
-           socket.emit('clientMessage', {
-            message,
-            messages,
-            userId: userData.user.id
-        });
-           setMessage('');
-       }
-   } 
-   
  
     return (
         <div>
