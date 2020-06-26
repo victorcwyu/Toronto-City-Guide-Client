@@ -77,11 +77,14 @@ const FavouritesMap = () => {
 
   if (userData.user.favourites = []) {
     return (
-      <div
-        id="favourite-map"
-        ref={googleMapRef}
-        style={mapStyles}
-      />
+      <>
+        <h1>No favourites added yet!</h1>
+        <div
+          id="favourite-map"
+          ref={googleMapRef}
+          style={mapStyles}
+        />
+      </>
     )
   }
   return (
@@ -97,8 +100,7 @@ const FavouritesMap = () => {
             <h1>Favourite Places</h1>
           </tbody>
         </table>
-      </div>
-      
+      </div>  
     </>
   );
 };
