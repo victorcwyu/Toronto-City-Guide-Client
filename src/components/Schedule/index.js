@@ -7,10 +7,6 @@ import UserContext from "../../context/UserContext";
 
 export default function Schedule() {
   const [schedules, setSchedules] = useState();
-  const { userData, setUserData } = useContext(UserContext);
-  console.log("userData", userData);
- 
-  
 
   useEffect(() => {
     getData();
@@ -37,7 +33,7 @@ export default function Schedule() {
         schedules.schedules.map((schedule) => {
           return (
             <div key={schedule._id} className = "schedule-item">
-               <div  className="item-div">{schedule.title}</div>
+               <div  className="item-title item-div">{schedule.title}</div>
               <div className="item-div"><p className="item">Date :  </p>{schedule.bookedDate}</div>
               
              <div className="item-div"><p className="item">Description :  </p>{schedule.description}</div>
