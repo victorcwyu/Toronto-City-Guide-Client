@@ -14,8 +14,8 @@ const FavouritesMap = () => {
 
   const googleMapRef = useRef(null);
   const { userData, setUserData } = useContext(UserContext);
-
   const token = userData.token
+
   const getFavourites = async () => {
     let res = await axios.get("http://localhost:5000/getFavourites", { headers: {"x-auth-token": token} });
     return res.data.favourites;
@@ -28,8 +28,16 @@ const FavouritesMap = () => {
   // Initialize the Google Place autocomplete
   const initPlaceAPI =  async () => {
 
+    // Initialize the Google map
+    const map = new window.google.maps.Map(googleMapRef.current, {
+      center: { lat: 43.6560811, lng: -79.3823601 },
+      zoom: 14,
+      disableDefaultUI: true
+    });
+
     // map through favourites array, extract the latitude and longitude of each place
     let favourites = await getFavourites();
+
     const favouritesCoordinates = favourites.map((favourite) => {
       return [
         { lat: favourite.geometry.location.lat, lng: favourite.geometry.location.lng },
@@ -37,13 +45,6 @@ const FavouritesMap = () => {
         favourite.vicinity
       ];
     })
-    
-    // Initialize the Google map
-    const map = new window.google.maps.Map(googleMapRef.current, {
-      center: { lat: 43.6560811, lng: -79.3823601 },
-      zoom: 14,
-      disableDefaultUI: true
-    });
   
     // map through favouritesCoordinates array and add marker for each place
     // open an infowindow when the marker is clicked
@@ -74,9 +75,17 @@ const FavouritesMap = () => {
     });
   };
 
+  if (userData.user.favourites = []) {
+    return (
+      <div
+        id="favourite-map"
+        ref={googleMapRef}
+        style={mapStyles}
+      />
+    )
+  }
   return (
     <>
-      <h1>Favourites Map</h1>
       <div
         id="favourite-map"
         ref={googleMapRef}
@@ -89,6 +98,7 @@ const FavouritesMap = () => {
           </tbody>
         </table>
       </div>
+      
     </>
   );
 };
