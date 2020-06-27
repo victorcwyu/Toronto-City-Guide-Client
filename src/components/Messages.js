@@ -1,43 +1,43 @@
 import React, { useEffect, useContext, useState } from 'react';
 import io from 'socket.io-client';
 import UserContext from '../context/UserContext';
-import { TextField, Container, Button } from '@material-ui/core';
+import { TextField, Container, Button, unstable_createMuiStrictModeTheme } from '@material-ui/core';
 import MessageDisplay from './MessageDisplay';
 import axios from 'axios';
 
 const Messages = () => {
     const { userData, setUserData } = useContext(UserContext);
-
+    
     const [message, setMessage] = useState('');
     const [messages, setMessages] = useState(null);
-
+    
     const token = localStorage.getItem('auth-token');
     let socket
     // socket.on('serverMessage', data => {
-    //     setMessages(data.messages);
-    // });
-
-    useEffect(() => {
-        // console.log('messages', messages)
-        socket = io('http://localhost:5000')
-
-        axios.post("http://localhost:5000/getUserMessages", {
-            userId: userData.user.id,
-            contactId: userData.contactId
-        }, {
-            headers: {
-                "x-auth-token": token
-            }
-        })
+        //     setMessages(data.messages);
+        // });
+        
+        useEffect(() => {
+            // console.log('messages', messages)
+            socket = io('http://localhost:5000')
+            
+            axios.post("http://localhost:5000/getUserMessages", {
+                userId: userData.user.id,
+                contactId: userData.contactId
+            }, {
+                headers: {
+                    "x-auth-token": token
+                }
+            })
             .then(res => {
                 // console.log(res)
                 setMessages(res.data.messageHistory)
-                return res.data.messageHistory
+                
             })
-            .then(res => {
-                socket.emit('joinroom', res._id);
-            })
-            .catch(err => console.log(err));
+       
+        socket.emit('joinroom', userData.user);
+
+        socket.on('newMessage', data => alert('ding'));
 
         // socket.emit('userData', {
         //     userId: userData.user.id,
@@ -50,12 +50,21 @@ const Messages = () => {
         //     setMessages(data)
         //     // socket.emit('join', roomId);
         // })
-        socket.on('update', data => {
-            console.log("update", data)
-        });
 
         return () => socket.disconnect();
     }, []);
+
+    useEffect (() => {
+      if (messages) {
+        socket = io('http://localhost:5000');
+        socket.emit('update', {
+          messages: messages,
+          senderId: userData.user.id
+        })
+      }
+
+      return () => socket.disconnect();
+    },[messages])
 
     const sendMessage = (e) => {
 
@@ -84,15 +93,7 @@ const Messages = () => {
                     console.log(res);
                 })
                 .catch(err => console.log(err));
-
-            let socket = io(`/${messages._id}`);
-            socket.on('hi', data => {
-                console.log("from nsp",data)
-            })
-            // socket.emit('update', {
-            //     newMessage,
-            //     messagesId: messages._id
-            // })
+                
 
             // messages: {
             //     id: ObjectId,
