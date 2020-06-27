@@ -1,7 +1,7 @@
 import React, { useEffect, useContext, useState } from 'react';
 import io from 'socket.io-client';
 import UserContext from '../context/UserContext';
-import { TextField, Container, Button, unstable_createMuiStrictModeTheme } from '@material-ui/core';
+import { TextField, Container, Button } from '@material-ui/core';
 import MessageDisplay from './MessageDisplay';
 import axios from 'axios';
 
@@ -14,13 +14,19 @@ const Messages = () => {
     const [messages, setMessages] = useState(null);
     
     const token = localStorage.getItem('auth-token');
-    // socket.on('serverMessage', data => {
-        //     setMessages(data.messages);
-        // });
-        
+
+    const updateMessages = data => {
+        const newHistory = data.messages.messageHistory
+        setMessages({...messages, messageHistory: newHistory})
+        console.log(messages)
+    }
+
+    socket.on('newMessage', data => {
+        console.log('message recieved')
+        updateMessages(data)
+    });
+
         useEffect(() => {
-            // console.log('messages', messages)
-            // socket = io('http://localhost:5000')
             
             axios.post("http://localhost:5000/getUserMessages", {
                 userId: userData.user.id,
@@ -38,33 +44,12 @@ const Messages = () => {
        
         socket.emit('joinroom', userData.user);
 
-        socket.on('newMessage', data => console.log(data));
-
-        // socket.emit('userData', {
-        //     userId: userData.user.id,
-        //     contactId: userData.contactId
-        // })
-
-        // socket.on('roomData', data => {
-        //     console.log('ROOMDATA: ', data);
-        //     roomId = data._id;
-        //     setMessages(data)
-        //     // socket.emit('join', roomId);
-        // })
-
+        
         return () => socket.disconnect();
     }, []);
-
-    useEffect (() => {
-      if (messages) {
-        socket.emit('update', {
-            messages: messages,
-            senderId: userData.user.id
-          })
-    }
-    // return () => socket.disconnect();
-},[messages])
-
+    
+    
+    
 const sendMessage = (e) => {
     
     e.preventDefault();
@@ -90,29 +75,12 @@ const sendMessage = (e) => {
         })
         .catch(err => console.log(err));
         
+        socket.emit('update', {
+            messages: messages,
+            senderId: userData.user.id
+          })
 
-        
-        // messages: {
-            //     id: ObjectId,
-            //     users: [],
-            //     messageHistory: [{
-                //         Text:
-                //         sender:
-                //         timestamp: 
-                //     }]}
-                // const newHistory = {
-                    //     ...messages,
-            //     messageHistory: newHistory
-            // }
-
-            // const newHistory = [...messages, {...messageHistory, newMessage}]
-            // setMessages({...messages, messageHistory: newHistory})
-            // socket.emit('clientMessage', {
-            //     message,
-            //     messages,
-            //     userId: userData.user.id
-            // });
-            setMessage('');
+        setMessage('');
         }
     }
 
