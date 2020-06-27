@@ -5,6 +5,8 @@ import { TextField, Container, Button, unstable_createMuiStrictModeTheme } from 
 import MessageDisplay from './MessageDisplay';
 import axios from 'axios';
 
+let socket = io('http://localhost:5000');
+
 const Messages = () => {
     const { userData, setUserData } = useContext(UserContext);
     
@@ -12,14 +14,13 @@ const Messages = () => {
     const [messages, setMessages] = useState(null);
     
     const token = localStorage.getItem('auth-token');
-    let socket
     // socket.on('serverMessage', data => {
         //     setMessages(data.messages);
         // });
         
         useEffect(() => {
             // console.log('messages', messages)
-            socket = io('http://localhost:5000')
+            // socket = io('http://localhost:5000')
             
             axios.post("http://localhost:5000/getUserMessages", {
                 userId: userData.user.id,
@@ -37,7 +38,7 @@ const Messages = () => {
        
         socket.emit('joinroom', userData.user);
 
-        socket.on('newMessage', data => alert('ding'));
+        socket.on('newMessage', data => console.log(data));
 
         // socket.emit('userData', {
         //     userId: userData.user.id,
@@ -56,55 +57,51 @@ const Messages = () => {
 
     useEffect (() => {
       if (messages) {
-        socket = io('http://localhost:5000');
         socket.emit('update', {
-          messages: messages,
-          senderId: userData.user.id
-        })
-      }
+            messages: messages,
+            senderId: userData.user.id
+          })
+    }
+    // return () => socket.disconnect();
+},[messages])
 
-      return () => socket.disconnect();
-    },[messages])
-
-    const sendMessage = (e) => {
-
-        e.preventDefault();
-        // console.log("messages", messages)
-        if (message) {
-            const newMessage = {
-                text: message,
-                senderId: userData.user.id,
-                timeStamp: Date.now()
+const sendMessage = (e) => {
+    
+    e.preventDefault();
+    // console.log("messages", messages)
+    if (message) {
+        const newMessage = {
+            text: message,
+            senderId: userData.user.id,
+            timeStamp: Date.now()
+        }
+        
+        const currentHistory = messages.messageHistory;
+        const newHistory = [...currentHistory, newMessage]
+        setMessages({ ...messages, messageHistory: newHistory })
+        
+        axios.post("http://localhost:5000/updateUserMessages", {
+            newMessage,
+            messagesId: messages._id
+        }, {
+            headers: {
+                "x-auth-token": token
             }
+        })
+        .catch(err => console.log(err));
+        
 
-            const currentHistory = messages.messageHistory;
-            const newHistory = [...currentHistory, newMessage]
-            setMessages({ ...messages, messageHistory: newHistory })
-
-            axios.post("http://localhost:5000/updateUserMessages", {
-                newMessage,
-                messagesId: messages._id
-            }, {
-                headers: {
-                    "x-auth-token": token
-                }
-            })
-                .then(res => {
-                    console.log(res);
-                })
-                .catch(err => console.log(err));
-                
-
-            // messages: {
+        
+        // messages: {
             //     id: ObjectId,
             //     users: [],
             //     messageHistory: [{
-            //         Text:
-            //         sender:
-            //         timestamp: 
-            //     }]}
-            // const newHistory = {
-            //     ...messages,
+                //         Text:
+                //         sender:
+                //         timestamp: 
+                //     }]}
+                // const newHistory = {
+                    //     ...messages,
             //     messageHistory: newHistory
             // }
 
