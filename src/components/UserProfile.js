@@ -47,6 +47,7 @@ export default function UserProfile() {
         console.error(err)
       }
     }
+
     
     return (
         <div className="contacts">
@@ -73,7 +74,7 @@ export default function UserProfile() {
             return (<UserContactInfo 
             key={index}
             contactId={contact.id}
-            contactName={contact.username} 
+            contactName={contact.username}
             />)
           })}
           <div>

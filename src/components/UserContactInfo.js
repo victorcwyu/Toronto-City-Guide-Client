@@ -4,8 +4,7 @@ import { Card, Button } from '@material-ui/core';
 import UserContext from '../context/UserContext';
 
 
-export default function UserContactInfo(props) {
-    const {contactName, contactId} = props;
+export default function UserContactInfo({contactName, contactId}) {
     const history = useHistory();
     const {userData, setUserData} = useContext(UserContext);
     
@@ -14,6 +13,13 @@ export default function UserContactInfo(props) {
         setUserData({...userData, contactId: contactID})
         history.push('/messages');
     }
+
+    
+    const handleDelete = () => {
+        console.log('yes')
+        // axios.delete('http://localhost:5000/removeContact', { headers: { "x-auth-token": token } });
+      }
+    
 
     return (
         <div>
@@ -28,7 +34,12 @@ export default function UserContactInfo(props) {
             >
                 Messages
             </Button>
-            <Button variant="contained">Remove</Button>
+            <Button 
+                variant="contained"
+                onclick={handleDelete}
+            >
+            Remove
+            </Button>
         </Card> 
         </div>
     )

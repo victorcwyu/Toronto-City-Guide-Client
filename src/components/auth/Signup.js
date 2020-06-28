@@ -1,6 +1,8 @@
-import React, {useState} from 'react';
-import { Container, TextField, Typography, Button, FormControl, InputLabel, Input } from '@material-ui/core';
+import React, {useState, useContext} from 'react';
+import {useHistory} from 'react-router-dom';
+import { Container, Typography, Button, FormControl, InputLabel, Input } from '@material-ui/core';
 import axios from 'axios'
+import UserContext from '../../context/UserContext';
 
 export default function Signup () {
 	const [userInfo, setUserInfo] = useState({
@@ -8,13 +10,29 @@ export default function Signup () {
 		email: '',
 		password: '',
 		confirmPassword: ''
-	});
+  });
+  const {userData, setUserData} = useContext(UserContext);
+  const history = useHistory()
+  
+  
 
-	const handleSignUp = (e) => {
-		e.preventDefault();
-		axios.post('http://localhost:5000/auth/signup', userInfo)
-		.then(res => console.log(res.data))
-		.catch(err => console.log(err));
+
+	const handleSignUp = async (e) => {
+    try {
+      e.preventDefault();
+      const signUpRes = await axios.post('http://localhost:5000/auth/signup', userInfo);
+      if (signUpRes.status === 200){
+        const loginRes = await axios.post('http://localhost:5000/auth/login', { username: userInfo.username, password: userInfo.password });
+        localStorage.setItem('auth-token', loginRes.data.token);
+        const token = localStorage.getItem('auth-token');
+        setUserData({...userData, token: token})
+        history.push('/');
+      } else {
+        console.log(signUpRes)
+      }
+    } catch (err) {
+      console.log(err);
+    }
 	}
 	
     return (

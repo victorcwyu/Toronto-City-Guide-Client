@@ -1,7 +1,7 @@
 import React, { useEffect, useContext, useState } from 'react';
 import io from 'socket.io-client';
 import UserContext from '../context/UserContext';
-import { TextField, Container, Button } from '@material-ui/core';
+import { Container, Button } from '@material-ui/core';
 import MessageDisplay from './MessageDisplay';
 import axios from 'axios';
 
@@ -57,13 +57,9 @@ const Messages = () => {
                 timeStamp: Date.now()
             }
             
-            if(messages.messageHistory.length) {
-                const currentHistory = messages.messageHistory;
-                const newHistory = [...currentHistory, newMessage]
-                setMessages({ ...messages, messageHistory: newHistory })
-            } else {
-                setMessages({...messages, messageHistory: [newMessage]})
-            }
+            const currentHistory = messages.messageHistory;
+            const newHistory = [...currentHistory, newMessage]
+            setMessages({ ...messages, messageHistory: newHistory })
             
             axios.post("http://localhost:5000/updateUserMessages", {
                 newMessage,
@@ -112,22 +108,3 @@ const Messages = () => {
 }
 
 export default Messages;
-
-// We can user a message context and dthen we can check the context 
-// We can recieve and emit from App.js and then use the message page to update the message page.
-
-// update message state so it shows right away if both are logged in.
-// Add to user messages key in doc. update both users with time stamp.
-// Use array of objects:
-// {
-//     timeStamp: timestamp,
-//     content: 'text'
-// }
-
-// messages doc: 
-// id:
-// userId: refs user,
-// [{
-//     contactID,
-//     messages: [seeAbove]
-// }]
