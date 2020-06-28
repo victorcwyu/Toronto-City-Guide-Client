@@ -7,9 +7,6 @@ import UserContactInfo from './UserContactInfo';
 export default function UserProfile() {
 
     const {userData, setUserData} = useContext(UserContext);
-    // console.log(userData.user)
-
-    // console.log("this", userData)
 
     const [input , setInput] = useState('')
     const [seachdata, setSeachdata] = useState(null)
@@ -39,12 +36,12 @@ export default function UserProfile() {
       const token = localStorage.getItem('auth-token');
 
       try {
-        axios.post("http://localhost:5000/addContact", {userData: seachdata}, {headers: {
+        const contactData = await axios.post("http://localhost:5000/addContact", {userData: seachdata}, {headers: {
           "x-auth-token": token
         }})
-        .then(res => {
-          console.log(res)
-        })
+        const newContacts = [...userData.user.contacts, contactData.data.userData];
+        const newUserData = {...userData.user, contacts: newContacts};
+        setUserData({...userData.user, user: newUserData})
       }
       catch (err) {
         console.error(err)
