@@ -13,8 +13,19 @@ import Map from './components/Map/Map';
 import ScheduleDetails from './components/Schedule/ScheduleDetails';
 import Messages from './components/Messages';
 import io from 'socket.io-client';
+import { makeStyles } from '@material-ui/core/styles';
+
+const useStyle = makeStyles({
+  sender: {
+    fontSize: '10px',
+  },
+  contact: {
+    fontSize: '20px',
+  }
+})
 
 function App() {
+  const classes = useStyle();
 
   const [userData, setUserData] = useState({
     token: undefined,

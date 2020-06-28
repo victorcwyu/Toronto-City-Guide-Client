@@ -15,9 +15,9 @@ export default function UserContactInfo({contactName, contactId}) {
     }
 
     
-    const handleDelete = () => {
+    const handleDelete = e => {
+        e.preventDefault()
         console.log('yes')
-        // axios.delete('http://localhost:5000/removeContact', { headers: { "x-auth-token": token } });
       }
     
 

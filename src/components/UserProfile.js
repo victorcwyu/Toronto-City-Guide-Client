@@ -47,7 +47,6 @@ export default function UserProfile() {
         console.error(err)
       }
     }
-
     
     return (
         <div className="contacts">
@@ -60,7 +59,9 @@ export default function UserProfile() {
           />
           <button 
           onClick={handleSearch}
-          >Search</button>
+          >
+            Search
+          </button>
           {seachdata && (
             <div>
               {seachdata.username}
