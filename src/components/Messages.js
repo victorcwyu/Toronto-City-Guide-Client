@@ -15,11 +15,6 @@ const Messages = () => {
     
     const token = localStorage.getItem('auth-token');
 
-    // const updateMessages = data => {
-
-    //     console.log(messages)
-    // }
-
     
     useEffect(() => {
         
@@ -55,7 +50,6 @@ const Messages = () => {
     const sendMessage = (e) => {
         
         e.preventDefault();
-        // console.log("messages", messages)
         if (message) {
             const newMessage = {
                 text: message,
@@ -63,9 +57,13 @@ const Messages = () => {
                 timeStamp: Date.now()
             }
             
-            const currentHistory = messages.messageHistory;
-            const newHistory = [...currentHistory, newMessage]
-            setMessages({ ...messages, messageHistory: newHistory })
+            if(messages.messageHistory.length) {
+                const currentHistory = messages.messageHistory;
+                const newHistory = [...currentHistory, newMessage]
+                setMessages({ ...messages, messageHistory: newHistory })
+            } else {
+                setMessages({...messages, messageHistory: [newMessage]})
+            }
             
             axios.post("http://localhost:5000/updateUserMessages", {
                 newMessage,
