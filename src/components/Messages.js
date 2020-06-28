@@ -11,80 +11,83 @@ const Messages = () => {
     const { userData, setUserData } = useContext(UserContext);
     
     const [message, setMessage] = useState('');
-    const [messages, setMessages] = useState(null);
+    const [messages, setMessages] = useState('');
     
     const token = localStorage.getItem('auth-token');
 
-    const updateMessages = data => {
-        const newHistory = data.messages.messageHistory
-        setMessages({...messages, messageHistory: newHistory})
-        console.log(messages)
-    }
+    // const updateMessages = data => {
 
-    socket.on('newMessage', data => {
-        console.log('message recieved')
-        updateMessages(data)
-    });
+    //     console.log(messages)
+    // }
 
-        useEffect(() => {
-            
-            axios.post("http://localhost:5000/getUserMessages", {
-                userId: userData.user.id,
-                contactId: userData.contactId
-            }, {
-                headers: {
-                    "x-auth-token": token
-                }
-            })
-            .then(res => {
-                // console.log(res)
-                setMessages(res.data.messageHistory)
-                
-            })
-       
-        socket.emit('joinroom', userData.user);
-
+    
+    useEffect(() => {
         
-        return () => socket.disconnect();
-    }, []);
-    
-    
-    
-const sendMessage = (e) => {
-    
-    e.preventDefault();
-    // console.log("messages", messages)
-    if (message) {
-        const newMessage = {
-            text: message,
-            senderId: userData.user.id,
-            timeStamp: Date.now()
-        }
-        
-        const currentHistory = messages.messageHistory;
-        const newHistory = [...currentHistory, newMessage]
-        setMessages({ ...messages, messageHistory: newHistory })
-        
-        axios.post("http://localhost:5000/updateUserMessages", {
-            newMessage,
-            messagesId: messages._id
+        axios.post("http://localhost:5000/getUserMessages", {
+            userId: userData.user.id,
+            contactId: userData.contactId
         }, {
             headers: {
                 "x-auth-token": token
             }
         })
-        .catch(err => console.log(err));
+        .then(res => {
+            console.log('set message history', res)
+            setMessages(res.data.messageHistory)
+            
+        })
         
-        socket.emit('update', {
-            messages: messages,
-            senderId: userData.user.id
-          })
-
-        setMessage('');
+        socket.emit('joinroom', userData.user);
+        
+        
+        return () => socket.disconnect();
+    }, []);
+    
+    if(messages){
+        socket.on('newMessage', data => {
+            console.log('message recieved')
+            const newHistory = [...messages.messageHistory, data]
+            setMessages({...messages, messageHistory: newHistory})
+        });
+    }
+    
+    
+    const sendMessage = (e) => {
+        
+        e.preventDefault();
+        // console.log("messages", messages)
+        if (message) {
+            const newMessage = {
+                text: message,
+                senderId: userData.user.id,
+                timeStamp: Date.now()
+            }
+            
+            const currentHistory = messages.messageHistory;
+            const newHistory = [...currentHistory, newMessage]
+            setMessages({ ...messages, messageHistory: newHistory })
+            
+            axios.post("http://localhost:5000/updateUserMessages", {
+                newMessage,
+                messagesId: messages._id
+            }, {
+                headers: {
+                    "x-auth-token": token
+                }
+            })
+            .catch(err => console.log(err));
+            
+            socket.emit('update', {
+                newMessage,
+                messages: messages,
+                senderId: userData.user.id
+            })
+            
+            setMessage('');
         }
     }
-
-
+    
+    
     return (
         <div>
             <Container>
