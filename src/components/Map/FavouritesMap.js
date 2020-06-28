@@ -61,16 +61,48 @@ const FavouritesMap = () => {
         infowindows[i].open(map, markers[i]);
       });
       // create list/table of favourites
+      // return favourite place element 
       var favouritesResults = document.getElementById('favouritesResults');
+      // creates tr element = table row?
       var tr = document.createElement('tr');
+      // alternate row background colour between white and grey
       tr.style.backgroundColor = (i % 2 === 0 ? '#F0F0F0' : '#FFFFFF');
-      tr.onclick = function () {
+      // creates td element = table data?
+      var nameTd = document.createElement('td');
+      // add onclick to trigger infowindown for associated place
+      nameTd.onclick = function () {
         window.google.maps.event.trigger(markers[i], 'click');
       };
-      var nameTd = document.createElement('td');
+
+      // create remove button
+      var btn = document.createElement("BUTTON");
+      btn.innerHTML = "Remove from favourites";
+      btn.onclick = function () {
+        // window.google.maps.event.trigger(markers[i], 'click');
+        try {
+          axios.post("http://localhost:5000/removeFavourite", { place }, {
+            headers: {
+              "x-auth-token": token
+            }
+          })
+            .then(res => {
+              console.log(res);
+            });
+        }
+        catch (err) {
+          console.error(err);
+        };
+      }
+
+      // create text node which is the favourite place name
       var name = document.createTextNode(favouritesCoordinates[i][1]);
+      // attach name to td element
       nameTd.appendChild(name);
+      // attach name to associated row
       tr.appendChild(nameTd);
+      // attach button to associated row
+      tr.appendChild(btn);
+      // add table row to list/table of favourites
       favouritesResults.appendChild(tr);
     });
   };
