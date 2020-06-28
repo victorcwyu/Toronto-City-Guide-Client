@@ -75,10 +75,9 @@ const FavouritesMap = () => {
       };
 
       // create remove button
-      var btn = document.createElement("BUTTON");
+      var btn = document.createElement("BUTTON"); 
       btn.innerHTML = "Remove from favourites";
       btn.onclick = function () {
-        // window.google.maps.event.trigger(markers[i], 'click');
         try {
           axios.post("http://localhost:5000/removeFavourite", { place }, {
             headers: {
