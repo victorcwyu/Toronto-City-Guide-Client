@@ -1,73 +1,59 @@
 import React, { useEffect, useContext, useState } from 'react';
 import io from 'socket.io-client';
 import UserContext from '../context/UserContext';
-import { TextField, Container, Button, unstable_createMuiStrictModeTheme } from '@material-ui/core';
+import { TextField, Container, Button } from '@material-ui/core';
 import MessageDisplay from './MessageDisplay';
 import axios from 'axios';
+
+let socket = io('http://localhost:5000');
 
 const Messages = () => {
     const { userData, setUserData } = useContext(UserContext);
     
     const [message, setMessage] = useState('');
-    const [messages, setMessages] = useState(null);
+    const [messages, setMessages] = useState('');
     
     const token = localStorage.getItem('auth-token');
-    let socket
-    // socket.on('serverMessage', data => {
-        //     setMessages(data.messages);
-        // });
+
+    // const updateMessages = data => {
+
+    //     console.log(messages)
+    // }
+
+    
+    useEffect(() => {
         
-        useEffect(() => {
-            // console.log('messages', messages)
-            socket = io('http://localhost:5000')
+        axios.post("http://localhost:5000/getUserMessages", {
+            userId: userData.user.id,
+            contactId: userData.contactId
+        }, {
+            headers: {
+                "x-auth-token": token
+            }
+        })
+        .then(res => {
+            console.log('set message history', res)
+            setMessages(res.data.messageHistory)
             
-            axios.post("http://localhost:5000/getUserMessages", {
-                userId: userData.user.id,
-                contactId: userData.contactId
-            }, {
-                headers: {
-                    "x-auth-token": token
-                }
-            })
-            .then(res => {
-                // console.log(res)
-                setMessages(res.data.messageHistory)
-                
-            })
-       
+        })
+        
         socket.emit('joinroom', userData.user);
-
-        socket.on('newMessage', data => alert('ding'));
-
-        // socket.emit('userData', {
-        //     userId: userData.user.id,
-        //     contactId: userData.contactId
-        // })
-
-        // socket.on('roomData', data => {
-        //     console.log('ROOMDATA: ', data);
-        //     roomId = data._id;
-        //     setMessages(data)
-        //     // socket.emit('join', roomId);
-        // })
-
+        
+        
         return () => socket.disconnect();
     }, []);
-
-    useEffect (() => {
-      if (messages) {
-        socket = io('http://localhost:5000');
-        socket.emit('update', {
-          messages: messages,
-          senderId: userData.user.id
-        })
-      }
-
-      return () => socket.disconnect();
-    },[messages])
-
+    
+    if(messages){
+        socket.on('newMessage', data => {
+            console.log('message recieved')
+            const newHistory = [...messages.messageHistory, data]
+            setMessages({...messages, messageHistory: newHistory})
+        });
+    }
+    
+    
     const sendMessage = (e) => {
-
+        
         e.preventDefault();
         // console.log("messages", messages)
         if (message) {
@@ -76,11 +62,11 @@ const Messages = () => {
                 senderId: userData.user.id,
                 timeStamp: Date.now()
             }
-
+            
             const currentHistory = messages.messageHistory;
             const newHistory = [...currentHistory, newMessage]
             setMessages({ ...messages, messageHistory: newHistory })
-
+            
             axios.post("http://localhost:5000/updateUserMessages", {
                 newMessage,
                 messagesId: messages._id
@@ -89,37 +75,19 @@ const Messages = () => {
                     "x-auth-token": token
                 }
             })
-                .then(res => {
-                    console.log(res);
-                })
-                .catch(err => console.log(err));
-                
-
-            // messages: {
-            //     id: ObjectId,
-            //     users: [],
-            //     messageHistory: [{
-            //         Text:
-            //         sender:
-            //         timestamp: 
-            //     }]}
-            // const newHistory = {
-            //     ...messages,
-            //     messageHistory: newHistory
-            // }
-
-            // const newHistory = [...messages, {...messageHistory, newMessage}]
-            // setMessages({...messages, messageHistory: newHistory})
-            // socket.emit('clientMessage', {
-            //     message,
-            //     messages,
-            //     userId: userData.user.id
-            // });
+            .catch(err => console.log(err));
+            
+            socket.emit('update', {
+                newMessage,
+                messages: messages,
+                senderId: userData.user.id
+            })
+            
             setMessage('');
         }
     }
-
-
+    
+    
     return (
         <div>
             <Container>
