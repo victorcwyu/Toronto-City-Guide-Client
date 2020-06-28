@@ -1,3 +1,18 @@
 #map-page {
   background-color: white;
+  #toggle {
+    border: 1px solid black;
+    margin: 0 auto;
+    width: 20%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    .MuiSwitch-colorSecondary {
+      color: greenyellow
+    }
+    .MuiSwitch-track {
+      background-color: cornflowerblue;
+      opacity: 0.75;
+    }
+  }
 }
