@@ -24,7 +24,7 @@ table {
   font-size: 12px;
 }
 .hotel-search {
-  margin-right: 150px;
+  // margin-right: 150px;
   display: flex;
   flex-direction: column;
   -webkit-box-align: center;
@@ -38,7 +38,7 @@ table {
   // position: absolute;
   // top: 0;
   // width: 440px;
-  width: 600px;
+  // width: 600px;
   z-index: 1;
 }
 #map {
@@ -65,7 +65,7 @@ table {
   margin: 0 8px;
 }
 #autocomplete {
-  width: 100%;
+  width: 300px;
 }
 .placeIcon {
   width: 20px;
@@ -96,7 +96,12 @@ table {
 }
 
 #map-page-autocomplete {
-  border: solid 10px black;
-  margin: 100px;
-  display: flex;
+  // border: solid 10px black;
+  // margin: 100px;
+  // display: flex;
+  display: inline-flex;
+  border: 1em solid #1a2656;
+  margin: 0 auto;
+  background-color: white;
+  height: 75vh;
 }

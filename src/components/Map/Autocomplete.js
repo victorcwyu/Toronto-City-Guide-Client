@@ -12,8 +12,8 @@ const noDisplay = {
   display: "none",
 }
 const mapStyles = {
-  width: "440px",
-  height: "430px",
+  width: "800px",
+  // height: "430px",
 };
 
 const Autocomplete = () => {
