@@ -17,7 +17,7 @@ const Messages = () => {
 
     
     useEffect(() => {
-        
+        console.log('userData: ', userData)
         axios.post("http://localhost:5000/getUserMessages", {
             userId: userData.user.id,
             contactId: userData.contactId
@@ -36,6 +36,7 @@ const Messages = () => {
         
         
         return () => socket.disconnect();
+
     }, []);
     
     if(messages){
@@ -57,7 +58,7 @@ const Messages = () => {
                 timeStamp: Date.now()
             }
             
-            if(messages.messageHistory.length) {
+            if(messages.messageHistory.length > 0) {
                 const currentHistory = messages.messageHistory;
                 const newHistory = [...currentHistory, newMessage]
                 setMessages({ ...messages, messageHistory: newHistory })
