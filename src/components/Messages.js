@@ -6,15 +6,14 @@ import MessageDisplay from './MessageDisplay';
 import axios from 'axios';
 
 let socket = io('http://localhost:5000');
-
 const Messages = () => {
-    const { userData, setUserData } = useContext(UserContext);
+    let { userData, setUserData } = useContext(UserContext);
     
     const [message, setMessage] = useState('');
     const [messages, setMessages] = useState('');
     
     const token = localStorage.getItem('auth-token');
-
+    
     
     useEffect(() => {
         console.log('userData: ', userData)
