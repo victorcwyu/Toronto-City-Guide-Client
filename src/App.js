@@ -83,3 +83,8 @@ function App() {
   );
 }
 export default App;
+
+
+// why cant we keep state on refresh
+// funtion calling itself on add favourites 
+// map rerender

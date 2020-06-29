@@ -6,18 +6,17 @@ import MessageDisplay from './MessageDisplay';
 import axios from 'axios';
 
 let socket = io('http://localhost:5000');
-
 const Messages = () => {
-    const { userData, setUserData } = useContext(UserContext);
+    let { userData, setUserData } = useContext(UserContext);
     
     const [message, setMessage] = useState('');
     const [messages, setMessages] = useState('');
     
     const token = localStorage.getItem('auth-token');
-
+    
     
     useEffect(() => {
-        
+        console.log('userData: ', userData)
         axios.post("http://localhost:5000/getUserMessages", {
             userId: userData.user.id,
             contactId: userData.contactId
@@ -36,6 +35,7 @@ const Messages = () => {
         
         
         return () => socket.disconnect();
+
     }, []);
     
     if(messages){
@@ -57,7 +57,7 @@ const Messages = () => {
                 timeStamp: Date.now()
             }
             
-            if(messages.messageHistory.length) {
+            if(messages.messageHistory.length > 0) {
                 const currentHistory = messages.messageHistory;
                 const newHistory = [...currentHistory, newMessage]
                 setMessages({ ...messages, messageHistory: newHistory })

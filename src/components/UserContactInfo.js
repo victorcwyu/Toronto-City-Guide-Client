@@ -2,7 +2,7 @@ import React, {useContext} from 'react';
 import {useHistory} from 'react-router-dom';
 import { Card, Button } from '@material-ui/core';
 import UserContext from '../context/UserContext';
-
+import axios from 'axios';
 
 export default function UserContactInfo({contactName, contactId}) {
     const history = useHistory();
@@ -13,13 +13,21 @@ export default function UserContactInfo({contactName, contactId}) {
         setUserData({...userData, contactId: contactID})
         history.push('/messages');
     }
-
     
-    const handleDelete = e => {
-        e.preventDefault()
-        console.log('yes')
+    const handleDelete = async () => {
+        console.log(userData)
+        const token = localStorage.getItem("auth-token");
+        const deleteRes = await axios.delete('http://localhost:5000/removeContact', {
+            headers : { "x-auth-token": token },
+            data: { contactId } 
+        })
+        if(deleteRes.status === 200){
+            const {newContacts} = deleteRes.data;
+            setUserData({...userData.user, contacts: newContacts})
+        } else {
+            console.log('handle error');
+        }
       }
-    
 
     return (
         <div>
@@ -36,7 +44,7 @@ export default function UserContactInfo({contactName, contactId}) {
             </Button>
             <Button 
                 variant="contained"
-                onclick={handleDelete}
+                onClick={handleDelete}
             >
             Remove
             </Button>
