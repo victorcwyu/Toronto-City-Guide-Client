@@ -1,4 +1,5 @@
 import React, { useEffect, useRef } from "react";
+import { useHistory } from 'react-router-dom';
 import "../../styles/Autocomplete.scss";
 import PlaceTypeSelector from "./PlaceTypeSelector"
 import axios from "axios";
@@ -11,16 +12,21 @@ const noDisplay = {
   display: "none",
 }
 const mapStyles = {
-  width: "640px",
+  width: "440px",
   height: "430px",
 };
 
 const Autocomplete = () => {
+  const history = useHistory();
   const placeInputRef = useRef(null);
   const googleMapRef = useRef(null);
 
   useEffect(() => {
-    initPlaceAPI();
+    if (!window.google) {
+      history.push('/');
+    } else {
+      initPlaceAPI();
+    }
   }, []);
 
   // Initialize the Google Place autocomplete
