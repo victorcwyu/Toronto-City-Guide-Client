@@ -3,7 +3,7 @@ import "../../styles/FavouritesMap.scss";
 import axios from "axios";
 
 const mapStyles = {
-  width: "800px",
+  width: "80%",
   // height: "50vh",
 };
 let markers = [];
