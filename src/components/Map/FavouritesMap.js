@@ -3,8 +3,8 @@ import "../../styles/FavouritesMap.scss";
 import axios from "axios";
 
 const mapStyles = {
-  width: "800px",
-  height: "430px",
+  width: "50%",
+  height: "100vh",
 };
 let markers = [];
 let infowindows = [];
