@@ -1,10 +1,12 @@
-import React, { useState, useContext } from 'react'
+import React, { useState, useContext, useEffect } from 'react'
+import { useHistory } from 'react-router-dom';
 import UserContext from '../context/UserContext'
 import axios from "axios"
 
 import UserContactInfo from './UserContactInfo';
 
 export default function UserProfile() {
+  const history = useHistory();
 
     const {userData, setUserData} = useContext(UserContext);
 
@@ -48,6 +50,7 @@ export default function UserProfile() {
       }
     }
     
+    if(userData.user) {
     return (
         <div className="contacts">
           <input
@@ -81,7 +84,11 @@ export default function UserProfile() {
           <div>
           </div>
         </div>
-    )
+    )} else {
+      return (
+        <div />
+      )
+    }
 }
 
 // BUGS:
