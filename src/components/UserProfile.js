@@ -53,6 +53,7 @@ export default function UserProfile() {
     if(userData.user) {
     return (
         <div className="contacts">
+          <h1>Add a Contact</h1>
           <input
           type="text"
           name="finduser"
@@ -60,11 +61,13 @@ export default function UserProfile() {
           value={input}
           onChange={e => setInput(e.target.value)}
           />
+          <div>
           <button 
           onClick={handleSearch}
           >
             Search
           </button>
+          </div>
           {seachdata && (
             <div>
               {seachdata.username}
