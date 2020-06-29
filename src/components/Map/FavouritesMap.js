@@ -112,7 +112,7 @@ const FavouritesMap = () => {
   };
 
   return (
-    <>
+    <div id="favourites-container">
       <div
         id="favourite-map"
         ref={googleMapRef}
@@ -122,12 +122,11 @@ const FavouritesMap = () => {
         <div id="listing">
           <table id="resultsTable">
             <tbody id="favouritesResults">
-              <h1>DATA</h1>
             </tbody>
           </table>
         </div>
       }
-    </>
+    </div>
   )
 }
 
