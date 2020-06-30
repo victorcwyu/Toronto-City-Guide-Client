@@ -51,7 +51,7 @@ export default function UserProfile() {
 
       try {
 
-        const contactData = await axios.post("https://toronto-city-travel-guide.herokuapp.com/addContact", {userData: seachdata}, {headers: {
+        const contactData = await axios.post("https://toronto-city-travel-guide.herokuapp.com/addContact", {userData: searchdata}, {headers: {
           "x-auth-token": token
         }})
         const newContacts = [...userData.user.contacts, contactData.data.userData];
