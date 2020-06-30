@@ -64,13 +64,12 @@ const Messages = () => {
                 senderId: userData.user.id,
                 timeStamp: Date.now()
             }
-            
-            if(messages.messageHistory.length > 0) {
+            if(!messages) {
+                setMessages({...messages, messageHistory: [newMessage]})
+            } else {
                 const currentHistory = messages.messageHistory;
                 const newHistory = [...currentHistory, newMessage]
                 setMessages({ ...messages, messageHistory: newHistory })
-            } else {
-                setMessages({...messages, messageHistory: [newMessage]})
             }
             
             axios.post("http://localhost:5000/updateUserMessages", {

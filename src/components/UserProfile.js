@@ -1,17 +1,29 @@
 import React, { useState, useContext, useEffect } from 'react'
 import { useHistory } from 'react-router-dom';
-import UserContext from '../context/UserContext'
+import UserContext from '../context/UserContext';
+import { makeStyles } from '@material-ui/core/styles';
+import { Container, Button } from '@material-ui/core';
+import UserContactInfo from './UserContactInfo';
 import axios from "axios"
 
-import UserContactInfo from './UserContactInfo';
+
+const useStyle = makeStyles({
+  container: {
+    color: "#14a2f4",
+  },
+  button: {
+    marginTop: "1.5rem",
+    borderColor: "#1a2656"
+  }
+})
 
 export default function UserProfile() {
-  const history = useHistory();
+  const classes = useStyle();
 
     const {userData, setUserData} = useContext(UserContext);
 
     const [input , setInput] = useState('')
-    const [seachdata, setSeachdata] = useState(null)
+    const [searchData, setSearchdata] = useState(null)
     const [loading, setLoading] = useState(false)
 
     const handleSearch = async e => {
@@ -24,7 +36,7 @@ export default function UserProfile() {
           "x-auth-token": token
         }})
         .then(res => {
-          setSeachdata(res.data)
+          setSearchdata(res.data)
         })
       }
       catch (err) {
@@ -38,12 +50,13 @@ export default function UserProfile() {
       const token = localStorage.getItem('auth-token');
 
       try {
-        const contactData = await axios.post("http://localhost:5000/addContact", {userData: seachdata}, {headers: {
+        const contactData = await axios.post("http://localhost:5000/addContact", {userData: searchData}, {headers: {
           "x-auth-token": token
         }})
         const newContacts = [...userData.user.contacts, contactData.data.userData];
         const newUserData = {...userData.user, contacts: newContacts};
         setUserData({...userData.user, user: newUserData})
+        setSearchdata(null)
       }
       catch (err) {
         console.error(err)
@@ -52,7 +65,7 @@ export default function UserProfile() {
     
     if(userData.user) {
     return (
-        <div className="contacts">
+        <Container>
           <h1>Add a Contact</h1>
           <input
           type="text"
@@ -62,15 +75,20 @@ export default function UserProfile() {
           onChange={e => setInput(e.target.value)}
           />
           <div>
-          <button 
+          {!searchData &&
+          <Button
           onClick={handleSearch}
+          variant='outlined' 
+          type='submit' 
+          className={classes.button}
           >
             Search
-          </button>
+          </Button>
+        }
           </div>
-          {seachdata && (
+          {searchData && (
             <div>
-              {seachdata.username}
+              {searchData.username}
               <div
               onClick={handleAddContact}
               >+</div>
@@ -86,7 +104,7 @@ export default function UserProfile() {
           })}
           <div>
           </div>
-        </div>
+          </Container>
     )} else {
       return (
         <div />
