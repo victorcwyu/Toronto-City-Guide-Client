@@ -12,8 +12,8 @@ const noDisplay = {
   display: "none",
 }
 const mapStyles = {
-  width: "440px",
-  height: "430px",
+  width: "70%",
+  // height: "430px",
 };
 
 const Autocomplete = () => {
@@ -268,6 +268,11 @@ const Autocomplete = () => {
           <PlaceTypeSelector />
           <div id="locationField">
             <input id="autocomplete" placeholder="Enter a location" type="text" ref={placeInputRef} />
+            <div id="listing">
+              <table id="resultsTable">
+                <tbody id="results"></tbody>
+              </table>
+            </div>
           </div>
         </div>
         <div
@@ -275,18 +280,10 @@ const Autocomplete = () => {
           ref={googleMapRef}
           style={mapStyles}
         />
-        <div id="listing">
-          <table id="resultsTable">
-            <tbody id="results"></tbody>
-          </table>
-        </div>
         <div style={noDisplay}>
           <div id="info-content">
             <table>
               <tbody>
-                <button onClick={handleAddFavourite}>
-                  Add to favourites
-                </button>
                 <tr id="iw-url-row" className="iw_table_row">
                   <td id="iw-icon" className="iw_table_icon"></td>
                   <td id="iw-url"></td>
@@ -307,6 +304,9 @@ const Autocomplete = () => {
                   <td className="iw_attribute_name">Website:</td>
                   <td id="iw-website"></td>
                 </tr>
+                <button onClick={handleAddFavourite}>
+                  Add to favourites
+                </button>
               </tbody>
             </table>
           </div>

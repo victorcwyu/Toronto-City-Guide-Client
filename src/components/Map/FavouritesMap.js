@@ -3,8 +3,8 @@ import "../../styles/FavouritesMap.scss";
 import axios from "axios";
 
 const mapStyles = {
-  width: "800px",
-  height: "430px",
+  width: "70%",
+  // height: "50vh",
 };
 let markers = [];
 let infowindows = [];
@@ -112,22 +112,21 @@ const FavouritesMap = () => {
   };
 
   return (
-    <>
+    <div id="favourites-container">
+      {userFavourites.length > 0 &&
+        <div id="favouritesListing">
+          <table id="resultsTable">
+            <tbody id="favouritesResults">
+            </tbody>
+          </table>
+        </div>
+      }
       <div
         id="favourite-map"
         ref={googleMapRef}
         style={mapStyles}
       />
-      {userFavourites.length > 0 &&
-        <div id="listing">
-          <table id="resultsTable">
-            <tbody id="favouritesResults">
-              <h1>DATA</h1>
-            </tbody>
-          </table>
-        </div>
-      }
-    </>
+    </div>
   )
 }
 

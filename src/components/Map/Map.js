@@ -33,7 +33,6 @@ export default function Map() {
 
   return (
     <div id="map-page">
-      <h1>Map</h1>
       <div id="toggle">
         <h2>Search</h2>
         <Switch

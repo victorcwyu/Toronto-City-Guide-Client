@@ -7,7 +7,7 @@ import UserContext from '../../context/UserContext';
 // outside function to avoid too many rerenders
 const mapStyles = {
   width: "400px",
-  height: "300px",
+  height: "400px",
 };
 
 function Map({ options, onMount, className, onMountProps }) {
@@ -52,12 +52,11 @@ function Map({ options, onMount, className, onMountProps }) {
       onClick={handleClick}
       to="/map"
     >
-      <div id="map-container">
         <div
+          id="homeMap"
           style={mapStyles}
           {...{ ref, className }}
         />
-      </div>
     </Link>
   );
 
