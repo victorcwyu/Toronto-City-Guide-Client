@@ -9,7 +9,7 @@ import moment from "moment"
 
 export default function Schedule() {
   const [schedules, setSchedules] = useState();
-  const [selectedDate, setSelectedDate] = useState(moment())
+  const [selectedDate, setSelectedDate] = useState(moment().zone(4))
 
   useEffect(() => {
     getData();
@@ -17,8 +17,8 @@ export default function Schedule() {
 
   const getData = () => {
     axios
-      .post("http://localhost:5000/api/schedules/get",{
-        selectedDate: selectedDate.format('YYYY-MM-D')
+      .post("http://localhost:5000/api/schedules/get", {
+        selectedDate: selectedDate.format('YYYY-MM-DD')
       }, {
         headers: {
           "x-auth-token": localStorage.getItem("auth-token"),
