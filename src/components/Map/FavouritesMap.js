@@ -3,7 +3,7 @@ import "../../styles/FavouritesMap.scss";
 import axios from "axios";
 
 const mapStyles = {
-  width: "80%",
+  width: "70%",
   // height: "50vh",
 };
 let markers = [];
@@ -114,7 +114,7 @@ const FavouritesMap = () => {
   return (
     <div id="favourites-container">
       {userFavourites.length > 0 &&
-        <div id="listing">
+        <div id="favouritesListing">
           <table id="resultsTable">
             <tbody id="favouritesResults">
             </tbody>

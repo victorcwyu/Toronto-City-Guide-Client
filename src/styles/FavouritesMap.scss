@@ -16,10 +16,13 @@ html{line-height:1.15;-ms-text-size-adjust:100%;-webkit-text-size-adjust:100%}bo
     display: flex;
     justify-content: center;
     align-items: center;
-    width: 80%;
+    width: 70%;
   }
-  #listing {
-    width: 20%;
+  #favouritesListing {
+    overflow: auto;
+    cursor: pointer;
+    overflow-x: hidden;
+    width: 30%;
     display: inline-flex;
     justify-content: space-evenly;
     h1 {

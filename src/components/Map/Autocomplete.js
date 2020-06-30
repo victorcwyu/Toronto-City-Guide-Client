@@ -12,7 +12,7 @@ const noDisplay = {
   display: "none",
 }
 const mapStyles = {
-  width: "800px",
+  width: "70%",
   // height: "430px",
 };
 
