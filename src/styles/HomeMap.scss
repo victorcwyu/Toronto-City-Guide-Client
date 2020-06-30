@@ -1,9 +1,18 @@
-#map-container {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 400px;
-  width: 500px;
+// #map-container {
+//   display: flex;
+//   justify-content: center;
+//   align-items: center;
+//   height: 400px;
+//   width: 500px;
+//   margin: 100px auto;
+//   border: 1em solid black;
+// }
+
+#homeMap {
+  // display: flex;
+  // justify-content: center;
+  // align-items: center;
   margin: 100px auto;
-  border: 1em solid black;
+  border: 1em solid #01050e;
+  border-radius: 50%;
 }
