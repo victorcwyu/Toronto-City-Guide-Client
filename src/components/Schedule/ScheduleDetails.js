@@ -32,7 +32,7 @@ export default function ScheduleDetails() {
 	const handleSchedule = async (e) => {
     e.preventDefault();
  
-    const scheduleRes = await axios.post('https://toronto-city-travel-guide.herokuapp.com/api/schedules', state,{
+    const scheduleRes = await axios.post('http://localhost:5000/api/schedules/post', state,{
       headers: {
         "x-auth-token": localStorage.getItem('auth-token')
       }
