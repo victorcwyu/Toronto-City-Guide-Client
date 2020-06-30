@@ -1,5 +1,5 @@
-import React, { useState, useEffect }  from 'react';
-import { BrowserRouter, Switch, Route} from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
+import { BrowserRouter, Switch, Route } from 'react-router-dom';
 import './App.css';
 import Schedule from './components/Schedule';
 import Signup from './components/auth/Signup';
@@ -30,7 +30,7 @@ function App() {
   const [userData, setUserData] = useState({
     token: undefined,
     user: undefined
-  });  
+  });
 
   useEffect(() => {
 
@@ -40,15 +40,19 @@ function App() {
         localStorage.setItem('auth-token', '');
         token = '';
       }
-      const tokenRes = await Axios.post('http://localhost:5000/auth/isTokenValid', null, {headers: {
-        "x-auth-token": token
-      }});
+      const tokenRes = await Axios.post('https://toronto-city-travel-guide.herokuapp.com/auth/isTokenValid', null, {
+        headers: {
+          "x-auth-token": token
+        }
+      });
 
       if (tokenRes.data) {
-        const userRes = await Axios.post('http://localhost:5000/getActiveUser', null, {headers: {
-          "x-auth-token": token
-        }});
-        
+        const userRes = await Axios.post('https://toronto-city-travel-guide.herokuapp.com/getActiveUser', null, {
+          headers: {
+            "x-auth-token": token
+          }
+        });
+
         setUserData({
           token: token,
           user: userRes.data
@@ -61,19 +65,19 @@ function App() {
   return (
     <div className="App">
       <BrowserRouter>
-      <UserContext.Provider value={{userData, setUserData}}>
-      {/* Added temp header to handle nav to cut down on clutter we can add a proper styled nav */}
-      <Header />
-        <Switch>
-          <Route exact path="/" component={Home} />
-          <Route path="/login" component={Login} />
-          <Route path='/signup' component={Signup} />
-          <Route path='/map' component={Map} />
-          <Route path='/userProfile' component={UserProfile} />
-          <Route exact path='/schedule' component={ScheduleDetails} />
-          <Route path='/messages' component={Messages} />
-        </Switch>
-      </UserContext.Provider>
+        <UserContext.Provider value={{ userData, setUserData }}>
+          {/* Added temp header to handle nav to cut down on clutter we can add a proper styled nav */}
+          <Header />
+          <Switch>
+            <Route exact path="/" component={Home} />
+            <Route path="/login" component={Login} />
+            <Route path='/signup' component={Signup} />
+            <Route path='/map' component={Map} />
+            <Route path='/userProfile' component={UserProfile} />
+            <Route exact path='/schedule' component={ScheduleDetails} />
+            <Route path='/messages' component={Messages} />
+          </Switch>
+        </UserContext.Provider>
       </BrowserRouter>
     </div>
   );

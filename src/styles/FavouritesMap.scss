@@ -8,6 +8,11 @@
   border: 1em solid black;
 }
 
+#listing-no-display {
+  display: none;
+}
+
 #listing {
 height: 100%;
+// display: none;
 }

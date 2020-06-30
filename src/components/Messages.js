@@ -6,7 +6,7 @@ import { Container, Button } from '@material-ui/core';
 import MessageDisplay from './MessageDisplay';
 import axios from 'axios';
 
-let socket = io('http://localhost:5000');
+let socket = io('https://toronto-city-travel-guide.herokuapp.com');
 const Messages = () => {
     const history = useHistory();
     
@@ -24,7 +24,7 @@ const Messages = () => {
         if(!userData.user){
             history.push('/')
         } else {
-            axios.post("http://localhost:5000/getUserMessages", {
+            axios.post("https://toronto-city-travel-guide.herokuapp.com/getUserMessages", {
                 userId: userData.user.id,
                 contactId: userData.contactId
             }, {
@@ -37,6 +37,7 @@ const Messages = () => {
                 setMessages(res.data.messageHistory)
                 
             })
+
             
             socket.emit('joinroom', userData.user);
         }
@@ -72,7 +73,7 @@ const Messages = () => {
                 setMessages({ ...messages, messageHistory: newHistory })
             }
             
-            axios.post("http://localhost:5000/updateUserMessages", {
+            axios.post("https://toronto-city-travel-guide.herokuapp.com/updateUserMessages", {
                 newMessage,
                 messagesId: messages._id
             }, {

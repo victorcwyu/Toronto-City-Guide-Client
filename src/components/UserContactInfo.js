@@ -23,7 +23,7 @@ export default function UserContactInfo({contactName, contactId}) {
     const handleDelete = async () => {
         console.log(userData)
         const token = localStorage.getItem("auth-token");
-        const deleteRes = await axios.delete('http://localhost:5000/removeContact', {
+        const deleteRes = await axios.delete('https://toronto-city-travel-guide.herokuapp.com/removeContact', {
             headers : { "x-auth-token": token },
             data: { contactId } 
         })

@@ -32,7 +32,7 @@ export default function UserProfile() {
       const token = localStorage.getItem('auth-token');
 
       try {
-        axios.post("http://localhost:5000/findUser", {username: input}, {headers: {
+        axios.post("https://toronto-city-travel-guide.herokuapp.com/findUser", {username: input}, {headers: {
           "x-auth-token": token
         }})
         .then(res => {
@@ -50,7 +50,8 @@ export default function UserProfile() {
       const token = localStorage.getItem('auth-token');
 
       try {
-        const contactData = await axios.post("http://localhost:5000/addContact", {userData: searchData}, {headers: {
+
+        const contactData = await axios.post("https://toronto-city-travel-guide.herokuapp.com/addContact", {userData: seachdata}, {headers: {
           "x-auth-token": token
         }})
         const newContacts = [...userData.user.contacts, contactData.data.userData];
