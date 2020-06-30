@@ -11,6 +11,7 @@ import UserProfile from './components/UserProfile'
 import Axios from 'axios';
 import Map from './components/Map/Map';
 import ScheduleDetails from './components/Schedule/ScheduleDetails';
+import index from './components/Schedule/index';
 import Messages from './components/Messages';
 import io from 'socket.io-client';
 import { makeStyles } from '@material-ui/core/styles';
@@ -29,7 +30,8 @@ function App() {
 
   const [userData, setUserData] = useState({
     token: undefined,
-    user: undefined
+    user: undefined,
+    wtf: 0
   });
 
   useEffect(() => {
@@ -74,7 +76,7 @@ function App() {
             <Route path='/signup' component={Signup} />
             <Route path='/map' component={Map} />
             <Route path='/userProfile' component={UserProfile} />
-            <Route exact path='/schedule' component={ScheduleDetails} />
+            <Route exact path='/schedule' component={index} />
             <Route path='/messages' component={Messages} />
           </Switch>
         </UserContext.Provider>

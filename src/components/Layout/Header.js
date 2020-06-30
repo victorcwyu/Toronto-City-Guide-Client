@@ -61,7 +61,13 @@ export default function Header() {
             <Link className={classes.navItem} to="/Map">
              Map
             </Link>
-        }    
+        }
+        {userData.token &&
+            <Link className={classes.navItem}
+            to="/schedule">
+                Book Your Schedule
+            </Link>
+        }
         {userData.token &&
             <Link className={classes.navItem} to="/userProfile">
              User Profile
