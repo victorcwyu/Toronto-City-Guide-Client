@@ -45,14 +45,22 @@ html{line-height:1.15;-ms-text-size-adjust:100%;-webkit-text-size-adjust:100%}bo
       margin: 0;
     }
     #resultsTable {
-      float: left;
-      width: 100%;
+      // float: left;
+      // width: 100%;
       button {
         // border: 1px solid #1a2656;
         border: none;
         background-color: #0f508b;
         &:hover {
           background-color: #287ac3;
+        }
+      }
+      tr {
+        td {
+          width: 70%;
+        }
+        button {
+          width: 100%;
         }
       }
     }
