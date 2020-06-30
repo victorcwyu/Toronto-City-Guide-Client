@@ -7,7 +7,7 @@ html{line-height:1.15;-ms-text-size-adjust:100%;-webkit-text-size-adjust:100%}bo
 #favourites-container {
   // display: inline-flex;
   display: flex;
-  border: 1em solid #1a2656;
+  // border: 1em solid #1a2656;
   margin: 0 auto;
   background-color: white;
   height: 65vh;
@@ -28,6 +28,9 @@ html{line-height:1.15;-ms-text-size-adjust:100%;-webkit-text-size-adjust:100%}bo
     #resultsTable {
       float: left;
       width: 100%;
+      button {
+        border: 1px solid #1a2656;
+      }
     }
   }
 }
