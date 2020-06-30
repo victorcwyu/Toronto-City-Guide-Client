@@ -284,9 +284,6 @@ const Autocomplete = () => {
           <div id="info-content">
             <table>
               <tbody>
-                <button onClick={handleAddFavourite}>
-                  Add to favourites
-                </button>
                 <tr id="iw-url-row" className="iw_table_row">
                   <td id="iw-icon" className="iw_table_icon"></td>
                   <td id="iw-url"></td>
@@ -307,6 +304,9 @@ const Autocomplete = () => {
                   <td className="iw_attribute_name">Website:</td>
                   <td id="iw-website"></td>
                 </tr>
+                <button onClick={handleAddFavourite}>
+                  Add to favourites
+                </button>
               </tbody>
             </table>
           </div>
