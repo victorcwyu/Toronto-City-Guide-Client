@@ -6,6 +6,10 @@ const mapStyles = {
   width: "70%",
   // height: "50vh",
 };
+const mapStyles2 = {
+  width: "100%",
+  // height: "50vh",
+};
 let markers = [];
 let infowindows = [];
 
@@ -19,6 +23,7 @@ const FavouritesMap = () => {
   const getFavouritesData = async () => {
     let res = await axios.get("https://toronto-city-travel-guide.herokuapp.com/getFavourites", { headers: {"x-auth-token": token} });
     setUserFavourites(res.data.favourites)
+    console.log("YOOOOOO", userFavourites)
     return res.data.favourites;
   };
 
@@ -111,22 +116,59 @@ const FavouritesMap = () => {
     });  
   };
 
+//   return (
+//     <div id="favourites-container">
+//       {userFavourites.length > 0 &&
+//         <div id="favouritesListing">
+//           <table id="resultsTable">
+//             <tbody id="favouritesResults">
+//             </tbody>
+//           </table>
+//         </div>
+//       }
+//       <div
+//         id="favourite-map"
+//         ref={googleMapRef}
+//         style={mapStyles}
+//       />
+//     </div>
+//   )
+// }
+
+// export default FavouritesMap;
+
+
+
+
+
+
   return (
-    <div id="favourites-container">
-      {userFavourites.length > 0 &&
-        <div id="favouritesListing">
-          <table id="resultsTable">
-            <tbody id="favouritesResults">
-            </tbody>
-          </table>
+    <>
+      {userFavourites.length <= 0 &&
+        <div id="no-favourites-container">
+          <div
+            id="no-favourite-map"
+            ref={googleMapRef}
+            style={mapStyles2}
+          />
         </div>
       }
-      <div
-        id="favourite-map"
-        ref={googleMapRef}
-        style={mapStyles}
-      />
-    </div>
+      {userFavourites.length > 0 &&
+        <div id="favourites-container">
+          <div id="favouritesListing">
+            <table id="resultsTable">
+              <tbody id="favouritesResults">
+              </tbody>
+            </table>
+          </div>
+          <div
+            id="favourite-map"
+            ref={googleMapRef}
+            style={mapStyles}
+          />
+        </div>
+      }
+    </>
   )
 }
 
