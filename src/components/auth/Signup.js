@@ -3,8 +3,24 @@ import {useHistory} from 'react-router-dom';
 import { Container, Typography, Button, FormControl, InputLabel, Input } from '@material-ui/core';
 import axios from 'axios'
 import UserContext from '../../context/UserContext';
+import { makeStyles } from '@material-ui/core/styles';
+
+const useStyle = makeStyles({
+  form : {
+    marginTop: "5rem"
+  },
+  header: {
+    color: "#1a2656",
+  },
+  button: {
+    marginTop: "3rem",
+    borderColor: "#1a2656"
+  }
+})
 
 export default function Signup () {
+  const classes = useStyle();
+
 	const [userInfo, setUserInfo] = useState({
 		username: '',
 		email: '',
@@ -20,9 +36,9 @@ export default function Signup () {
 	const handleSignUp = async (e) => {
     try {
       e.preventDefault();
-      const signUpRes = await axios.post('http://localhost:5000/auth/signup', userInfo);
+      const signUpRes = await axios.post('https://toronto-city-travel-guide.herokuapp.com/auth/signup', userInfo);
       if (signUpRes.status === 200){
-        const loginRes = await axios.post('http://localhost:5000/auth/login', { username: userInfo.username, password: userInfo.password });
+        const loginRes = await axios.post('https://toronto-city-travel-guide.herokuapp.com/auth/login', { username: userInfo.username, password: userInfo.password });
         localStorage.setItem('auth-token', loginRes.data.token);
         const token = localStorage.getItem('auth-token');
         setUserData({...userData, token: token})
@@ -38,7 +54,7 @@ export default function Signup () {
     return (
         <div>
             <Container>
-							<Typography variant='h2'>Create An Account</Typography>
+							<Typography variant='h2' className={classes.header}>Create An Account</Typography>
             	<form onSubmit={handleSignUp}>
                 <FormControl fullWidth>
                   <InputLabel htmlFor="username">Username</InputLabel>
@@ -56,7 +72,7 @@ export default function Signup () {
                   <InputLabel htmlFor="confirmPassword">Confirm Password</InputLabel>
                   <Input id="confirmPassword" type="password" value={userInfo.confirmPassword} onChange={e => setUserInfo({...userInfo, confirmPassword: e.target.value})} />
 						 		</FormControl>           
-								 <Button variant='contained' type='submit'>Submit</Button>
+								 <Button variant='outlined' type='submit' className={classes.button}>Submit</Button>
               </form>
             </Container>
         </div>

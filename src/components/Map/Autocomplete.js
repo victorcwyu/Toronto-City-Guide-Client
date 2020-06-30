@@ -1,5 +1,5 @@
 import React, { useEffect, useRef } from "react";
-import { useHistory } from 'react-router-dom';
+import {useHistory} from 'react-router-dom';
 import "../../styles/Autocomplete.scss";
 import PlaceTypeSelector from "./PlaceTypeSelector"
 import axios from "axios";
@@ -22,7 +22,7 @@ const Autocomplete = () => {
   const googleMapRef = useRef(null);
 
   useEffect(() => {
-    if (!window.google) {
+    if (!window.google){
       history.push('/');
     } else {
       initPlaceAPI();
@@ -225,7 +225,7 @@ const Autocomplete = () => {
   // used Axios instead of userData (comes back as object instead of array?)
   let token = localStorage.getItem("auth-token")
   const getFavourites = async () => {
-    let res = await axios.get("http://localhost:5000/getFavourites", { headers: { "x-auth-token": token } });
+    let res = await axios.get("https://toronto-city-travel-guide.herokuapp.com/getFavourites", { headers: { "x-auth-token": token } });
     return res.data.favourites;
   };
 
@@ -243,7 +243,7 @@ const Autocomplete = () => {
       let doesFavouriteExist = await favourites.filter(favourite => favourite.place_id != place.place_id);
       if ((doesFavouriteExist.length === favourites.length)) {
         try {
-          axios.post("http://localhost:5000/addFavourite", { place }, {
+          axios.post("https://toronto-city-travel-guide.herokuapp.com/addFavourite", { place }, {
             headers: {
               "x-auth-token": token
             }

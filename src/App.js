@@ -40,14 +40,14 @@ function App() {
         localStorage.setItem('auth-token', '');
         token = '';
       }
-      const tokenRes = await Axios.post('http://localhost:5000/auth/isTokenValid', null, {
+      const tokenRes = await Axios.post('https://toronto-city-travel-guide.herokuapp.com/auth/isTokenValid', null, {
         headers: {
           "x-auth-token": token
         }
       });
 
       if (tokenRes.data) {
-        const userRes = await Axios.post('http://localhost:5000/getActiveUser', null, {
+        const userRes = await Axios.post('https://toronto-city-travel-guide.herokuapp.com/getActiveUser', null, {
           headers: {
             "x-auth-token": token
           }
@@ -83,3 +83,8 @@ function App() {
   );
 }
 export default App;
+
+
+// why cant we keep state on refresh
+// funtion calling itself on add favourites 
+// map rerender

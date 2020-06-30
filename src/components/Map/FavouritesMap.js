@@ -17,7 +17,7 @@ const FavouritesMap = () => {
 
 
   const getFavouritesData = async () => {
-    let res = await axios.get("http://localhost:5000/getFavourites", { headers: {"x-auth-token": token} });
+    let res = await axios.get("https://toronto-city-travel-guide.herokuapp.com/getFavourites", { headers: {"x-auth-token": token} });
     setUserFavourites(res.data.favourites)
     return res.data.favourites;
   };
@@ -68,7 +68,7 @@ const FavouritesMap = () => {
       btn.innerHTML = "Remove from favourites";
       btn.onclick = function () {
         try {
-          axios.post("http://localhost:5000/removeFavourite", { place }, {
+          axios.post("https://toronto-city-travel-guide.herokuapp.com/removeFavourite", { place }, {
             headers: {
               "x-auth-token": token
             }
