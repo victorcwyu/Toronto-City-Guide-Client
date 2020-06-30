@@ -20,9 +20,9 @@ export default function Signup () {
 	const handleSignUp = async (e) => {
     try {
       e.preventDefault();
-      const signUpRes = await axios.post('http://localhost:5000/auth/signup', userInfo);
+      const signUpRes = await axios.post('https://toronto-city-travel-guide.herokuapp.com/auth/signup', userInfo);
       if (signUpRes.status === 200){
-        const loginRes = await axios.post('http://localhost:5000/auth/login', { username: userInfo.username, password: userInfo.password });
+        const loginRes = await axios.post('https://toronto-city-travel-guide.herokuapp.com/auth/login', { username: userInfo.username, password: userInfo.password });
         localStorage.setItem('auth-token', loginRes.data.token);
         const token = localStorage.getItem('auth-token');
         setUserData({...userData, token: token})

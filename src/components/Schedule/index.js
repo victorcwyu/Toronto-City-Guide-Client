@@ -15,7 +15,7 @@ export default function Schedule() {
 
   const getData = () => {
     axios
-      .get("http://localhost:5000/api/schedules", {
+      .get("https://toronto-city-travel-guide.herokuapp.com/api/schedules", {
         headers: {
           "x-auth-token": localStorage.getItem("auth-token"),
         },

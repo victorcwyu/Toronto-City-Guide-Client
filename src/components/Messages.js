@@ -5,7 +5,7 @@ import { Container, Button } from '@material-ui/core';
 import MessageDisplay from './MessageDisplay';
 import axios from 'axios';
 
-let socket = io('http://localhost:5000');
+let socket = io('https://toronto-city-travel-guide.herokuapp.com');
 const Messages = () => {
     let { userData, setUserData } = useContext(UserContext);
     
@@ -17,7 +17,7 @@ const Messages = () => {
     
     useEffect(() => {
         console.log('userData: ', userData)
-        axios.post("http://localhost:5000/getUserMessages", {
+        axios.post("https://toronto-city-travel-guide.herokuapp.com/getUserMessages", {
             userId: userData.user.id,
             contactId: userData.contactId
         }, {
@@ -65,7 +65,7 @@ const Messages = () => {
                 setMessages({...messages, messageHistory: [newMessage]})
             }
             
-            axios.post("http://localhost:5000/updateUserMessages", {
+            axios.post("https://toronto-city-travel-guide.herokuapp.com/updateUserMessages", {
                 newMessage,
                 messagesId: messages._id
             }, {

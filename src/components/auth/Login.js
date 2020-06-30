@@ -14,7 +14,7 @@ export default function Login () {
 
 	const handleLogin = async (e) => {
 		e.preventDefault();
-		const loginRes = await axios.post('http://localhost:5000/auth/login', userInfo);
+    const loginRes = await axios.post('https://toronto-city-travel-guide.herokuapp.com/auth/login', userInfo);
     localStorage.setItem('auth-token', loginRes.data.token);
     const token = localStorage.getItem('auth-token');
     setUserData({...userData, token: token})
