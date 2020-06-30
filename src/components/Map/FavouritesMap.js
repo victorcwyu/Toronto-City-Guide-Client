@@ -113,11 +113,6 @@ const FavouritesMap = () => {
 
   return (
     <div id="favourites-container">
-      <div
-        id="favourite-map"
-        ref={googleMapRef}
-        style={mapStyles}
-      />
       {userFavourites.length > 0 &&
         <div id="listing">
           <table id="resultsTable">
@@ -126,6 +121,11 @@ const FavouritesMap = () => {
           </table>
         </div>
       }
+      <div
+        id="favourite-map"
+        ref={googleMapRef}
+        style={mapStyles}
+      />
     </div>
   )
 }

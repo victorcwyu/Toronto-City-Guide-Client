@@ -268,6 +268,11 @@ const Autocomplete = () => {
           <PlaceTypeSelector />
           <div id="locationField">
             <input id="autocomplete" placeholder="Enter a location" type="text" ref={placeInputRef} />
+            <div id="listing">
+              <table id="resultsTable">
+                <tbody id="results"></tbody>
+              </table>
+            </div>
           </div>
         </div>
         <div
@@ -275,11 +280,6 @@ const Autocomplete = () => {
           ref={googleMapRef}
           style={mapStyles}
         />
-        <div id="listing">
-          <table id="resultsTable">
-            <tbody id="results"></tbody>
-          </table>
-        </div>
         <div style={noDisplay}>
           <div id="info-content">
             <table>

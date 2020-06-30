@@ -30,7 +30,7 @@ table {
   -webkit-box-align: center;
   -ms-flex-align: center;
   // align-items: center;
-  background: #fff;
+  // background: #fff;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -62,10 +62,11 @@ table {
   -webkit-box-flex: 1 1 190px;
   -ms-flex: 1 1 190px;
   flex: 1 1 190px;
-  margin: 0 8px;
+  // margin: 0 8px;
 }
 #autocomplete {
-  width: 300px;
+  // width: 300px;
+  border: none;
 }
 .placeIcon {
   width: 20px;
@@ -100,8 +101,8 @@ table {
   // margin: 100px;
   // display: flex;
   display: inline-flex;
-  border: 1em solid #1a2656;
+  // border: 1em solid #1a2656;
   margin: 0 auto;
-  background-color: white;
-  height: 75vh;
+  // background-color: white;
+  height: 65vh;
 }
