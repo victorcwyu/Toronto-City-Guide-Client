@@ -1,23 +1,25 @@
 import React, { useState, useContext, useEffect } from "react";
 import { Container } from "@material-ui/core";
 import "../../styles/Schedule.scss";
-import { Link } from "react-router-dom";
 import axios from "axios";
 import UserContext from "../../context/UserContext";
 import { date } from "date-fns/locale/af";
 import moment from "moment"
+import ScheduleDetails from "./ScheduleDetails"
 
 export default function Schedule() {
+  const { userData, setUserData } = useContext(UserContext);
+
   const [schedules, setSchedules] = useState();
   const [selectedDate, setSelectedDate] = useState(moment().zone(4))
 
   useEffect(() => {
     getData();
-  }, []);
+  }, [userData.wtf]);
 
   const getData = () => {
     axios
-      .post("http://localhost:5000/api/schedules/get", {
+      .post("https://toronto-city-travel-guide.herokuapp.com/api/schedules/get", {
         selectedDate: selectedDate.format('YYYY-MM-DD')
       }, {
         headers: {
@@ -25,6 +27,8 @@ export default function Schedule() {
         },
       })
       .then((res) => {
+        setUserData({...userData.user, schedules: res.data});
+        console.log(res.data)
         setSchedules(res.data);
       });
   };
@@ -41,12 +45,11 @@ export default function Schedule() {
 
   return (
     <Container className="schedule">
+    <ScheduleDetails/>
       <button onClick={handleSubtract}>-</button>
       {selectedDate && selectedDate.format('MMM D, YYYY')}
       <button onClick={handleAdd}>+</button>
-      <Link to="/schedule"><p className="schedule-title">Book Your Schedule</p></Link>
       {schedules &&
-        schedules.schedules &&
         schedules.schedules.map((schedule) => {
           return (
             <div key={schedule._id} className="schedule-item">
