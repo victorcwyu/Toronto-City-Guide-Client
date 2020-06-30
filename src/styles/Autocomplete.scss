@@ -112,5 +112,8 @@ table {
     border: none;
     background-color: #0f508b;
     margin: 0 auto;
+    &:hover {
+      background-color: #287ac3;
+    }
   }
 }
