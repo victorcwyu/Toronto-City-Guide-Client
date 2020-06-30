@@ -3,8 +3,23 @@ import {useHistory} from 'react-router-dom';
 import UserContext from '../../context/UserContext';
 import { Container, Typography, Button, FormControl, InputLabel, Input } from '@material-ui/core';
 import axios from 'axios'
+import { makeStyles } from '@material-ui/core/styles';
+
+const useStyle = makeStyles({
+  form : {
+    marginTop: "5rem"
+  },
+  header: {
+    color: "#1a2656",
+  },
+  button: {
+    marginTop: "3rem",
+    borderColor: "#1a2656"
+  }
+})
 
 export default function Login () {
+  const classes = useStyle();
 	const [userInfo, setUserInfo] = useState({
 		username: '',
 		password: ''
@@ -24,8 +39,8 @@ export default function Login () {
     return (
         <div>
             <Container>
-							<Typography variant='h2'>Login</Typography>
-            	<form onSubmit={handleLogin}>
+							<Typography variant='h2' className={classes.header}>Login</Typography>
+            	<form onSubmit={handleLogin} className={classes.form}>
                 <FormControl fullWidth>
                   <InputLabel htmlFor="username">Username</InputLabel>
                   <Input id="username" type="text" value={userInfo.username} onChange={e => setUserInfo({...userInfo, username: e.target.value})} /> 
@@ -34,7 +49,7 @@ export default function Login () {
                   <InputLabel htmlFor="password">Password</InputLabel>
                   <Input id="password" type="password" value={userInfo.password} onChange={e => setUserInfo({...userInfo, password: e.target.value})}/>  
                 </FormControl>
-								<Button variant='contained' type='submit'>Submit</Button>
+								<Button variant="outlined" type='submit' className={classes.button}>Submit</Button>
               </form>
             </Container>
         </div>

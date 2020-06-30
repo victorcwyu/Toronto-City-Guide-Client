@@ -1,4 +1,5 @@
 import React, { useEffect, useContext, useState } from 'react';
+import { useHistory } from 'react-router-dom';
 import io from 'socket.io-client';
 import UserContext from '../context/UserContext';
 import { Container, Button } from '@material-ui/core';
@@ -7,31 +8,39 @@ import axios from 'axios';
 
 let socket = io('https://toronto-city-travel-guide.herokuapp.com');
 const Messages = () => {
-    let { userData, setUserData } = useContext(UserContext);
+    const history = useHistory();
     
+    const { userData, setUserData } = useContext(UserContext);
+
     const [message, setMessage] = useState('');
     const [messages, setMessages] = useState('');
     
+
     const token = localStorage.getItem('auth-token');
     
     
     useEffect(() => {
         console.log('userData: ', userData)
-        axios.post("https://toronto-city-travel-guide.herokuapp.com/getUserMessages", {
-            userId: userData.user.id,
-            contactId: userData.contactId
-        }, {
-            headers: {
-                "x-auth-token": token
-            }
-        })
-        .then(res => {
-            console.log('set message history', res)
-            setMessages(res.data.messageHistory)
+        if(!userData.user){
+            history.push('/')
+        } else {
+            axios.post("https://toronto-city-travel-guide.herokuapp.com/getUserMessages", {
+                userId: userData.user.id,
+                contactId: userData.contactId
+            }, {
+                headers: {
+                    "x-auth-token": token
+                }
+            })
+            .then(res => {
+                console.log('set message history', res)
+                setMessages(res.data.messageHistory)
+                
+            })
+
             
-        })
-        
-        socket.emit('joinroom', userData.user);
+            socket.emit('joinroom', userData.user);
+        }
         
         
         return () => socket.disconnect();
@@ -56,13 +65,12 @@ const Messages = () => {
                 senderId: userData.user.id,
                 timeStamp: Date.now()
             }
-            
-            if(messages.messageHistory.length > 0) {
+            if(!messages) {
+                setMessages({...messages, messageHistory: [newMessage]})
+            } else {
                 const currentHistory = messages.messageHistory;
                 const newHistory = [...currentHistory, newMessage]
                 setMessages({ ...messages, messageHistory: newHistory })
-            } else {
-                setMessages({...messages, messageHistory: [newMessage]})
             }
             
             axios.post("https://toronto-city-travel-guide.herokuapp.com/updateUserMessages", {

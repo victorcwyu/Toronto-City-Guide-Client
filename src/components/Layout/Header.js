@@ -7,6 +7,7 @@ const useStyles = makeStyles({
     root: {
         background: '#444',
         height: '60px',
+        marginBottom: "3rem"
     },
     navbar: {
         display: 'flex',
