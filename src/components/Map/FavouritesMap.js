@@ -23,7 +23,6 @@ const FavouritesMap = () => {
   const getFavouritesData = async () => {
     let res = await axios.get("https://toronto-city-travel-guide.herokuapp.com/getFavourites", { headers: {"x-auth-token": token} });
     setUserFavourites(res.data.favourites)
-    console.log("YOOOOOO", userFavourites)
     return res.data.favourites;
   };
 
