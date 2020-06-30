@@ -2,10 +2,16 @@ import React, {useContext} from 'react';
 import {useHistory} from 'react-router-dom';
 import { Card, Button } from '@material-ui/core';
 import UserContext from '../context/UserContext';
+import { makeStyles } from '@material-ui/core/styles';
 import axios from 'axios';
+
+const useStyle = makeStyles({
+
+})
 
 export default function UserContactInfo({contactName, contactId}) {
     const history = useHistory();
+    const classes = useStyle();
     const {userData, setUserData} = useContext(UserContext);
     
     const renderMessages = () => {

@@ -12,7 +12,7 @@ const useStyle = makeStyles({
     color: "#14a2f4",
   },
   button: {
-    marginTop: "1.5rem",
+    marginTop: "1rem",
     borderColor: "#1a2656"
   }
 })
@@ -88,10 +88,16 @@ export default function UserProfile() {
           </div>
           {searchData && (
             <div>
-              {searchData.username}
-              <div
+              <h3>{searchData.username}</h3>
+              <div>  
+              <Button
               onClick={handleAddContact}
-              >+</div>
+              variant='outlined' 
+              className={classes.button}
+              >
+                Add Contact
+              </Button>
+              </div>
             </div>
           )}
           <h1>Contacts</h1>
