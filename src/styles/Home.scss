@@ -37,3 +37,33 @@
     transform: rotate(360deg);
   }
 }
+
+@import url('https://fonts.googleapis.com/css?family=Amatic+SC&display=swap');
+
+html {
+  line-height: 1.15;
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  margin: 0;
+}
+
+h1 {
+  margin: 0;
+}
+
+.wrapper h1 {
+  font-family: 'Amatic SC', cursive;
+  font-size: 64px;
+  color: #01050e;
+  text-align: center;
+}
+
+.wrapper h1 span {
+  position: absolute;
+}
+
+.homeContainer {
+  margin-top: 150px;
+}
