@@ -1,13 +1,14 @@
 import { functions, isEqual, omit } from "lodash"
 import React, { useState, useEffect, useRef, useContext } from "react"
 import "../../styles/HomeMap.scss";
-import { Link } from "react-router-dom";
+// import { Link } from "react-router-dom";
 import UserContext from '../../context/UserContext';
+import FavouritesHomeMap from './FavouritesHomeMap'
 
 // outside function to avoid too many rerenders
 const mapStyles = {
-  width: "400px",
-  height: "400px",
+  width: "500px",
+  height: "500px",
 };
 
 function Map({ options, onMount, className, onMountProps }) {
@@ -37,27 +38,41 @@ function Map({ options, onMount, className, onMountProps }) {
 
   // onMount allows for customization, i.e. adding markers
   // if (map && typeof onMount === `function`) onMount(map, onMountProps);
-  if (map && userData.token) {
-    map.setOptions({ draggable: false });
-  };
+  // if (map && userData.token) {
+  //   map.setOptions({ draggable: false });
+  // };
 
-  function handleClick(e) {
-    if (!userData.token) {
-      e.preventDefault();
-    };
-  }
+  // function handleClick(e) {
+  //   if (!userData.token) {
+  //     e.preventDefault();
+  //   };
+  // }
 
   return (
-    <Link 
-      onClick={handleClick}
-      to="/map"
-    >
-        <div
-          id="homeMap"
-          style={mapStyles}
-          {...{ ref, className }}
-        />
-    </Link>
+
+    <div
+      id="homeMap"
+      style={mapStyles}
+      {...{ ref, className }}
+    />
+
+  //   <Link 
+  //     onClick={handleClick}
+  //     to="/map"
+  //   >
+  // <>
+  //   {!userData.token &&
+  //       <div
+  //         id="homeMap"
+  //         style={mapStyles}
+  //         {...{ ref, className }}
+  //       />
+  //   }
+  //   {userData.token &&
+  //     <FavouritesHomeMap />
+  //   }
+  //   </>
+    // </Link>
   );
 
 }

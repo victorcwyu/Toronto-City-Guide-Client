@@ -5,9 +5,13 @@ import { makeStyles } from '@material-ui/core/styles';
 
 const useStyles = makeStyles({
     root: {
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
         background: '#444',
-        height: '60px',
-        marginBottom: "3rem"
+        height: '75px',
+        marginBottom: "3rem",
+        boxShadow: '0 2px 6px 6px #1a2656',
     },
     navbar: {
         display: 'flex',
@@ -15,11 +19,18 @@ const useStyles = makeStyles({
         alignItems: 'center',
     },
     navItem: {
+        fontSize: "24px", 
         color: "#fff",
         textDecoration: 'none',
-        margin: '5px 5px 0 5px'
+        margin: '0 20px',
+        "&:hover": {
+            color: "#14a2f4"
+        }
     },
     navButton: {
+        fontSize: "24px", 
+        margin: '0 25px',
+        padding: "0",
         border: "none",
         backgroundColor: '#444',
         color: '#fff',
@@ -43,10 +54,11 @@ export default function Header() {
     return (
         <nav className={classes.root}>
             <div className={classes.navbar}>
-
-            <Link className={classes.navItem} to="/">
-                Home
-            </Link>
+            {userData.token && 
+                <Link className={classes.navItem} to="/">
+                    Home
+                </Link>
+            }
         {!userData.token && 
             <Link className={classes.navItem} to="/login">
                 <p>Login</p>
