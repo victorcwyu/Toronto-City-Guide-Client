@@ -22,12 +22,15 @@ const useStyles = makeStyles({
         fontSize: "24px", 
         color: "#fff",
         textDecoration: 'none',
-        margin: '5px 25px 0',
+        margin: '0 20px',
         "&:hover": {
             color: "#14a2f4"
         }
     },
     navButton: {
+        fontSize: "24px", 
+        margin: '0 25px',
+        padding: "0",
         border: "none",
         backgroundColor: '#444',
         color: '#fff',
