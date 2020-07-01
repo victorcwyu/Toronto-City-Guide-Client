@@ -4,6 +4,7 @@ import io from 'socket.io-client';
 import UserContext from '../context/UserContext';
 import { Container, Button } from '@material-ui/core';
 import MessageDisplay from './MessageDisplay';
+import '../styles/messages.scss'
 import axios from 'axios';
 
 let socket = io('https://toronto-city-travel-guide.herokuapp.com');
@@ -108,6 +109,7 @@ const Messages = () => {
                     })}
                 </div>
                 <input
+                    className="chat-input"
                     value={message}
                     onChange={e => setMessage(e.target.value)}
                     onKeyPress={e => e.key === 'Enter' ? sendMessage(e) : null}

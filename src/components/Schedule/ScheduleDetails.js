@@ -2,19 +2,25 @@ import React, { useState, useContext } from "react";
 import {
   Container,
   FormControl,
-  Input,
-  InputLabel,
-  Button,
   TextField,
+  Button
 } from "@material-ui/core";
 import "../../styles/ScheduleDetails.scss";
 import axios from "axios";
 import DateFnsUtils from '@date-io/date-fns';
 import UserContext from "../../context/UserContext";
+import { makeStyles } from '@material-ui/core/styles';
 
 import { KeyboardDateTimePicker, MuiPickersUtilsProvider } from "@material-ui/pickers";
 
+const useStyle = makeStyles({
+  button: {
+    color: "#01050e",
+    marginTop: "0.5rem"
+  }
+}) 
 export default function ScheduleDetails() {
+  const classes = useStyle();
   const { userData, setUserData } = useContext(UserContext);
   const [state, setState] = useState({
     bookedDate: null,
@@ -44,7 +50,7 @@ export default function ScheduleDetails() {
 
   return (
     <Container className="schedule-details">
-      <h1>Schedule Details</h1>
+      <h1>What Are You Planning?</h1>
       <FormControl>
         <TextField
           id="title"
@@ -73,9 +79,12 @@ export default function ScheduleDetails() {
           />
         </MuiPickersUtilsProvider>
         <br />
-        <button onClick={handleSchedule}>
+        <Button 
+        variant="outlined"
+        className={classes.button}
+        onClick={handleSchedule}>
           Save
-        </button>
+        </Button>
       </FormControl>
       <br />
     </Container>

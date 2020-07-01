@@ -59,11 +59,22 @@ export default function Schedule() {
   }
 
   return (
-    <Container className="schedule">
+    <>
     <ScheduleDetails/>
-      <button onClick={handleSubtract}>-</button>
+    <Container className="schedule">
+      <button 
+      onClick={handleSubtract}
+      className="date-selector"
+      >
+        Prev
+      </button>
       {selectedDate && selectedDate.format('MMM D, YYYY')}
-      <button onClick={handleAdd}>+</button>
+      <button 
+      className="date-selector"
+      onClick={handleAdd}
+      >
+        Next
+      </button>
       {schedules &&
         schedules.schedules.map((schedule) => {
           return (
@@ -77,5 +88,6 @@ export default function Schedule() {
           );
         })}
     </Container>
+    </>
   );
 }

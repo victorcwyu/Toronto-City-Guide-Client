@@ -1,6 +1,7 @@
  .schedule{
-  border: 1em solid black;
-  background-color:  #b3ffd9;
+  border: .2em solid #01050e;
+  background-color:  #287ac3;
+  box-shadow: 10px 10px 5px 0px rgba(0, 0, 0, 0.75);
   padding: 20px;
   margin: 100px;
   width: 500px;
@@ -33,4 +34,13 @@
 
 .item-div{
    padding: 10px;
+}
+
+.date-selector {
+   margin: 0 .5rem 0 .5rem;
+   background: #287ac3;
+   border: 1px solid #01050e;
+   border-radius: 3px;
+   color: #01050e;
+   cursor: pointer;
 }

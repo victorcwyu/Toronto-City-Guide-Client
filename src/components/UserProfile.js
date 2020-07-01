@@ -14,6 +14,10 @@ const useStyle = makeStyles({
   button: {
     marginTop: "1rem",
     borderColor: "#1a2656"
+  },
+  input: {
+    padding: "0.5rem",
+    borderRadius: "5px"
   }
 })
 
@@ -69,6 +73,7 @@ export default function UserProfile() {
         <Container>
           <h1>Add a Contact</h1>
           <input
+          className={classes.input}
           type="text"
           name="finduser"
           placeholder="username"
