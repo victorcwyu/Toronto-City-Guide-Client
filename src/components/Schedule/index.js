@@ -27,7 +27,8 @@ export default function Schedule() {
         },
       })
       .then((res) => {
-        setUserData({...userData.user, schedules: res.data});
+        // setUserData({...userData.user, schedules: res.data});
+        setUserData({ ...userData, retrievedSchedules: res.data });
         // console.log(res.data)
         setSchedules(res.data);
       });
