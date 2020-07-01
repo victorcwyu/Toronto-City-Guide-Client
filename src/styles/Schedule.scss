@@ -1,29 +1,15 @@
- .schedule{
-  border: .2em solid #01050e;
-  background-color:  #287ac3;
-  box-shadow: 10px 10px 5px 0px rgba(0, 0, 0, 0.75);
-  padding: 20px;
-  margin: 100px;
-  width: 500px;
-} 
-
 .schedule-item{
-
-   border: 1px solid black;
+   margin-top: 20px;
+   padding-bottom: 20px;
+   border: 1px solid #01050e;
    font-weight: bold;
    color: blue;
-    
 }
 
 .item{
    display: inline;
    font-weight: bold;
-   color: black;
-}
-
-.item-title{
-     font-size: 1.1em;
-     font-style: italic;
+   color: #01050e;
 }
 
 .schedule-title{
@@ -34,13 +20,38 @@
 
 .item-div{
    padding: 10px;
+   color: white;
+   word-wrap: break-word;
+}
+
+.item-title{
+     font-size: 1.1em;
+     font-style: italic;
+     color: #01050e ;
+     word-wrap: break-word;
 }
 
 .date-selector {
    margin: 0 .5rem 0 .5rem;
-   background: #287ac3;
-   border: 1px solid #01050e;
-   border-radius: 3px;
-   color: #01050e;
+   background: #0f508b;
+   // border: 1px solid #01050e;
+   border: none;
+   // border-radius: 3px;
+   // color: #01050e;
    cursor: pointer;
+   &:hover {
+      color: #01050e;
+      background-color: #14a2f4;
+   }
+}
+
+
+#scheduleButton {
+   border: none;
+   background-color: #1a2656;
+   cursor: pointer;
+   &:hover {
+      color: #0f508b;
+      background-color: white;
+   }
 }
