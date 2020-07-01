@@ -1,8 +1,9 @@
 import { functions, isEqual, omit } from "lodash"
 import React, { useState, useEffect, useRef, useContext } from "react"
 import "../../styles/HomeMap.scss";
-import { Link } from "react-router-dom";
+// import { Link } from "react-router-dom";
 import UserContext from '../../context/UserContext';
+import FavouritesHomeMap from './FavouritesHomeMap'
 
 // outside function to avoid too many rerenders
 const mapStyles = {
@@ -41,22 +42,36 @@ function Map({ options, onMount, className, onMountProps }) {
   //   map.setOptions({ draggable: false });
   // };
 
-  function handleClick(e) {
-    if (!userData.token) {
-      e.preventDefault();
-    };
-  }
+  // function handleClick(e) {
+  //   if (!userData.token) {
+  //     e.preventDefault();
+  //   };
+  // }
 
   return (
+
+    <div
+      id="homeMap"
+      style={mapStyles}
+      {...{ ref, className }}
+    />
+
   //   <Link 
   //     onClick={handleClick}
   //     to="/map"
   //   >
-        <div
-          id="homeMap"
-          style={mapStyles}
-          {...{ ref, className }}
-        />
+  // <>
+  //   {!userData.token &&
+  //       <div
+  //         id="homeMap"
+  //         style={mapStyles}
+  //         {...{ ref, className }}
+  //       />
+  //   }
+  //   {userData.token &&
+  //     <FavouritesHomeMap />
+  //   }
+  //   </>
     // </Link>
   );
 
