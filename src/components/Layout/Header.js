@@ -28,13 +28,17 @@ const useStyles = makeStyles({
         }
     },
     navButton: {
+        fontFamily: "Roboto, sans-serif",
         fontSize: "24px", 
         margin: '0 25px',
         padding: "0",
         border: "none",
         backgroundColor: '#444',
         color: '#fff',
-        cursor: 'pointer'
+        cursor: 'pointer',
+        "&:hover": {
+            color: "#14a2f4"
+        }
     }
 })
 
