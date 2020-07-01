@@ -1,9 +1,7 @@
 import { functions, isEqual, omit } from "lodash"
 import React, { useState, useEffect, useRef, useContext } from "react"
 import "../../styles/HomeMap.scss";
-// import { Link } from "react-router-dom";
 import UserContext from '../../context/UserContext';
-import FavouritesHomeMap from './FavouritesHomeMap'
 
 // outside function to avoid too many rerenders
 const mapStyles = {

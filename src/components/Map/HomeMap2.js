@@ -1,8 +1,6 @@
 import React, { useState, useEffect, useContext } from 'react';
 import "../../styles/Map.scss";
-import HomeMap from './HomeMap';
 import FavouritesHomeMap from './FavouritesHomeMap';
-import UserContext from '../../context/UserContext';
 
 const GOOGLE_MAP_API_KEY = process.env.REACT_APP_GOOGLE_MAPS_API_KEY;
 // load google map script
@@ -19,7 +17,6 @@ const loadGoogleMapScript = (callback) => {
 
 export default function Map() {
   const [loadMap, setLoadMap] = useState(false);
-  const { userData, setUserData } = useContext(UserContext);
 
   useEffect(() => {
     loadGoogleMapScript(() => {
@@ -29,9 +26,7 @@ export default function Map() {
 
   return (
     <div id="map-page">
-      {!loadMap && <div>Loading...</div>}
-      {!userData.token && <HomeMap />}
-      {userData.token && <FavouritesHomeMap />}
+      {!loadMap ? <div>Loading...</div> : <FavouritesHomeMap />}
     </div>
   )
 }
