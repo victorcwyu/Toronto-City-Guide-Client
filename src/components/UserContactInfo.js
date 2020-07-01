@@ -6,7 +6,17 @@ import { makeStyles } from '@material-ui/core/styles';
 import axios from 'axios';
 
 const useStyle = makeStyles({
-
+    button: {
+        color: "#01050e",
+        margin: "0 1rem 1rem 0",
+        marginLeft: "1rem"
+    },
+    card: {
+        marginBottom: "1.5rem",
+        backgroundColor: "#287ac3",
+        boxShadow: "10px 10px 5px 0px rgba(0, 0, 0, 0.75)",
+        padding: "0.5rem"
+    }
 })
 
 export default function UserContactInfo({contactName, contactId}) {
@@ -36,25 +46,25 @@ export default function UserContactInfo({contactName, contactId}) {
       }
 
     return (
-        <div>
-        <Card>
+        <div className={classes.card}>
             <h1>{contactName}</h1> 
-            <p>{contactId}</p>
             <Button
                 id="contactId" 
                 value={contactId}
-                variant="contained"
+                variant="outlined"
                 onClick={renderMessages}
+                className={classes.button}
             >
                 Messages
             </Button>
             <Button 
-                variant="contained"
+                variant="outlined"
                 onClick={handleDelete}
+                className={classes.button}
             >
             Remove
             </Button>
-        </Card> 
+
         </div>
     )
 }

@@ -65,7 +65,7 @@ export default function Header() {
         {userData.token &&
             <Link className={classes.navItem}
             to="/schedule">
-                Book Your Schedule
+                Schedule
             </Link>
         }
         {userData.token &&

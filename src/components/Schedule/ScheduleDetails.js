@@ -2,9 +2,6 @@ import React, { useState, useContext } from "react";
 import {
   Container,
   FormControl,
-  Input,
-  InputLabel,
-  Button,
   TextField,
 } from "@material-ui/core";
 import "../../styles/ScheduleDetails.scss";

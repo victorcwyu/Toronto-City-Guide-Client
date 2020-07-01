@@ -18,7 +18,7 @@ const MessageDisplay = ({message, senderId, time}) => {
 
 
   return (
-    <div className={userData.user.id === senderId ? classes.sender : classes.contact}>
+    <div className={userData.user.id === senderId ? "sender-message" : "contact-message"}>
     {message}
     </div>
   )
