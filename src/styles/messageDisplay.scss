@@ -1,5 +1,14 @@
 .sender-message {
-    align:'left'
+    background: red;
+    border-radius: 10px;
+    display: inline;
+    padding: 6px;
 }
 
-.contact-message
+.contact-message {
+    background: blue;
+    border-radius: 10px;
+    display: inline-block;
+    padding: 6px;
+    margin-bottom: 0;
+}
