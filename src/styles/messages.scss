@@ -1,11 +1,15 @@
 .display {
     background: #fffeea;
     height: 500px;
+    max-height: 500px;
+
     width: 300px;
     margin: auto;
     margin-bottom: 1rem;
     border-radius: 5px;
-    padding: 1rem
+    padding: 1rem;
+    list-style: none;
+    // display: flex;
 }
 
 .chat-input {

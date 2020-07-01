@@ -99,7 +99,10 @@ const Messages = () => {
         <div>
             <Container>
                 <h1>Messages</h1>
-                <div className="display">
+                <MessageDisplay 
+                messages={messages}
+                />
+                {/* <ul className="display">
                     {messages && messages.messageHistory && messages.messageHistory.map(message => {
                         return <MessageDisplay
                             message={message.text}
@@ -107,7 +110,7 @@ const Messages = () => {
                             time={message.timeStamp}
                         />
                     })}
-                </div>
+                </ul> */}
                 <input
                     className="chat-input"
                     value={message}
