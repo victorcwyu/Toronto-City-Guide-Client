@@ -78,7 +78,7 @@ export default function Schedule() {
     <>
     <ScheduleDetails/>
       <Container className={classes.root}>
-        <div className="item-div">Schedule for:</div>
+        <h2>Schedule for:</h2>
         <button 
         onClick={handleSubtract}
         className="date-selector"

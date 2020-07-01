@@ -79,6 +79,7 @@ export default function ScheduleDetails() {
           value={state.title}
           onChange={(e) => setState({ ...state, title: e.target.value })}
         />
+        <br />
         <TextField
           id="description"
           label="Description"
@@ -86,18 +87,22 @@ export default function ScheduleDetails() {
           onChange={(e) => setState({ ...state, description: e.target.value })}
         />
         <br />
-        <br />
         <MuiPickersUtilsProvider utils={DateFnsUtils}>
+
+
           <KeyboardDateTimePicker
             variant="inline"
             ampm={false}
-            label="With keyboard"
+            label="YYYY-MM-DD, HH:MM"
             value={state.bookedDate}
             onChange={handleChange}
             onError={console.log}
             disablePast
             format="yyyy/MM/dd HH:mm"
           />
+
+
+
         </MuiPickersUtilsProvider>
         <br />
         <Button 
