@@ -37,9 +37,9 @@ function Map({ options, onMount, className, onMountProps }) {
 
   // onMount allows for customization, i.e. adding markers
   // if (map && typeof onMount === `function`) onMount(map, onMountProps);
-  if (map && userData.token) {
-    map.setOptions({ draggable: false });
-  };
+  // if (map && userData.token) {
+  //   map.setOptions({ draggable: false });
+  // };
 
   function handleClick(e) {
     if (!userData.token) {
@@ -48,16 +48,16 @@ function Map({ options, onMount, className, onMountProps }) {
   }
 
   return (
-    <Link 
-      onClick={handleClick}
-      to="/map"
-    >
+  //   <Link 
+  //     onClick={handleClick}
+  //     to="/map"
+  //   >
         <div
           id="homeMap"
           style={mapStyles}
           {...{ ref, className }}
         />
-    </Link>
+    // </Link>
   );
 
 }
