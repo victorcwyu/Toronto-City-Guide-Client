@@ -6,8 +6,8 @@ import UserContext from '../../context/UserContext';
 
 // outside function to avoid too many rerenders
 const mapStyles = {
-  width: "400px",
-  height: "400px",
+  width: "500px",
+  height: "500px",
 };
 
 function Map({ options, onMount, className, onMountProps }) {
