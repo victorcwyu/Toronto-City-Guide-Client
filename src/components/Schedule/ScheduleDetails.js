@@ -98,7 +98,7 @@ export default function ScheduleDetails() {
             onChange={handleChange}
             onError={console.log}
             disablePast
-            format="yyyy/MM/dd HH:mm"
+            format="yyyy/mm/dd hh:mm"
           />
 
 
