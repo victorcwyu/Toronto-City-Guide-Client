@@ -45,9 +45,9 @@ const Autocomplete = () => {
     // });
 
     // Initialize infoWindow
-    const infoWindow = new window.google.maps.InfoWindow({
+    const infoWindow = window.google ? new window.google.maps.InfoWindow({
       content: document.getElementById('info-content')
-    });
+    }) : null;
 
     // Restrict the search to Canada, in the lat/lng bounds of Toronto.
     const bounds = new window.google.maps.LatLngBounds(
