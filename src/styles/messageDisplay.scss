@@ -10,7 +10,6 @@
         margin-bottom: 1rem;
         border-radius: 5px;
         padding: 1rem;
-        list-style: none;
         display: flex;
         flex-direction: column;
         overflow: auto;
@@ -19,11 +18,12 @@
         .sender-message {
             text-align: left;
             margin-left: .75rem;
+            padding: 0;
 
             .content {
                 background-color: #287ac3;
-                border-radius: 10px;
-                padding: .5rem 1rem;
+                border-radius: 15px;
+                padding: .75rem 1rem;
                 color: #f4f4f4;
                 display: inline-block;
                 word-break: break-all;
@@ -33,10 +33,11 @@
         .contact-message {
             text-align: right;
             margin-right: .75rem;
+
             .content {
                 background-color: #1a2656;
-                border-radius: 10px;
-                padding: .5rem 1rem;
+                border-radius: 15px;
+                padding: .75rem 1rem;
                 color: #f4f4f4;
                 display: inline-block;
                 word-break: break-all;

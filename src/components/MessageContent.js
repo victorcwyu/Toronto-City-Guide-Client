@@ -6,9 +6,9 @@ const MessageContent = ({message, senderId, time}) => {
     const {userData} = useContext(UserContext);
 
   return (
-    <li  className={userData.user.id === senderId ? "sender-message" : "contact-message"}>
+    <div className={userData.user.id === senderId ? "sender-message" : "contact-message"}>
     <p className="content">{message}</p>
-    </li>
+    </div>
   )
 }
 

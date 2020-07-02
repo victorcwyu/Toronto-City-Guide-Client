@@ -8,8 +8,17 @@ import { makeStyles } from '@material-ui/core/styles';
 import '../styles/messages.scss'
 import axios from 'axios';
 
-let socket = io('https://toronto-city-travel-guide.herokuapp.com');
+let socket;
+
+const useStyle = makeStyles({
+    button: {
+        color: "#01050e",
+        marginTop: "1rem"
+    }
+})
 const Messages = () => {
+    const classes = useStyle();
+
     const history = useHistory();
 
     const { userData, setUserData } = useContext(UserContext);
@@ -20,6 +29,9 @@ const Messages = () => {
     const token = localStorage.getItem('auth-token');
 
     useEffect(() => {
+
+        socket  = io('https://toronto-city-travel-guide.herokuapp.com');
+
         if(!userData.user){
             history.push('/')
         } else {
@@ -96,9 +108,11 @@ const Messages = () => {
     
     return (
         <div>
-            <Container>
+            <Container>{userData.contactInfo &&
+                <h1>Converstation with <span>{userData.contactInfo.contactName}</span></h1>
+            }
                 <MessageDisplay 
-                 messages={messages}
+                    messages={messages}
                 />
                 {/* <ul className="display">
                     {messages && messages.messageHistory && messages.messageHistory.map(message => {
@@ -117,6 +131,7 @@ const Messages = () => {
                 />
                 <Button
                 variant='outlined' 
+                className={classes.button}
                 onClick={sendMessage}
                 >
                 Submit</Button>

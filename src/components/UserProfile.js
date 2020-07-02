@@ -79,6 +79,7 @@ export default function UserProfile() {
           placeholder="username"
           value={input}
           onChange={e => setInput(e.target.value)}
+          onKeyPress={e => e.key === 'Enter' ? handleSearch(e) : null}
           />
           <div>
           {!searchData &&
