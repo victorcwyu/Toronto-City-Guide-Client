@@ -6,6 +6,9 @@ import UserContext from '../../context/UserContext';
 import { makeStyles } from '@material-ui/core/styles';
 
 const useStyle = makeStyles({
+  root: {
+    width: '40%'
+  },
   form : {
     marginTop: "5rem"
   },
@@ -53,7 +56,7 @@ export default function Signup () {
 	
     return (
         <div>
-            <Container>
+          <Container className={classes.root}>
 							<Typography variant='h2' className={classes.header}>Create An Account</Typography>
             	<form onSubmit={handleSignUp}>
                 <FormControl fullWidth>

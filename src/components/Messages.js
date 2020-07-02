@@ -87,7 +87,8 @@ const Messages = () => {
             
             axios.post("https://toronto-city-travel-guide.herokuapp.com/updateUserMessages", {
                 newMessage,
-                messagesId: messages?._id
+                messagesId: messages._id
+                // messagesId: messages ? messages._id : null
             }, {
                 headers: {
                     "x-auth-token": token

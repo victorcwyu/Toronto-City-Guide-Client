@@ -6,6 +6,9 @@ import axios from 'axios'
 import { makeStyles } from '@material-ui/core/styles';
 
 const useStyle = makeStyles({
+  root: {
+    width: '40%'
+  },
   form : {
     marginTop: "5rem"
   },
@@ -38,7 +41,7 @@ export default function Login () {
 	
     return (
         <div>
-            <Container>
+          <Container className={classes.root}>
 							<Typography variant='h2' className={classes.header}>Login</Typography>
             	<form onSubmit={handleLogin} className={classes.form}>
                 <FormControl fullWidth>
