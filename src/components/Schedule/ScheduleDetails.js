@@ -14,11 +14,31 @@ import { makeStyles } from '@material-ui/core/styles';
 import { KeyboardDateTimePicker, MuiPickersUtilsProvider } from "@material-ui/pickers";
 
 const useStyle = makeStyles({
+  root: {
+    border: '.2em solid #01050e',
+    width: '80%',
+    boxShadow: '10px 10px 5px 0px rgba(0, 0, 0, 0.75)',
+    padding: '20px',
+    margin: '100px auto',
+    backgroundColor: '#287ac3',
+  },
   button: {
-    color: "#01050e",
-    marginTop: "0.5rem"
+    border: 'none',
+    // color: "#01050e",
+    color: "white",
+    marginTop: "0.5rem",
+    textTransform: "none",
+    backgroundColor: '#1a2656',
+    cursor: 'pointer',
+    '&:hover': {
+    color: '#0f508b',
+    backgroundColor: 'white',
+    }
   }
 }) 
+
+
+
 export default function ScheduleDetails() {
   const classes = useStyle();
   const { userData, setUserData } = useContext(UserContext);
@@ -49,7 +69,8 @@ export default function ScheduleDetails() {
   }
 
   return (
-    <Container className="schedule-details">
+    // <Container className="schedule-details">
+    <Container className={classes.root}>
       <h1>What Are You Planning?</h1>
       <FormControl>
         <TextField
@@ -58,6 +79,7 @@ export default function ScheduleDetails() {
           value={state.title}
           onChange={(e) => setState({ ...state, title: e.target.value })}
         />
+        <br />
         <TextField
           id="description"
           label="Description"
@@ -65,25 +87,29 @@ export default function ScheduleDetails() {
           onChange={(e) => setState({ ...state, description: e.target.value })}
         />
         <br />
-        <br />
         <MuiPickersUtilsProvider utils={DateFnsUtils}>
+
+
           <KeyboardDateTimePicker
             variant="inline"
             ampm={false}
-            label="With keyboard"
+            label="YYYY-MM-DD, HH:MM"
             value={state.bookedDate}
             onChange={handleChange}
             onError={console.log}
             disablePast
-            format="yyyy/MM/dd HH:mm"
+            format="yyyy/mm/dd hh:mm"
           />
+
+
+
         </MuiPickersUtilsProvider>
         <br />
         <Button 
         variant="outlined"
         className={classes.button}
         onClick={handleSchedule}>
-          Save
+          Save to schedule
         </Button>
       </FormControl>
       <br />
