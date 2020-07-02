@@ -26,7 +26,7 @@ export default function UserContactInfo({contactName, contactId}) {
     
     const renderMessages = () => {
         const contactID = contactId
-        setUserData({...userData, contactId: contactID})
+        setUserData({...userData, contactInfo: {contactId, contactName}})
         history.push('/messages');
     }
     

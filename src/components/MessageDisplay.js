@@ -5,7 +5,7 @@ import MessageContent from './MessageContent'
 const MessageDisplay = ({messages}) => {
     return (
         <div className="display-container">
-            <ul className="display">
+            <div className="display">
             {messages && messages.messageHistory && messages.messageHistory.map(message => {
                 return <MessageContent
                 message={message.text}
@@ -13,7 +13,7 @@ const MessageDisplay = ({messages}) => {
                 time={message.timeStamp}
                 />
             })}
-            </ul>
+            </div>
         </div>
     )
 }

@@ -4,30 +4,40 @@ import io from 'socket.io-client';
 import UserContext from '../context/UserContext';
 import { Container, Button } from '@material-ui/core';
 import MessageDisplay from './MessageDisplay';
+import { makeStyles } from '@material-ui/core/styles';
 import '../styles/messages.scss'
 import axios from 'axios';
 
 let socket;
-const Messages = () => {
-    const history = useHistory();
-    
-    const { userData, setUserData } = useContext(UserContext);
 
+const useStyle = makeStyles({
+    button: {
+        color: "#01050e",
+        marginTop: "1rem"
+    }
+})
+const Messages = () => {
+    const classes = useStyle();
+
+    const history = useHistory();
+
+    const { userData, setUserData } = useContext(UserContext);
+    
     const [message, setMessage] = useState('');
     const [messages, setMessages] = useState('');
     
-
     const token = localStorage.getItem('auth-token');
-    
-    
+
     useEffect(() => {
+
         socket  = io('https://toronto-city-travel-guide.herokuapp.com');
+
         if(!userData.user){
             history.push('/')
         } else {
             axios.post("https://toronto-city-travel-guide.herokuapp.com/getUserMessages", {
                 userId: userData.user.id,
-                contactId: userData.contactId
+                contactId: userData.contactInfo.contactId
             }, {
                 headers: {
                     "x-auth-token": token
@@ -38,14 +48,13 @@ const Messages = () => {
                 setMessages(res.data.messageHistory)
                 
             })
-
+            
             
             socket.emit('joinroom', userData.user);
         }
         
-        
         return () => socket.disconnect();
-
+        
     }, []);
     
     if(messages){
@@ -56,6 +65,8 @@ const Messages = () => {
         });
     }
     
+    
+        
     
     const sendMessage = (e) => {
         
@@ -97,10 +108,11 @@ const Messages = () => {
     
     return (
         <div>
-            <Container>
-                <h1>Messages</h1>
+            <Container>{userData.contactInfo &&
+                <h1>Converstation with <span>{userData.contactInfo.contactName}</span></h1>
+            }
                 <MessageDisplay 
-                 messages={messages}
+                    messages={messages}
                 />
                 {/* <ul className="display">
                     {messages && messages.messageHistory && messages.messageHistory.map(message => {
@@ -117,7 +129,12 @@ const Messages = () => {
                     onChange={e => setMessage(e.target.value)}
                     onKeyPress={e => e.key === 'Enter' ? sendMessage(e) : null}
                 />
-                <Button onClick={sendMessage}>Submit</Button>
+                <Button
+                variant='outlined' 
+                className={classes.button}
+                onClick={sendMessage}
+                >
+                Submit</Button>
             </Container>
 
         </div>
