@@ -10,7 +10,7 @@ import ScheduleDetails from "./ScheduleDetails"
 import { makeStyles } from '@material-ui/core/styles';
 const useStyles = makeStyles({
   root: {
-    border: '.2em solid #01050e',
+    // border: '.2em solid #01050e',
     width: '80%',
     boxShadow: '10px 10px 5px 0px rgba(0, 0, 0, 0.75)',
     padding: '20px',
@@ -78,31 +78,39 @@ export default function Schedule() {
     <>
     <ScheduleDetails/>
       <Container className={classes.root}>
-        <h2>Schedule for:</h2>
-        <button 
-        onClick={handleSubtract}
-        className="date-selector"
-        >
-          Prev
-        </button>
-        {selectedDate && selectedDate.format('MMM D, YYYY')}
-        <button 
-        className="date-selector"
-        onClick={handleAdd}
-        >
-          Next
-        </button>
+        <div className="schedule-title">
+          {/* <h2>Schedule for:</h2> */}
+          <h3>Your schedule for: {selectedDate && selectedDate.format('MMM D, YYYY')}</h3>
+          {/* {selectedDate && selectedDate.format('MMM D, YYYY')} */}
+          <button
+            onClick={handleSubtract}
+            className="date-selector"
+          >
+            <p>&#8592;</p>
+          </button>
+          <button 
+          className="date-selector"
+          onClick={handleAdd}
+          >
+            <p>&#8594;</p>
+          </button>
+        </div>
 
 
 
       {schedules &&
         schedules.schedules.map((schedule) => {
+
+          console.log("HIII", (schedule.bookedDate).slice(11, 17))
+          
           return (
             <div key={schedule.id} className="schedule-item">
-              <div className="item-title item-div">{schedule.title}</div>
-              <div className="item-div"><p className="item">Date :  </p>{schedule.bookedDate}</div>
 
-              <div className="item-div"><p className="item">Description :  </p>{schedule.description}</div>
+              <div className="item-title item-div">{schedule.title} @ {schedule.bookedDate.slice(11, 17)}</div>
+
+              {/* <div className="item-div"><p className="item">Date :  </p>{schedule.bookedDate}</div> */}
+
+              <div className="item-div">{schedule.description}</div>
             <button id ="scheduleButton" value={schedule.id} onClick={handleDelete}>Remove from schedule</button>
             </div>
           );

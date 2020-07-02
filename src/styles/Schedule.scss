@@ -1,3 +1,8 @@
+// #14a2f4
+// #287ac3
+// #0f508b
+// #1a2656
+// #01050e
 
  .schedule {
   background-color:  #287ac3;
@@ -8,9 +13,10 @@
 } 
 
 .schedule-item{
-   margin-top: 20px;
+   margin: 40px auto;
    padding-bottom: 20px;
-   border: 1px solid #01050e;
+   // border-bottom: 1em solid #01050e;
+   box-shadow: 10px 10px 5px 0px rgba(0, 0, 0, 0.75);
    font-weight: bold;
    color: blue;
 }
@@ -22,7 +28,10 @@
 }
 
 .schedule-title{
-   color: red;
+   // border-bottom: 1em solid #01050e;
+   // box-shadow: 10px 10px 5px 0px rgba(0, 0, 0, 0.75);
+   color: #01050e;
+   // background-color: #1a2656 ;
    font-weight: bold;
    font-size: 1.5em;
 }
@@ -35,17 +44,22 @@
 
 .item-title{
      font-size: 1.1em;
-     font-style: italic;
+   //   font-style: italic;
+     text-decoration: underline;
      color: #01050e ;
      word-wrap: break-word;
 }
 
 .date-selector {
-   margin: 0 .5rem 0 .5rem;
+   p {
+      margin: 0;
+      padding: 0;
+   }
+   margin: 0 10px;
    background: #0f508b;
    // border: 1px solid #01050e;
    border: none;
-   // border-radius: 3px;
+   border-radius: 3px;
    // color: #01050e;
    cursor: pointer;
    &:hover {
@@ -63,4 +77,9 @@
       color: #0f508b;
       background-color: white;
    }
+}
+
+
+h3 {
+   margin: 20px auto;
 }
