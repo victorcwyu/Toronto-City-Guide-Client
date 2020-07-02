@@ -27,13 +27,17 @@
                 color: #f4f4f4;
                 display: inline-block;
                 word-break: break-all;
-                margin: 0;
+                margin: 0
+
             }
         }
 
         .contact-message {
             text-align: right;
+            margin: 0 .75rem .75rem 0;
+            padding: 0;
             margin: 0 0 .75rem .75rem;
+          
             .content {
                 background-color: #1a2656;
                 border-radius: 15px;
@@ -41,6 +45,7 @@
                 color: #f4f4f4;
                 display: inline-block;
                 word-break: break-all;
+                margin: 0;
             }
         }
     }
