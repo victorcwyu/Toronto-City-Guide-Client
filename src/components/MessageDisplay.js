@@ -1,15 +1,21 @@
-import React, {useContext} from 'react';
-import UserContext from '../context/UserContext';
-import '../styles/messageDisplay.scss'
+import React from 'react';
+import '../styles/messageDisplay.scss';
+import MessageContent from './MessageContent'
 
-const MessageDisplay = ({message, senderId, time}) => {
-    const {userData} = useContext(UserContext);
-
-  return (
-    <div>
-    <p className={userData.user.id === senderId ? "sender-message" : "contact-message"}>{message}</p>
-    </div>
-  )
+const MessageDisplay = ({messages}) => {
+    return (
+        <div className="display-container">
+            <ul className="display">
+            {messages && messages.messageHistory && messages.messageHistory.map(message => {
+                return <MessageContent
+                message={message.text}
+                senderId={message.senderId}
+                time={message.timeStamp}
+                />
+            })}
+            </ul>
+        </div>
+    )
 }
 
 export default MessageDisplay;
