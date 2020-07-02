@@ -7,7 +7,7 @@ import MessageDisplay from './MessageDisplay';
 import '../styles/messages.scss'
 import axios from 'axios';
 
-let socket = io('https://toronto-city-travel-guide.herokuapp.com');
+let socket;
 const Messages = () => {
     const history = useHistory();
     
@@ -21,7 +21,7 @@ const Messages = () => {
     
     
     useEffect(() => {
-        console.log('userData: ', userData)
+        socket  = io('https://toronto-city-travel-guide.herokuapp.com');
         if(!userData.user){
             history.push('/')
         } else {
