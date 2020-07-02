@@ -19,10 +19,10 @@ const loadGoogleMapScript = (callback) => {
 
 export default function Map() {
   const [loadMap, setLoadMap] = useState(false);
-  const [favouritesOn, setFavouritesOn] = useState(false);
+  const [searchOn, setSearchOn] = useState(false);
 
   const handleChange = (event) => {
-    setFavouritesOn(!favouritesOn);
+    setSearchOn(!searchOn);
   };
 
   useEffect(() => {
@@ -34,17 +34,17 @@ export default function Map() {
   return (
     <div id="map-page">
       <div id="toggle">
-        <h2>Search</h2>
+        <h2>Favourites</h2>
         <Switch
-          selection={favouritesOn}
+          selection={searchOn}
           onChange={handleChange}
           inputProps={{ 'aria-label': 'primary checkbox' }}
         />
-        <h2>Favourites</h2>
+        <h2>Search</h2>
       </div>
       {!loadMap && <div>Loading...</div> }
-      {!favouritesOn && <Autocomplete />}
-      {favouritesOn && <FavouritesMap />}
+      {searchOn && <Autocomplete />}
+      {!searchOn && <FavouritesMap />}
     </div>
   )
 }
