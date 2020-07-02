@@ -55,7 +55,8 @@ export default function UserContactInfo({contactName, contactId}) {
         })
         if(deleteRes.status === 200){
             const {newContacts} = deleteRes.data;
-            setUserData({...userData.user, contacts: newContacts})
+            const newUserData = { ...userData.user, contacts: newContacts };
+            setUserData({...userData, user: newUserData})
         } else {
             console.log('handle error');
         }

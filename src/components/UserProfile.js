@@ -75,7 +75,7 @@ export default function UserProfile() {
         }})
         const newContacts = [...userData.user.contacts, contactData.data.userData];
         const newUserData = {...userData.user, contacts: newContacts};
-        setUserData({...userData.user, user: newUserData})
+        setUserData({...userData, user: newUserData})
         setSearchdata(null)
       }
       catch (err) {
