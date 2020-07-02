@@ -80,7 +80,7 @@ export default function Schedule() {
       <Container className={classes.root}>
         <div className="schedule-title">
           {/* <h2>Schedule for:</h2> */}
-          <h3>Your schedule for: {selectedDate && selectedDate.format('MMM D, YYYY')}</h3>
+          {/* {selectedDate && selectedDate.format('MMM D, YYYY')} */}
           {/* {selectedDate && selectedDate.format('MMM D, YYYY')} */}
           <button
             onClick={handleSubtract}
@@ -88,6 +88,7 @@ export default function Schedule() {
           >
             <p>&#8592;</p>
           </button>
+          {selectedDate && selectedDate.format('MMM D, YYYY')}
           <button 
           className="date-selector"
           onClick={handleAdd}
@@ -111,7 +112,7 @@ export default function Schedule() {
               {/* <div className="item-div"><p className="item">Date :  </p>{schedule.bookedDate}</div> */}
 
               <div className="item-div">{schedule.description}</div>
-            <button id ="scheduleButton" value={schedule.id} onClick={handleDelete}>Remove from schedule</button>
+            <button id ="scheduleButton" value={schedule.id} onClick={handleDelete}>Remove</button>
             </div>
           );
         })}
