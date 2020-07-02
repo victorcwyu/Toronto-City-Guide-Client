@@ -15,7 +15,7 @@ import { KeyboardDateTimePicker, MuiPickersUtilsProvider } from "@material-ui/pi
 
 const useStyle = makeStyles({
   root: {
-    border: '.2em solid #01050e',
+    // border: '.2em solid #01050e',
     width: '80%',
     boxShadow: '10px 10px 5px 0px rgba(0, 0, 0, 0.75)',
     padding: '20px',

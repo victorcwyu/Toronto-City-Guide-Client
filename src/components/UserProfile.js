@@ -11,9 +11,24 @@ const useStyle = makeStyles({
   container: {
     color: "#14a2f4",
   },
+  // button: {
+  //   marginTop: "1rem",
+  //   borderColor: "#1a2656"
+  // },
   button: {
-    marginTop: "1rem",
-    borderColor: "#1a2656"
+    margin: "1rem 1rem 2rem",
+    border: 'none',
+    // color: "#01050e",
+    // color: "#01050e",
+    color: "white",
+    // marginTop: "0.5rem",
+    textTransform: "none",
+    backgroundColor: '#1a2656',
+    cursor: 'pointer',
+    '&:hover': {
+      color: '#0f508b',
+      backgroundColor: 'white',
+    },
   },
   input: {
     padding: "0.5rem",
@@ -60,7 +75,7 @@ export default function UserProfile() {
         }})
         const newContacts = [...userData.user.contacts, contactData.data.userData];
         const newUserData = {...userData.user, contacts: newContacts};
-        setUserData({...userData.user, user: newUserData})
+        setUserData({...userData, user: newUserData})
         setSearchdata(null)
       }
       catch (err) {

@@ -5,6 +5,7 @@ html{line-height:1.15;-ms-text-size-adjust:100%;-webkit-text-size-adjust:100%}bo
 * { -moz-box-sizing: border-box; -webkit-box-sizing: border-box; box-sizing: border-box; }
 
 #no-favourites-container {
+  box-shadow: 10px 10px 5px 0px rgba(0, 0, 0, 0.75);
   // display: inline-flex;
   display: flex;
   // border: 1em solid #1a2656;
@@ -21,6 +22,7 @@ html{line-height:1.15;-ms-text-size-adjust:100%;-webkit-text-size-adjust:100%}bo
 }
 
 #favourites-container {
+  box-shadow: 10px 10px 5px 0px rgba(0, 0, 0, 0.75);
   // display: inline-flex;
   display: flex;
   // border: 1em solid #1a2656;

@@ -17,8 +17,8 @@
         
         .sender-message {
             text-align: left;
-            margin: 0 0 .75rem .75rem;
             padding: 0;
+            margin: 0 0 .75rem .75rem;
 
             .content {
                 background-color: #287ac3;
@@ -28,6 +28,7 @@
                 display: inline-block;
                 word-break: break-all;
                 margin: 0
+
             }
         }
 
@@ -35,7 +36,8 @@
             text-align: right;
             margin: 0 .75rem .75rem 0;
             padding: 0;
-
+            margin: 0 0 .75rem .75rem;
+          
             .content {
                 background-color: #1a2656;
                 border-radius: 15px;
