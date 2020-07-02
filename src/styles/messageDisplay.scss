@@ -17,8 +17,8 @@
         
         .sender-message {
             text-align: left;
-            margin-left: .75rem;
             padding: 0;
+            margin: 0 0 .75rem .75rem;
 
             .content {
                 background-color: #287ac3;
@@ -27,13 +27,13 @@
                 color: #f4f4f4;
                 display: inline-block;
                 word-break: break-all;
+                margin: 0;
             }
         }
 
         .contact-message {
             text-align: right;
-            margin-right: .75rem;
-
+            margin: 0 0 .75rem .75rem;
             .content {
                 background-color: #1a2656;
                 border-radius: 15px;

@@ -109,7 +109,7 @@ const Messages = () => {
     return (
         <div>
             <Container>{userData.contactInfo &&
-                <h1>Converstation with <span>{userData.contactInfo.contactName}</span></h1>
+                <h1>Conversation with <span>{userData.contactInfo.contactName}</span></h1>
             }
                 <MessageDisplay 
                     messages={messages}
