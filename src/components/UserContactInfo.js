@@ -6,16 +6,32 @@ import { makeStyles } from '@material-ui/core/styles';
 import axios from 'axios';
 
 const useStyle = makeStyles({
+    // button: {
+    //     // color: "#01050e",
+    //     // margin: "0 1rem 1rem 0",
+    //     // marginLeft: "1rem"
+    // },
     button: {
-        color: "#01050e",
-        margin: "0 1rem 1rem 0",
-        marginLeft: "1rem"
+        margin: "0 1rem",
+        border: 'none',
+        // color: "#01050e",
+        // color: "#01050e",
+        color: "white",
+        // marginTop: "0.5rem",
+        textTransform: "none",
+        backgroundColor: '#1a2656',
+        cursor: 'pointer',
+        '&:hover': {
+            color: '#0f508b',
+            backgroundColor: 'white',
+        },
     },
     card: {
-        marginBottom: "1.5rem",
+        margin: "0 auto 1.5rem",
         backgroundColor: "#287ac3",
         boxShadow: "10px 10px 5px 0px rgba(0, 0, 0, 0.75)",
-        padding: "0.5rem"
+        padding: "0.5rem",
+        width: '80%'
     }
 })
 

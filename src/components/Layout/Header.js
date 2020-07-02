@@ -86,7 +86,8 @@ export default function Header() {
         }
         {userData.token &&
             <Link className={classes.navItem} to="/userProfile">
-             User Profile
+             {/* User Profile */}
+             Contacts
             </Link>
         }
         {userData.token &&
