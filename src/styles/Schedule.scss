@@ -70,7 +70,10 @@
 
 
 #scheduleButton {
+   font-size: 0.875rem;
    border: none;
+   border-radius: 3px;
+   padding: 5px 15px;
    background-color: #1a2656;
    cursor: pointer;
    &:hover {
