@@ -7,7 +7,7 @@ const MessageContent = ({message, senderId, time}) => {
 
   return (
     <li  className={userData.user.id === senderId ? "sender-message" : "contact-message"}>
-    <p>{message}</p>
+    <p className="content">{message}</p>
     </li>
   )
 }

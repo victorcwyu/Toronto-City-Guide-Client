@@ -17,18 +17,30 @@
         box-shadow: 10px 10px 5px 0px rgba(0, 0, 0, 0.75);
         
         .sender-message {
-            border-radius: 10px;
-            display: inline;
-            padding: 6px;
-            text-align: right;
+            text-align: left;
+            margin-left: .75rem;
+
+            .content {
+                background-color: #287ac3;
+                border-radius: 10px;
+                padding: .5rem 1rem;
+                color: #f4f4f4;
+                display: inline-block;
+                word-break: break-all;
+            }
         }
 
         .contact-message {
-            border-radius: 10px;
-            display: inline-block;
-            padding: 6px;
-            margin-bottom: 0;
-            text-align: left;
+            text-align: right;
+            margin-right: .75rem;
+            .content {
+                background-color: #1a2656;
+                border-radius: 10px;
+                padding: .5rem 1rem;
+                color: #f4f4f4;
+                display: inline-block;
+                word-break: break-all;
+            }
         }
     }
 }
