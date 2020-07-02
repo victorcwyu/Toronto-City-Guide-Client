@@ -100,7 +100,7 @@ const Messages = () => {
             <Container>
                 <h1>Messages</h1>
                 <MessageDisplay 
-                messages={messages}
+                 messages={messages}
                 />
                 {/* <ul className="display">
                     {messages && messages.messageHistory && messages.messageHistory.map(message => {
