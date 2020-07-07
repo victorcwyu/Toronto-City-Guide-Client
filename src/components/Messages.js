@@ -22,17 +22,17 @@ const Messages = () => {
     const history = useHistory();
 
     const { userData, setUserData } = useContext(UserContext);
-    
+
     const [message, setMessage] = useState('');
     const [messages, setMessages] = useState('');
-    
+
     const token = localStorage.getItem('auth-token');
 
     useEffect(() => {
 
-        socket  = io('https://toronto-city-travel-guide.herokuapp.com');
+        socket = io('https://toronto-city-travel-guide.herokuapp.com');
 
-        if(!userData.user){
+        if (!userData.user) {
             history.push('/')
         } else {
             axios.post("https://toronto-city-travel-guide.herokuapp.com/getUserMessages", {
@@ -43,33 +43,33 @@ const Messages = () => {
                     "x-auth-token": token
                 }
             })
-            .then(res => {
-                console.log('set message history', res)
-                setMessages(res.data.messageHistory)
-                
-            })
-            
-            
+                .then(res => {
+                    console.log('set message history', res)
+                    setMessages(res.data.messageHistory)
+
+                })
+
+
             socket.emit('joinroom', userData.user);
         }
-        
+
         return () => socket.disconnect();
-        
+
     }, []);
-    
-    if(messages){
+
+    if (messages) {
         socket.on('newMessage', data => {
             console.log('message recieved')
             const newHistory = [...messages.messageHistory, data]
-            setMessages({...messages, messageHistory: newHistory})
+            setMessages({ ...messages, messageHistory: newHistory })
         });
     }
-    
-    
-        
-    
+
+
+
+
     const sendMessage = (e) => {
-        
+
         e.preventDefault();
         if (message) {
             const newMessage = {
@@ -77,14 +77,14 @@ const Messages = () => {
                 senderId: userData.user.id,
                 timeStamp: Date.now()
             }
-            if(!messages) {
-                setMessages({...messages, messageHistory: [newMessage]})
+            if (!messages) {
+                setMessages({ ...messages, messageHistory: [newMessage] })
             } else {
                 const currentHistory = messages.messageHistory;
                 const newHistory = [...currentHistory, newMessage]
                 setMessages({ ...messages, messageHistory: newHistory })
             }
-            
+
             axios.post("https://toronto-city-travel-guide.herokuapp.com/updateUserMessages", {
                 newMessage,
                 messagesId: messages._id
@@ -94,25 +94,25 @@ const Messages = () => {
                     "x-auth-token": token
                 }
             })
-            .catch(err => console.log(err));
-            
+                .catch(err => console.log(err));
+
             socket.emit('update', {
                 newMessage,
                 messages: messages,
                 senderId: userData.user.id
             })
-            
+
             setMessage('');
         }
     }
-    
-    
+
+
     return (
         <div>
             <Container>{userData.contactInfo &&
                 <h1>Conversation with <span>{userData.contactInfo.contactName}</span></h1>
             }
-                <MessageDisplay 
+                <MessageDisplay
                     messages={messages}
                 />
                 {/* <ul className="display">
@@ -131,11 +131,11 @@ const Messages = () => {
                     onKeyPress={e => e.key === 'Enter' ? sendMessage(e) : null}
                 />
                 <Button
-                variant='outlined' 
-                className={classes.button}
-                onClick={sendMessage}
+                    variant='outlined'
+                    className={classes.button}
+                    onClick={sendMessage}
                 >
-                Submit</Button>
+                    Submit</Button>
             </Container>
 
         </div>
