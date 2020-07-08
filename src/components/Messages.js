@@ -85,11 +85,11 @@ const Messages = () => {
                 setMessages({ ...messages, messageHistory: newHistory })
             }
 
-            axios.post("https://toronto-city-travel-guide.herokuapp.com/updateUserMessages", {
+            axios.post("https://toronto-city-travel-guide.herokuapp.com/updateUserMessages", JSON.stringify({
                 newMessage,
                 messagesId: messages._id
                 // messagesId: messages ? messages._id : null
-            }, {
+            }), {
                 headers: {
                     "x-auth-token": token
                 }
