@@ -91,6 +91,7 @@ const Messages = () => {
                 // messagesId: messages ? messages._id : null
             }, {
                 headers: {
+                    "Access-Control-Allow-Origin": "*",
                     "x-auth-token": token
                 }
             })
