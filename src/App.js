@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
 import './App.css';
-import Schedule from './components/Schedule';
 import Signup from './components/auth/Signup';
 import Login from './components/auth/Login';
 import Home from './components/Home';
@@ -10,23 +9,10 @@ import UserContext from './context/UserContext';
 import UserProfile from './components/UserProfile'
 import Axios from 'axios';
 import Map from './components/Map/Map';
-import ScheduleDetails from './components/Schedule/ScheduleDetails';
 import index from './components/Schedule/index';
 import Messages from './components/Messages';
-import io from 'socket.io-client';
-import { makeStyles } from '@material-ui/core/styles';
-
-const useStyle = makeStyles({
-  sender: {
-    fontSize: '10px',
-  },
-  contact: {
-    fontSize: '20px',
-  }
-})
 
 function App() {
-  const classes = useStyle();
 
   const [userData, setUserData] = useState({
     token: undefined,

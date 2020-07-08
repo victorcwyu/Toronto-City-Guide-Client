@@ -1,5 +1,4 @@
-import React, { useState, useContext, useEffect } from 'react'
-import { useHistory } from 'react-router-dom';
+import React, { useState, useContext } from 'react'
 import UserContext from '../context/UserContext';
 import { makeStyles } from '@material-ui/core/styles';
 import { Container, Button } from '@material-ui/core';
@@ -43,7 +42,6 @@ export default function UserProfile() {
 
     const [input , setInput] = useState('')
     const [searchData, setSearchdata] = useState(null)
-    const [loading, setLoading] = useState(false)
 
     const handleSearch = async e => {
       e.preventDefault();

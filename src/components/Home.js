@@ -7,7 +7,7 @@ import UserContext from '../context/UserContext';
 
 
 export default function Home() {
-    const { userData, setUserData } = useContext(UserContext);
+    const { userData } = useContext(UserContext);
     return (
         <>
             <div className="wrapper">

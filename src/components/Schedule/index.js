@@ -3,7 +3,6 @@ import { Container } from "@material-ui/core";
 import "../../styles/Schedule.scss";
 import axios from "axios";
 import UserContext from "../../context/UserContext";
-import { date } from "date-fns/locale/af";
 import moment from "moment"
 import ScheduleDetails from "./ScheduleDetails"
 
@@ -23,7 +22,7 @@ export default function Schedule() {
   const classes = useStyles();
 
 
-  const { userData, setUserData } = useContext(UserContext);
+  const { userData } = useContext(UserContext);
 
   const [schedules, setSchedules] = useState();
   const [selectedDate, setSelectedDate] = useState(moment().zone(4))
