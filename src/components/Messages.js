@@ -58,6 +58,7 @@ const Messages = () => {
     }, []);
 
     if (messages) {
+        socket.off('newMessage')
         socket.on('newMessage', data => {
             console.log('message recieved')
             const newHistory = [...messages.messageHistory, data]
