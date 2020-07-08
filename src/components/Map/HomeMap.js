@@ -1,7 +1,6 @@
 import { functions, isEqual, omit } from "lodash"
-import React, { useState, useEffect, useRef, useContext } from "react"
+import React, { useEffect, useRef } from "react"
 import "../../styles/HomeMap.scss";
-import UserContext from '../../context/UserContext';
 
 // outside function to avoid too many rerenders
 const mapStyles = {
@@ -10,10 +9,8 @@ const mapStyles = {
 };
 
 function Map({ options, onMount, className, onMountProps }) {
-  const { userData, setUserData } = useContext(UserContext);
 
   const ref = useRef();
-  const [map, setMap] = useState();
   const GOOGLE_MAP_API_KEY = process.env.REACT_APP_GOOGLE_MAPS_API_KEY;
 
   useEffect(() => {
@@ -21,7 +18,7 @@ function Map({ options, onMount, className, onMountProps }) {
     // the Map constructor in place by adding a mapTypeId with default
     // value 'roadmap'. { ...options } prevents this by creating a copy.
     const onLoad = () =>
-      setMap(new window.google.maps.Map(ref.current, { ...options }));
+      new window.google.maps.Map(ref.current, { ...options });
     if (!window.google) {
       // Create the script tag, set the appropriate attributes
       const script = document.createElement(`script`);

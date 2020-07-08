@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef } from "react";
 import "../../styles/HomeMap.scss";
 import axios from "axios";
 
@@ -13,12 +13,9 @@ const FavouritesHomeMap = () => {
 
   const googleMapRef = useRef(null);
   const token = localStorage.getItem("auth-token");
-  const [userFavourites, setUserFavourites] = useState([]);
-
 
   const getFavouritesData = async () => {
     let res = await axios.get("https://toronto-city-travel-guide.herokuapp.com/getFavourites", { headers: { "x-auth-token": token } });
-    setUserFavourites(res.data.favourites)
     return res.data.favourites;
   };
 

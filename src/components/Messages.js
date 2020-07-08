@@ -21,7 +21,7 @@ const Messages = () => {
 
     const history = useHistory();
 
-    const { userData, setUserData } = useContext(UserContext);
+    const { userData } = useContext(UserContext);
 
     const [message, setMessage] = useState('');
     const [messages, setMessages] = useState('');

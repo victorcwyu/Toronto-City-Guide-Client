@@ -1,6 +1,6 @@
 import React, {useContext} from 'react';
 import {useHistory} from 'react-router-dom';
-import { Card, Button } from '@material-ui/core';
+import { Button } from '@material-ui/core';
 import UserContext from '../context/UserContext';
 import { makeStyles } from '@material-ui/core/styles';
 import axios from 'axios';
@@ -41,7 +41,7 @@ export default function UserContactInfo({contactName, contactId}) {
     const {userData, setUserData} = useContext(UserContext);
     
     const renderMessages = () => {
-        const contactID = contactId
+        // const contactID = contactId
         setUserData({...userData, contactInfo: {contactId, contactName}})
         history.push('/messages');
     }
