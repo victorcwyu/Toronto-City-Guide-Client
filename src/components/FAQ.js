@@ -33,9 +33,9 @@ function FAQ() {
         stores nearby.  The application also has a schedule feature as well as a real-time chat to facilitate 
         planning while travelling.
       </h3>
-      <h2>How do I get started?</h2>
+      <h2>Application Screenshots</h2>
       <h3>
-        Without registration, you can enter an ingredient in the searchbar,
+        Home Page
       </h3>
       <br></br>
       {/* < img src={searchScreen} /> */}
@@ -43,8 +43,7 @@ function FAQ() {
       <br></br>
       <br></br>
       <h3>
-        and retrieve the nutritional information for that ingredient and recipes
-        utilizing that ingredient.
+        Map Page
       </h3>
       <br></br>
       {/* < img src={ingredientScreen} /> */}
@@ -52,7 +51,7 @@ function FAQ() {
       <br></br>
       <br></br>
       <h3>
-        Clicking on a recipe will display the nutritional information for the recipe.
+        Schedule Page
       </h3>
       <br></br>
       {/* < img src={recipeScreen} /> */}
@@ -60,33 +59,10 @@ function FAQ() {
       <br></br>
       <br></br>
       <h3>
-        If you register, you will be able to add recipes to a list of favourites.
+        Messages Page
       </h3>
       <br></br>
       {/* < img src={loggedInRecipeScreen} /> */}
-      <br></br>
-      <br></br>
-      <br></br>
-      {/* < img src={favouritesScreen} /> */}
-      <br></br>
-      <br></br>
-      <br></br>
-      <h3>
-        You also gain the ability to add recipes to a meal
-        plan schedule.
-      </h3>
-      <br></br>
-      {/* < img src={scheduleScreen} /> */}
-      <br></br>
-      <br></br>
-      <br></br>
-      <h3>
-        Finally, you will be able to track
-        your nutritional intake.  You can also follow other people using
-        VegTable to compare your nutritional intake.
-      </h3>
-      <br></br>
-      {/* < img src={dataScreen} /> */}
       <br></br>
       <br></br>
       <br></br>
