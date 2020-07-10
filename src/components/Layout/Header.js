@@ -63,36 +63,37 @@ export default function Header() {
                     Home
                 </Link>
             }
-        {!userData.token && 
-            <Link className={classes.navItem} to="/login">
-                <p>Login</p>
-            </Link>
-        }
-        {!userData.token &&
-            <Link className={classes.navItem} to="/signup">
-                <p>Sign Up</p>
-            </Link>        
-        }
-        {userData.token &&
-            <Link className={classes.navItem} to="/Map">
-             Map
-            </Link>
-        }
-        {userData.token &&
-            <Link className={classes.navItem}
-            to="/schedule">
-                Schedule
-            </Link>
-        }
-        {userData.token &&
-            <Link className={classes.navItem} to="/userProfile">
-             {/* User Profile */}
-             Contacts
-            </Link>
-        }
-        {userData.token &&
-            <button className={classes.navButton} onClick={handleLogOut}>Log Out</button>
-        }
+            {!userData.token && 
+                <Link className={classes.navItem} to="/login">
+                    <p>Login</p>
+                </Link>
+            }
+            {!userData.token &&
+                <Link className={classes.navItem} to="/signup">
+                    <p>Sign Up</p>
+                </Link>        
+            }
+            {userData.token &&
+                <Link className={classes.navItem} to="/Map">
+                    Map
+                </Link>
+            }
+            {userData.token &&
+                <Link className={classes.navItem} to="/schedule">
+                    Schedule
+                </Link>
+            }
+            {userData.token &&
+                <Link className={classes.navItem} to="/userProfile">
+                    Contacts
+                </Link>
+            }
+            {userData.token &&
+                <button className={classes.navButton} onClick={handleLogOut}>Log Out</button>
+            }
+            <Link className={classes.navItem} to="/faq">
+                FAQ
+            </Link>    
         </div>
         </nav>
     )

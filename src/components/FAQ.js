@@ -1,5 +1,5 @@
 import React from "react";
-import "./Home.scss";
+import "../styles/Home.scss";
 // import searchScreen from '../assets/1-search.png';
 // import ingredientScreen from '../assets/2-ingredient.png';
 // import recipeScreen from '../assets/3-recipe.png';
@@ -37,7 +37,7 @@ function FAQ() {
         Without registration, you can enter an ingredient in the searchbar,
       </h3>
       <br></br>
-      < img src={searchScreen} />
+      {/* < img src={searchScreen} /> */}
       <br></br>
       <br></br>
       <br></br>
@@ -46,7 +46,7 @@ function FAQ() {
         utilizing that ingredient.
       </h3>
       <br></br>
-      < img src={ingredientScreen} />
+      {/* < img src={ingredientScreen} /> */}
       <br></br>
       <br></br>
       <br></br>
@@ -54,7 +54,7 @@ function FAQ() {
         Clicking on a recipe will display the nutritional information for the recipe.
       </h3>
       <br></br>
-      < img src={recipeScreen} />
+      {/* < img src={recipeScreen} /> */}
       <br></br>
       <br></br>
       <br></br>
@@ -62,11 +62,11 @@ function FAQ() {
         If you register, you will be able to add recipes to a list of favourites.
       </h3>
       <br></br>
-      < img src={loggedInRecipeScreen} />
+      {/* < img src={loggedInRecipeScreen} /> */}
       <br></br>
       <br></br>
       <br></br>
-      < img src={favouritesScreen} />
+      {/* < img src={favouritesScreen} /> */}
       <br></br>
       <br></br>
       <br></br>
@@ -75,7 +75,7 @@ function FAQ() {
         plan schedule.
       </h3>
       <br></br>
-      < img src={scheduleScreen} />
+      {/* < img src={scheduleScreen} /> */}
       <br></br>
       <br></br>
       <br></br>
@@ -85,7 +85,7 @@ function FAQ() {
         VegTable to compare your nutritional intake.
       </h3>
       <br></br>
-      < img src={dataScreen} />
+      {/* < img src={dataScreen} /> */}
       <br></br>
       <br></br>
       <br></br>
