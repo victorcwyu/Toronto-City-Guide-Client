@@ -1,5 +1,7 @@
 # Toronto City Guide
 
+[Toronto City Guide is live here](https://torontoguide.netlify.app/)
+
 Toronto City Guide is a MongoDB, Express, React.js and Node.js (MERN) stack application that allows users to search locations around the city and find accommodation, tourist attractions and convenience stores nearby. The application also has a schedule feature as well as a real-time chat to facilitate planning while travelling.
 
 [Server repository](https://github.com/kguertin/toronto-city-guide-server)
