@@ -1,13 +1,11 @@
 import React from "react";
 import "../styles/Home.scss";
 import "../styles/FAQ.scss";
-// import searchScreen from '../assets/1-search.png';
-// import ingredientScreen from '../assets/2-ingredient.png';
-// import recipeScreen from '../assets/3-recipe.png';
-// import loggedInRecipeScreen from '../assets/4-logged in recipe.png';
-// import favouritesScreen from '../assets/5-favourites.png';
-// import scheduleScreen from '../assets/6-schedule.png';
-// import dataScreen from '../assets/7-data.png';
+import home from '../assets/home.png';
+import search from '../assets/search.png';
+import favourites from '../assets/favourites.png';
+import schedule from '../assets/schedule.png';
+import messages from '../assets/messages.png';
 
 function FAQ() {
 
@@ -35,34 +33,42 @@ function FAQ() {
       </h3>
       <h2>Application Screenshots</h2>
       <h3>
-        Home Page
+        Home
       </h3>
       <br></br>
-      {/* < img src={searchScreen} /> */}
+      < img src={home} />
       <br></br>
       <br></br>
       <br></br>
       <h3>
-        Map Page
+        Search
       </h3>
       <br></br>
-      {/* < img src={ingredientScreen} /> */}
+      < img src={search} />
       <br></br>
       <br></br>
       <br></br>
       <h3>
-        Schedule Page
+        Favourites
       </h3>
       <br></br>
-      {/* < img src={recipeScreen} /> */}
+      < img src={favourites} />
       <br></br>
       <br></br>
       <br></br>
       <h3>
-        Messages Page
+        Schedule
       </h3>
       <br></br>
-      {/* < img src={loggedInRecipeScreen} /> */}
+      < img src={schedule} />
+      <br></br>
+      <br></br>
+      <br></br>
+      <h3>
+        Messages
+      </h3>
+      <br></br>
+      < img src={messages} />
       <br></br>
       <br></br>
       <br></br>
