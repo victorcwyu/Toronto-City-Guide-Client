@@ -1,5 +1,6 @@
 import React from "react";
 import "../styles/Home.scss";
+import "../styles/FAQ.scss";
 // import searchScreen from '../assets/1-search.png';
 // import ingredientScreen from '../assets/2-ingredient.png';
 // import recipeScreen from '../assets/3-recipe.png';
