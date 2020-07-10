@@ -11,6 +11,7 @@ import Axios from 'axios';
 import Map from './components/Map/Map';
 import index from './components/Schedule/index';
 import Messages from './components/Messages';
+import FAQ from './components/FAQ';
 
 function App() {
 
@@ -64,6 +65,7 @@ function App() {
             <Route path='/userProfile' component={UserProfile} />
             <Route exact path='/schedule' component={index} />
             <Route path='/messages' component={Messages} />
+            <Route path='/faq' component={FAQ} />
           </Switch>
         </UserContext.Provider>
       </BrowserRouter>
