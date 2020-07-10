@@ -58,10 +58,14 @@ html{line-height:1.15;-ms-text-size-adjust:100%;-webkit-text-size-adjust:100%}bo
         }
       }
       tr {
+        &:hover button {
+          visibility: visible;
+        }
         td {
           width: 70%;
         }
         button {
+          visibility: hidden;
           width: 100%;
         }
       }
