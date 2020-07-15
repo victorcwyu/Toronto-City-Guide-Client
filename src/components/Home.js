@@ -23,10 +23,10 @@ export default function Home() {
                     {windowWidth >= 680 &&
                         <CurvedText text="where will you go today?" arc={120} radius={360} />
                     }
-                    {(windowWidth < 680 && windowWidth >= 501) &&
+                    {(windowWidth < 680 && windowWidth >= 500) &&
                         <CurvedText text="where will you go today?" arc={90} radius={360} />
                     }
-                    {(windowWidth < 501 && windowWidth >= 451) &&
+                    {(windowWidth < 500 && windowWidth >= 451) &&
                         <CurvedText text="where will you go today?" arc={80} radius={360} />
                     }   
                     {(windowWidth < 451 && windowWidth >= 375) &&
