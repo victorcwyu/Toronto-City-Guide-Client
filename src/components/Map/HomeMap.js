@@ -1,12 +1,5 @@
 import { functions, isEqual, omit } from "lodash"
 import React, { useEffect, useRef } from "react"
-import "../../styles/HomeMap.scss";
-
-// outside function to avoid too many rerenders
-const mapStyles = {
-  width: "500px",
-  height: "500px",
-};
 
 function Map({ options, onMount, className, onMountProps }) {
 
@@ -31,45 +24,12 @@ function Map({ options, onMount, className, onMountProps }) {
     } else onLoad();
   }, [options]);
 
-  // onMount allows for customization, i.e. adding markers
-  // if (map && typeof onMount === `function`) onMount(map, onMountProps);
-  // if (map && userData.token) {
-  //   map.setOptions({ draggable: false });
-  // };
-
-  // function handleClick(e) {
-  //   if (!userData.token) {
-  //     e.preventDefault();
-  //   };
-  // }
-
   return (
-
     <div
       id="homeMap"
-      style={mapStyles}
       {...{ ref, className }}
     />
-
-  //   <Link 
-  //     onClick={handleClick}
-  //     to="/map"
-  //   >
-  // <>
-  //   {!userData.token &&
-  //       <div
-  //         id="homeMap"
-  //         style={mapStyles}
-  //         {...{ ref, className }}
-  //       />
-  //   }
-  //   {userData.token &&
-  //     <FavouritesHomeMap />
-  //   }
-  //   </>
-    // </Link>
   );
-
 }
 
 // By default, the Map component will rerender whenever the parent component rerenders.

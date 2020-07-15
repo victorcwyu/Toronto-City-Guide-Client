@@ -53,17 +53,73 @@ h1 {
   margin: 0;
 }
 
-.wrapper h1 {
-  font-family: 'Amatic SC', cursive;
-  font-size: 64px;
-  color: #01050e;
-  text-align: center;
-}
-
-.wrapper h1 span {
-  position: absolute;
-}
 
 .homeContainer {
-  margin-top: 150px;
+  display: flex;
+  flex-direction: column;
+  .wrapper  {
+    h1 {
+      font-family: 'Amatic SC', cursive;
+      font-size: 64px;
+      color: #01050e;
+      text-align: center;
+      span {
+        position: absolute;
+      }
+    }
+  }
+  .homeMapContainer {
+    margin-top: 100px;
+    #homeMap {
+      height: 460px;
+      width: 460px;
+      margin: 0 auto;
+      border: 1em solid #1a2656;
+      border-radius: 50%;
+    }
+  }
+}
+
+@media (max-width: 680px) {
+  .homeContainer{
+    .homeMapContainer {
+      #homeMap {
+          height: 420px;
+          width: 420px;
+      }
+    }
+  }
+}
+
+@media (max-width: 501px) {
+  .homeContainer{
+    .homeMapContainer {
+      #homeMap {
+          height: 400px;
+          width: 400px;
+      }
+    }
+  }
+}
+
+@media (max-width: 451px) {
+  .homeContainer{
+    .homeMapContainer {
+      #homeMap {
+          height: 320px;
+          width: 320px;
+      }
+    }
+  }
+}
+
+@media (max-width: 375px) {
+  .homeContainer{
+    .homeMapContainer {
+      #homeMap {
+          height: 300px;
+          width: 300px;
+      }
+    }
+  }
 }

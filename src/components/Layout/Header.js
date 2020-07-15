@@ -10,7 +10,6 @@ const useStyles = makeStyles({
         alignItems: 'center',
         background: '#444',
         height: '75px',
-        marginBottom: "3rem",
         boxShadow: '0 2px 6px 6px #1a2656',
     },
     navbar: {
