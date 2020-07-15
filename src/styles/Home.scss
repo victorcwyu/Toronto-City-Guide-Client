@@ -84,6 +84,39 @@ h1 {
   .homeContainer{
     .homeMapContainer {
       #homeMap {
+          height: 420px;
+          width: 420px;
+      }
+    }
+  }
+}
+
+@media (max-width: 501px) {
+  .homeContainer{
+    .homeMapContainer {
+      #homeMap {
+          height: 400px;
+          width: 400px;
+      }
+    }
+  }
+}
+
+@media (max-width: 451px) {
+  .homeContainer{
+    .homeMapContainer {
+      #homeMap {
+          height: 320px;
+          width: 320px;
+      }
+    }
+  }
+}
+
+@media (max-width: 375px) {
+  .homeContainer{
+    .homeMapContainer {
+      #homeMap {
           height: 300px;
           width: 300px;
       }

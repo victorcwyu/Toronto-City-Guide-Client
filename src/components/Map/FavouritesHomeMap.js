@@ -1,10 +1,6 @@
 import React, { useEffect, useRef } from "react";
 import axios from "axios";
 
-const mapStyles = {
-  width: "500px",
-  height: "500px",
-};
 let markers = [];
 let infowindows = [];
 
@@ -65,7 +61,6 @@ const FavouritesHomeMap = () => {
       <div
         id="homeMap"
         ref={googleMapRef}
-        style={mapStyles}
       />
     </>
   )
