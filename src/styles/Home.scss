@@ -53,17 +53,40 @@ h1 {
   margin: 0;
 }
 
-.wrapper h1 {
-  font-family: 'Amatic SC', cursive;
-  font-size: 64px;
-  color: #01050e;
-  text-align: center;
-}
-
-.wrapper h1 span {
-  position: absolute;
-}
 
 .homeContainer {
-  margin-top: 150px;
+  display: flex;
+  flex-direction: column;
+  .wrapper  {
+    h1 {
+      font-family: 'Amatic SC', cursive;
+      font-size: 64px;
+      color: #01050e;
+      text-align: center;
+      span {
+        position: absolute;
+      }
+    }
+  }
+  .homeMapContainer {
+    margin-top: 100px;
+    #homeMap {
+      height: 500px;
+      width: 500px;
+      margin: 0 auto;
+      border: 1em solid #1a2656;
+      border-radius: 50%;
+    }
+  }
+}
+
+@media (max-width: 680px) {
+  .homeContainer{
+    .homeMapContainer {
+      #homeMap {
+          height: 300px;
+          width: 300px;
+      }
+    }
+  }
 }

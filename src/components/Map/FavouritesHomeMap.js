@@ -1,5 +1,4 @@
 import React, { useEffect, useRef } from "react";
-import "../../styles/HomeMap.scss";
 import axios from "axios";
 
 const mapStyles = {
