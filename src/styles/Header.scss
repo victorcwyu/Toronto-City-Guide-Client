@@ -1,0 +1,41 @@
+.nav-root {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: #444;
+    height: 75px;
+    box-shadow: 0 2px 6px 6px #1a2656;
+    margin-bottom: 1.5rem;
+}
+
+.navbar {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.nav-item {
+    font-size: 24px; 
+    color: #fff;
+    text-decoration: none;
+    margin: 0 20px;
+}
+
+.nav-item:hover {
+    color: #14a2f4;    
+}
+
+.navButton {
+    font-family: Roboto, sans-serif;
+    font-size: 24px; 
+    margin: 0 25px;
+    padding: 0;
+    border: none;
+    background: #444;
+    color: #fff;
+    cursor: pointer;
+}
+
+.navButton:hover {
+    color: #14a2f4;    
+}
