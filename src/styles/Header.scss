@@ -39,3 +39,20 @@
 .navButton:hover {
     color: #14a2f4;    
 }
+
+@media only screen and (max-width: 680px) {
+    .nav-root {
+        height: 50px;
+    }
+    
+    .nav-item {
+        font-size: 12px;
+        margin: 0 10px;
+    }
+
+    .navButton {
+        font-size: 12px;
+        margin: 0 10px;
+    }
+
+}
