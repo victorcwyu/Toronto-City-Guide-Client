@@ -72,3 +72,39 @@ html{line-height:1.15;-ms-text-size-adjust:100%;-webkit-text-size-adjust:100%}bo
     }
   }
 }
+
+@media (max-width: 1000px) {
+  #favourites-container {
+    width: 90%;
+    #favouritesListing {
+      width: 40%;
+    }
+    #map {
+      width: 60%;
+    }
+  }
+}
+
+@media (max-width: 700px) {
+  #favourites-container {
+    width: 95%;
+    #favouritesListing {
+      width: 45%;
+    }
+    #map {
+      width: 55%;
+    }
+  }
+}
+
+@media (max-width: 700px) {
+  #favourites-container {
+    width: 95%;
+    #favouritesListing {
+      width: 70%;
+    }
+    #map {
+      width: 30%;
+    }
+  }
+}
