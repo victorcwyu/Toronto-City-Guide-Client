@@ -21,6 +21,15 @@ const HomeMap = () => {
   const googleMapRef = useRef(null);
   const token = localStorage.getItem("auth-token");
 
+  const intializeGoogleMap = () => {
+    return (
+      new window.google.maps.Map(googleMapRef.current, {
+        center: { lat: 43.6560811, lng: -79.3823601 },
+        zoom: 14,
+        disableDefaultUI: true
+      }))
+  }
+
   const getFavouritesData = async () => {
     if (!token) {
       return null
@@ -32,12 +41,7 @@ const HomeMap = () => {
 
   useEffect(() => {
     loadGoogleMapScript(() => {
-      // Initialize the Google map
-      new window.google.maps.Map(googleMapRef.current, {
-        center: { lat: 43.6560811, lng: -79.3823601 },
-        zoom: 14,
-        disableDefaultUI: true
-      });
+      intializeGoogleMap()
     });
     initPlaceAPI();
   }, [token]);
@@ -48,12 +52,7 @@ const HomeMap = () => {
     if (favourites === null || favourites[0] === undefined) {
       return null
     } else if (favourites[0] !== undefined) {
-      // Initialize the Google map
-      const map = new window.google.maps.Map(googleMapRef.current, {
-        center: { lat: 43.6560811, lng: -79.3823601 },
-        zoom: 14,
-        disableDefaultUI: true
-      });
+      const map = intializeGoogleMap()
       // map through favourites array, extract the latitude and longitude of each place
       const favouritesCoordinates = favourites.map((favourite) => {
         return [
