@@ -43,11 +43,11 @@ const HomeMap = () => {
     loadGoogleMapScript(() => {
       intializeGoogleMap()
     });
-    initPlaceAPI();
+    createHomeMap();
   }, [token]);
 
-  // Initialize the Google Place autocomplete
-  const initPlaceAPI = async () => {
+  // Retrieve favourites and add create home map
+  const createHomeMap = async () => {
     let favourites = await getFavouritesData();
     if (favourites === null || favourites[0] === undefined) {
       return null
