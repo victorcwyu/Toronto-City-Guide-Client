@@ -1,21 +1,10 @@
-import React, { useEffect, useRef } from "react";
+import React, { useRef, useEffect } from "react";
 import axios from "axios";
+
+import { loadGoogleMapScript } from "../../helpers/google.js"
 
 let markers = [];
 let infowindows = [];
-
-const GOOGLE_MAP_API_KEY = process.env.REACT_APP_GOOGLE_MAPS_API_KEY;
-// load google map script
-const loadGoogleMapScript = (callback) => {
-  if (typeof window.google === 'object' && typeof window.google.maps === 'object') {
-    callback();
-  } else {
-    const googleMapScript = document.createElement("script");
-    googleMapScript.src = `https://maps.googleapis.com/maps/api/js?key=${GOOGLE_MAP_API_KEY}&libraries=places`;
-    window.document.body.appendChild(googleMapScript);
-    googleMapScript.addEventListener("load", callback);
-  }
-};
 
 const HomeMap = () => {
   const googleMapRef = useRef(null);
