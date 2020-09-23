@@ -21,17 +21,17 @@ const FavouritesMap = () => {
 
 
   const getFavouritesData = async () => {
-    let res = await axios.get("https://toronto-city-travel-guide.herokuapp.com/getFavourites", { headers: {"x-auth-token": token} });
+    let res = await axios.get("https://toronto-city-travel-guide.herokuapp.com/getFavourites", { headers: { "x-auth-token": token } });
     setUserFavourites(res.data.favourites)
     return res.data.favourites;
   };
 
   useEffect(() => {
-    initPlaceAPI();
+    createFavouritesMap();
   }, []);
 
-  // Initialize the Google Place autocomplete
-  const initPlaceAPI =  async () => {
+  // Retrieve favourites and add create favourites map
+  const createFavouritesMap = async () => {
 
     // map through favourites array, extract the latitude and longitude of each place
     let favourites = await getFavouritesData();
@@ -39,11 +39,11 @@ const FavouritesMap = () => {
     const favouritesCoordinates = favourites.map((favourite) => {
       return [
         { lat: favourite.geometry.location.lat, lng: favourite.geometry.location.lng },
-        favourite.name, 
+        favourite.name,
         favourite.vicinity
       ];
     })
-  
+
     // Initialize the Google map
     const map = new window.google.maps.Map(googleMapRef.current, {
       center: { lat: 43.6560811, lng: -79.3823601 },
@@ -78,7 +78,7 @@ const FavouritesMap = () => {
             }
           })
             .then((res) => setUserFavourites(res.data))
-            .then(() => initPlaceAPI())
+            .then(() => createFavouritesMap())
         }
         catch (err) {
           console.error(err);
@@ -112,29 +112,29 @@ const FavouritesMap = () => {
         infowindows[i].open(map, markers[i]);
       });
       addResults(place, i)
-    });  
+    });
   };
 
-//   return (
-//     <div id="favourites-container">
-//       {userFavourites.length > 0 &&
-//         <div id="favouritesListing">
-//           <table id="resultsTable">
-//             <tbody id="favouritesResults">
-//             </tbody>
-//           </table>
-//         </div>
-//       }
-//       <div
-//         id="favourite-map"
-//         ref={googleMapRef}
-//         style={mapStyles}
-//       />
-//     </div>
-//   )
-// }
+  //   return (
+  //     <div id="favourites-container">
+  //       {userFavourites.length > 0 &&
+  //         <div id="favouritesListing">
+  //           <table id="resultsTable">
+  //             <tbody id="favouritesResults">
+  //             </tbody>
+  //           </table>
+  //         </div>
+  //       }
+  //       <div
+  //         id="favourite-map"
+  //         ref={googleMapRef}
+  //         style={mapStyles}
+  //       />
+  //     </div>
+  //   )
+  // }
 
-// export default FavouritesMap;
+  // export default FavouritesMap;
 
 
 
