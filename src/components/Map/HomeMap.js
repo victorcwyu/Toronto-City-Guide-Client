@@ -1,7 +1,7 @@
 import React, { useRef, useEffect } from "react";
 import axios from "axios";
 
-import { loadGoogleMapScript } from "../../helpers/google.js"
+import { loadGoogleMapScript, intializeGoogleMap } from "../../helpers/google.js"
 
 let markers = [];
 let infowindows = [];
@@ -9,15 +9,6 @@ let infowindows = [];
 const HomeMap = () => {
   const googleMapRef = useRef(null);
   const token = localStorage.getItem("auth-token");
-
-  const intializeGoogleMap = () => {
-    return (
-      new window.google.maps.Map(googleMapRef.current, {
-        center: { lat: 43.6560811, lng: -79.3823601 },
-        zoom: 14,
-        disableDefaultUI: true
-      }))
-  }
 
   const getFavouritesData = async () => {
     if (!token) {
@@ -30,7 +21,7 @@ const HomeMap = () => {
 
   useEffect(() => {
     loadGoogleMapScript(() => {
-      intializeGoogleMap()
+      intializeGoogleMap(googleMapRef.current)
     });
     createHomeMap();
   }, [token]);
@@ -41,7 +32,7 @@ const HomeMap = () => {
     if (favourites === null || favourites[0] === undefined) {
       return null
     } else if (favourites[0] !== undefined) {
-      const map = intializeGoogleMap()
+      const map = intializeGoogleMap(googleMapRef.current)
       // map through favourites array, extract the latitude and longitude of each place
       const favouritesCoordinates = favourites.map((favourite) => {
         return [
