@@ -1,60 +1,93 @@
-import { functions, isEqual, omit } from "lodash"
-import React, { useEffect, useRef } from "react"
+import React, { useEffect, useRef } from "react";
+import axios from "axios";
 
-function Map({ options, onMount, className, onMountProps }) {
+let markers = [];
+let infowindows = [];
 
-  const ref = useRef();
-  const GOOGLE_MAP_API_KEY = process.env.REACT_APP_GOOGLE_MAPS_API_KEY;
+const GOOGLE_MAP_API_KEY = process.env.REACT_APP_GOOGLE_MAPS_API_KEY;
+// load google map script
+const loadGoogleMapScript = (callback) => {
+  if (typeof window.google === 'object' && typeof window.google.maps === 'object') {
+    callback();
+  } else {
+    const googleMapScript = document.createElement("script");
+    googleMapScript.src = `https://maps.googleapis.com/maps/api/js?key=${GOOGLE_MAP_API_KEY}&libraries=places`;
+    window.document.body.appendChild(googleMapScript);
+    googleMapScript.addEventListener("load", callback);
+  }
+};
+
+const HomeMap = () => {
+  const googleMapRef = useRef(null);
+  const token = localStorage.getItem("auth-token");
+
+  const getFavouritesData = async () => {
+    if (!token) {
+      return null
+    } else {
+      let res = await axios.get("https://toronto-city-travel-guide.herokuapp.com/getFavourites", { headers: { "x-auth-token": token } });
+      return res.data.favourites;
+    }
+  };
 
   useEffect(() => {
-    // The Google Maps API modifies the options object passed tos
-    // the Map constructor in place by adding a mapTypeId with default
-    // value 'roadmap'. { ...options } prevents this by creating a copy.
-    const onLoad = () =>
-      new window.google.maps.Map(ref.current, { ...options });
-    if (!window.google) {
-      // Create the script tag, set the appropriate attributes
-      const script = document.createElement(`script`);
-      script.src =
-        `https://maps.googleapis.com/maps/api/js?key=${GOOGLE_MAP_API_KEY}&libraries=places`;
-        // Append the 'script' element to 'head'
-      document.head.append(script);
-      script.addEventListener(`load`, onLoad);
-      return () => script.removeEventListener(`load`, onLoad);
-    } else onLoad();
-  }, [options]);
+    loadGoogleMapScript(() => {
+      // Initialize the Google map
+      new window.google.maps.Map(googleMapRef.current, {
+        center: { lat: 43.6560811, lng: -79.3823601 },
+        zoom: 14,
+        disableDefaultUI: true
+      });
+    });
+    initPlaceAPI();
+  }, [token]);
+
+  // Initialize the Google Place autocomplete
+  const initPlaceAPI = async () => {
+    let favourites = await getFavouritesData();
+    if (favourites === null || favourites[0] === undefined) {
+      return null
+    } else if (favourites[0] !== undefined) {
+      // Initialize the Google map
+      const map = new window.google.maps.Map(googleMapRef.current, {
+        center: { lat: 43.6560811, lng: -79.3823601 },
+        zoom: 14,
+        disableDefaultUI: true
+      });
+      // map through favourites array, extract the latitude and longitude of each place
+      const favouritesCoordinates = favourites.map((favourite) => {
+        return [
+          { lat: favourite.geometry.location.lat, lng: favourite.geometry.location.lng },
+          favourite.name,
+          favourite.vicinity
+        ];
+      })
+      // map through favouritesCoordinates array and add marker for each place
+      favouritesCoordinates.forEach((place, i) => {
+        markers[i] = new window.google.maps.Marker({ position: place[0], map: map });
+        infowindows[i] = new window.google.maps.InfoWindow({
+          content: `<b>${place[1]}</b>
+            <br>
+            ${place[2]}
+            <br>
+          `
+        });
+        // open an infowindow when the marker is clicked
+        markers[i].addListener('click', function () {
+          infowindows[i].open(map, markers[i]);
+        });
+      });
+    }
+  };
 
   return (
-    <div
-      id="homeMap"
-      {...{ ref, className }}
-    />
-  );
+    <>
+      <div
+        id="homeMap"
+        ref={googleMapRef}
+      />
+    </>
+  )
 }
 
-// By default, the Map component will rerender whenever the parent component rerenders.
-// shouldNotUpdate/.memo are used in conjunction for optimization.
-
-// If both comparisons return true, it skips the rerender 
-// and the user gets to keep the map’s current position and zoom level.
-function shouldNotUpdate(props, nextProps) {
-  const [funcs, nextFuncs] = [functions(props), functions(nextProps)];
-  const noPropChange = isEqual(omit(props, funcs), omit(nextProps, nextFuncs));
-  const noFuncChange =
-    funcs.length === nextFuncs.length &&
-    funcs.every(fn => props[fn].toString() === nextProps[fn].toString());
-  return noPropChange && noFuncChange;
-}
-
-// .memo shallowly compares props and only rerenders a function component 
-// if the comparison returns false
-export default React.memo(Map, shouldNotUpdate);
-
-Map.defaultProps = {
-  options: {
-    center: { lat: 43.6560811, lng: -79.3823601 },
-    zoom: 14,
-    disableDefaultUI: true,
-    draggable: true
-  },
-}
+export default HomeMap;
