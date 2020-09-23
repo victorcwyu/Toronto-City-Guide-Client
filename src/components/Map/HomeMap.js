@@ -2,9 +2,7 @@ import React, { useRef, useEffect } from "react";
 import axios from "axios";
 
 import { loadGoogleMapScript, intializeGoogleMap } from "../../helpers/google.js"
-
-let markers = [];
-let infowindows = [];
+import { favouritesMarkers } from "../../helpers/selectors.js"
 
 const HomeMap = () => {
   const googleMapRef = useRef(null);
@@ -41,21 +39,7 @@ const HomeMap = () => {
           favourite.vicinity
         ];
       })
-      // map through favouritesCoordinates array and add marker for each place
-      favouritesCoordinates.forEach((place, i) => {
-        markers[i] = new window.google.maps.Marker({ position: place[0], map: map });
-        infowindows[i] = new window.google.maps.InfoWindow({
-          content: `<b>${place[1]}</b>
-            <br>
-            ${place[2]}
-            <br>
-          `
-        });
-        // open an infowindow when the marker is clicked
-        markers[i].addListener('click', function () {
-          infowindows[i].open(map, markers[i]);
-        });
-      });
+      favouritesMarkers(favouritesCoordinates, map)
     }
   };
 
