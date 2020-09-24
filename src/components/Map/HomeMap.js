@@ -31,7 +31,12 @@ const HomeMap = () => {
 
   // Retrieve favourites and add create home map
   const createHomeMap = async () => {
-    favouritesMarkers(await getFavouritesData(), await initializeGoogleMap(googleMapRef.current))
+    const data = await getFavouritesData()
+    if (data === null) {
+      return null
+    } else {
+      favouritesMarkers(await getFavouritesData(), await initializeGoogleMap(googleMapRef.current))
+    }
   };
 
   return (
