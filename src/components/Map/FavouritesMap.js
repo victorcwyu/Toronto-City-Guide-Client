@@ -115,32 +115,6 @@ const FavouritesMap = () => {
     });
   };
 
-  //   return (
-  //     <div id="favourites-container">
-  //       {userFavourites.length > 0 &&
-  //         <div id="favouritesListing">
-  //           <table id="resultsTable">
-  //             <tbody id="favouritesResults">
-  //             </tbody>
-  //           </table>
-  //         </div>
-  //       }
-  //       <div
-  //         id="favourite-map"
-  //         ref={googleMapRef}
-  //         style={mapStyles}
-  //       />
-  //     </div>
-  //   )
-  // }
-
-  // export default FavouritesMap;
-
-
-
-
-
-
   return (
     <>
       {userFavourites.length <= 0 &&
