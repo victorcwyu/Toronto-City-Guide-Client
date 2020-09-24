@@ -1,3 +1,14 @@
+const favouritesCoordinates = function (favouritesArr) {
+  const coordinates = favouritesArr.map((favourite) => {
+    return [
+      { lat: favourite.geometry.location.lat, lng: favourite.geometry.location.lng },
+      favourite.name,
+      favourite.vicinity
+    ];
+  })
+  return coordinates
+}
+
 const favouritesMarkers = function (coordinates, map) {
   let markers = [];
   let infowindows = [];
@@ -18,4 +29,4 @@ const favouritesMarkers = function (coordinates, map) {
   })
 }
 
-export { favouritesMarkers }
+export { favouritesCoordinates, favouritesMarkers }
