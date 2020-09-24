@@ -2,6 +2,9 @@ import React, { useEffect, useRef, useState } from "react";
 import "../../styles/FavouritesMap.scss";
 import axios from "axios";
 
+import { initializeGoogleMap } from "../../helpers/google.js"
+import { favouritesCoordinates } from "../../helpers/selectors.js"
+
 const mapStyles = {
   width: "70%",
   // height: "50vh",
@@ -10,8 +13,8 @@ const mapStyles2 = {
   width: "100%",
   // height: "50vh",
 };
-let markers = [];
-let infowindows = [];
+const markers = [];
+const infowindows = [];
 
 const FavouritesMap = () => {
 
@@ -21,9 +24,10 @@ const FavouritesMap = () => {
 
 
   const getFavouritesData = async () => {
-    let res = await axios.get("https://toronto-city-travel-guide.herokuapp.com/getFavourites", { headers: { "x-auth-token": token } });
+    const res = await axios.get("https://toronto-city-travel-guide.herokuapp.com/getFavourites", { headers: { "x-auth-token": token } });
     setUserFavourites(res.data.favourites)
-    return res.data.favourites;
+    const favourites = res.data.favourites
+    return favouritesCoordinates(favourites)
   };
 
   useEffect(() => {
@@ -32,31 +36,13 @@ const FavouritesMap = () => {
 
   // Retrieve favourites and add create favourites map
   const createFavouritesMap = async () => {
+    const favouritesCoordinates = await getFavouritesData();
+    const map = initializeGoogleMap(googleMapRef.current)
 
-    // map through favourites array, extract the latitude and longitude of each place
-    let favourites = await getFavouritesData();
-
-    const favouritesCoordinates = favourites.map((favourite) => {
-      return [
-        { lat: favourite.geometry.location.lat, lng: favourite.geometry.location.lng },
-        favourite.name,
-        favourite.vicinity
-      ];
-    })
-
-    // Initialize the Google map
-    const map = new window.google.maps.Map(googleMapRef.current, {
-      center: { lat: 43.6560811, lng: -79.3823601 },
-      zoom: 14,
-      disableDefaultUI: true
-    });
-
+    // create list/table of favourites
     const addResults = (place, i) => {
-
-      // create list/table of favourites
-      // return favourite place element 
       var favouritesResults = document.getElementById('favouritesResults');
-      // // creates tr element = table row?
+      // creates tr element = table row?
       var tr = document.createElement('tr');
       // alternate row background colour between white and grey
       tr.style.backgroundColor = (i % 2 === 0 ? '#F0F0F0' : '#FFFFFF');

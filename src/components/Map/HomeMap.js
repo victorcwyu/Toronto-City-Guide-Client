@@ -1,7 +1,7 @@
 import React, { useRef, useEffect } from "react";
 import axios from "axios";
 
-import { loadGoogleMapScript, intializeGoogleMap } from "../../helpers/google.js"
+import { loadGoogleMapScript, initializeGoogleMap } from "../../helpers/google.js"
 import { favouritesCoordinates, favouritesMarkers } from "../../helpers/selectors.js"
 
 const HomeMap = () => {
@@ -12,7 +12,7 @@ const HomeMap = () => {
     if (!token) {
       return null
     } else {
-      let res = await axios.get("https://toronto-city-travel-guide.herokuapp.com/getFavourites", { headers: { "x-auth-token": token } });
+      const res = await axios.get("https://toronto-city-travel-guide.herokuapp.com/getFavourites", { headers: { "x-auth-token": token } });
       const favourites = res.data.favourites
       if (favourites === null || favourites[0] === undefined) {
         return null
@@ -24,15 +24,14 @@ const HomeMap = () => {
 
   useEffect(() => {
     loadGoogleMapScript(() => {
-      intializeGoogleMap(googleMapRef.current)
+      initializeGoogleMap(googleMapRef.current)
     });
     createHomeMap();
   }, [token]);
 
   // Retrieve favourites and add create home map
   const createHomeMap = async () => {
-    favouritesMarkers(await getFavouritesData(), await intializeGoogleMap(googleMapRef.current))
-
+    favouritesMarkers(await getFavouritesData(), await initializeGoogleMap(googleMapRef.current))
   };
 
   return (

@@ -10,8 +10,8 @@ const favouritesCoordinates = function (favouritesArr) {
 }
 
 const favouritesMarkers = function (coordinates, map) {
-  let markers = [];
-  let infowindows = [];
+  const markers = [];
+  const infowindows = [];
   // map through favouritesCoordinates array and add marker for each place
   coordinates.forEach((place, i) => {
     markers[i] = new window.google.maps.Marker({ position: place[0], map: map });
