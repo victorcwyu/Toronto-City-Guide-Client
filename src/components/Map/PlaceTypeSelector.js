@@ -17,7 +17,7 @@ const useStyles = makeStyles((theme) => ({
 
 export default function PlaceTypeSelector() {
   const classes = useStyles();
-  const [placeType, setPlaceType] = useState(null);
+  const [placeType, setPlaceType] = useState("");
 
   function handleChange(event) {
     setPlaceType(event.target.value);
