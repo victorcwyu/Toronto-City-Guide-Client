@@ -28,10 +28,10 @@ export default function PlaceTypeSelector() {
   return (
     <div>
       <FormControl variant="outlined" className={classes.formControl}>
-        <InputLabel id="demo-simple-select-outlined-label">Find</InputLabel>
+        <InputLabel id="place-type-selector-input-label">Find</InputLabel>
         <Select
-          labelId="demo-simple-select-outlined-label"
-          id="demo-simple-select-outlined"
+          labelId="place-type-label"
+          id="place-type"
           value={placeType}
           onChange={handleChange}
           label="place-type"
