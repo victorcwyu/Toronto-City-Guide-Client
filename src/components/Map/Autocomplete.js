@@ -1,20 +1,20 @@
 import React, { useEffect, useRef } from "react";
 import { useHistory } from "react-router-dom";
 import "../../styles/Autocomplete.scss";
+import { initializeGoogleMap } from "../../helpers/helpers.js";
 import PlaceTypeSelector from "./PlaceTypeSelector";
 import axios from "axios";
 
 const countryRestrict = { country: "ca" };
-var markers = [];
-var MARKER_PATH =
+let markers = [];
+const MARKER_PATH =
   "https://developers.google.com/maps/documentation/javascript/images/marker_green";
-var hostnameRegexp = new RegExp("^https?://.+?/");
+const hostnameRegexp = new RegExp("^https?://.+?/");
 const noDisplay = {
   display: "none",
 };
 const mapStyles = {
   width: "70%",
-  // height: "430px",
 };
 
 const Autocomplete = () => {
@@ -33,17 +33,7 @@ const Autocomplete = () => {
   // Initialize the Google Place autocomplete
   const initPlaceAPI = () => {
     // Initialize the Google map
-    const map = new window.google.maps.Map(googleMapRef.current, {
-      center: { lat: 43.6560811, lng: -79.3823601 },
-      zoom: 14,
-      disableDefaultUI: true,
-    });
-
-    // // Initialize central marker
-    // let locationSelection = new window.google.maps.Marker({
-    //   position: map.center,
-    //   map: map
-    // });
+    const map = initializeGoogleMap(googleMapRef.current);
 
     // Initialize infoWindow
     const infoWindow = window.google
@@ -57,7 +47,7 @@ const Autocomplete = () => {
       new window.google.maps.LatLng(43.619132, -79.480562),
       new window.google.maps.LatLng(43.95843, -78.320516)
     );
-    let autocomplete = new window.google.maps.places.Autocomplete(
+    const autocomplete = new window.google.maps.places.Autocomplete(
       placeInputRef.current,
       {
         bounds: bounds,
@@ -66,7 +56,6 @@ const Autocomplete = () => {
     );
 
     // initialize Google Places
-    // const places = new window.google.maps.places.PlacesService(map);
     window.places = new window.google.maps.places.PlacesService(map);
 
     // When autocomplete selection made, pan to and zoom in on selected location
@@ -74,16 +63,10 @@ const Autocomplete = () => {
       autocomplete,
       "place_changed",
       function () {
-        let place = autocomplete.getPlace();
+        const place = autocomplete.getPlace();
         if (place.geometry) {
-          // locationSelection.setMap(null);
           map.panTo(place.geometry.location);
           map.setZoom(15);
-          // // Create location marker
-          // locationSelection = new window.google.maps.Marker({
-          //   position: place.geometry.location,
-          //   map: map,
-          // });
           search();
         } else {
           document.getElementById("autocomplete").placeholder =
@@ -96,7 +79,7 @@ const Autocomplete = () => {
     function search() {
       const searchPlaceType = localStorage.getItem("searchPlaceType");
 
-      var search = {
+      const search = {
         bounds: map.getBounds(),
         types: [`${searchPlaceType}`],
       };
@@ -108,11 +91,11 @@ const Autocomplete = () => {
         if (status === window.google.maps.places.PlacesServiceStatus.OK) {
           // Create a marker for each place type found, and
           // assign a letter of the alphabetic to each marker icon.
-          for (var i = 0; i < results.length; i++) {
-            var markerLetter = String.fromCharCode(
+          for (let i = 0; i < results.length; i++) {
+            const markerLetter = String.fromCharCode(
               "A".charCodeAt(0) + (i % 26)
             );
-            var markerIcon = MARKER_PATH + markerLetter + ".png";
+            const markerIcon = MARKER_PATH + markerLetter + ".png";
             // Use marker animation to drop the icons incrementally on the map.
             markers[i] = new window.google.maps.Marker({
               position: results[i].geometry.location,
@@ -134,7 +117,7 @@ const Autocomplete = () => {
       });
     }
     function clearMarkers() {
-      for (var i = 0; i < markers.length; i++) {
+      for (let i = 0; i < markers.length; i++) {
         if (markers[i]) {
           markers[i].setMap(null);
         }
@@ -147,21 +130,21 @@ const Autocomplete = () => {
       };
     }
     function addResult(result, i) {
-      var results = document.getElementById("results");
-      var markerLetter = String.fromCharCode("A".charCodeAt(0) + (i % 26));
-      var markerIcon = MARKER_PATH + markerLetter + ".png";
-      var tr = document.createElement("tr");
+      const results = document.getElementById("results");
+      const markerLetter = String.fromCharCode("A".charCodeAt(0) + (i % 26));
+      const markerIcon = MARKER_PATH + markerLetter + ".png";
+      const tr = document.createElement("tr");
       tr.style.backgroundColor = i % 2 === 0 ? "#F0F0F0" : "#FFFFFF";
       tr.onclick = function () {
         window.google.maps.event.trigger(markers[i], "click");
       };
-      var iconTd = document.createElement("td");
-      var nameTd = document.createElement("td");
-      var icon = document.createElement("img");
+      const iconTd = document.createElement("td");
+      const nameTd = document.createElement("td");
+      const icon = document.createElement("img");
       icon.src = markerIcon;
       icon.setAttribute("class", "placeIcon");
       icon.setAttribute("className", "placeIcon");
-      var name = document.createTextNode(result.name);
+      const name = document.createTextNode(result.name);
       iconTd.appendChild(icon);
       nameTd.appendChild(name);
       tr.appendChild(iconTd);
@@ -169,7 +152,7 @@ const Autocomplete = () => {
       results.appendChild(tr);
     }
     function clearResults() {
-      var results = document.getElementById("results");
+      const results = document.getElementById("results");
       while (results.childNodes[0]) {
         results.removeChild(results.childNodes[0]);
       }
@@ -177,7 +160,7 @@ const Autocomplete = () => {
     // Get the place details for a place type. Show the information in an info window,
     // anchored on the marker for the place that the user selected.
     function showInfoWindow() {
-      var marker = this;
+      const marker = this;
       window.uniqueId = marker.placeResult.place_id;
       window.places.getDetails(
         { placeId: marker.placeResult.place_id },
@@ -208,8 +191,8 @@ const Autocomplete = () => {
       // to indicate the rating the place has earned, and a white star ('&#10025;')
       // for the rating points not achieved.
       if (place.rating) {
-        var ratingHtml = "";
-        for (var i = 0; i < 5; i++) {
+        let ratingHtml = "";
+        for (let i = 0; i < 5; i++) {
           if (place.rating < i + 0.5) {
             ratingHtml += "&#10025;";
           } else {
@@ -224,7 +207,7 @@ const Autocomplete = () => {
       // The regexp isolates the first part of the URL (domain plus subdomain)
       // to give a short URL for displaying in the info window.
       if (place.website) {
-        var website = hostnameRegexp.exec(place.website);
+        const website = hostnameRegexp.exec(place.website);
         if (website === null) {
           website = "http://" + place.website + "/";
         }
@@ -238,9 +221,9 @@ const Autocomplete = () => {
 
   // get favourites to check if place has already been added
   // used Axios instead of userData (comes back as object instead of array?)
-  let token = localStorage.getItem("auth-token");
+  const token = localStorage.getItem("auth-token");
   const getFavourites = async () => {
-    let res = await axios.get(
+    const res = await axios.get(
       "https://toronto-city-travel-guide.herokuapp.com/getFavourites",
       { headers: { "x-auth-token": token } }
     );
@@ -259,8 +242,8 @@ const Autocomplete = () => {
       if (status !== window.google.maps.places.PlacesServiceStatus.OK) {
         return;
       }
-      let favourites = await getFavourites();
-      let doesFavouriteExist = await favourites.filter(
+      const favourites = await getFavourites();
+      const doesFavouriteExist = await favourites.filter(
         (favourite) => favourite.place_id !== place.place_id
       );
       if (doesFavouriteExist.length === favourites.length) {
