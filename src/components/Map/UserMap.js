@@ -59,7 +59,7 @@ const UserMap = (props) => {
 
       // create list/table of favourites
       const addResults = (place, i) => {
-        const favouritesResults = document.getElementById("favouritesResults");
+        const favouritesTable = document.getElementById("favouritesTable");
         // create table row element
         const tr = document.createElement("tr");
         // alternate row background colour between white and grey
@@ -101,7 +101,7 @@ const UserMap = (props) => {
         // attach button to associated row
         tr.appendChild(btn);
         // add table row to list/table of favourites
-        favouritesResults.appendChild(tr);
+        favouritesTable.appendChild(tr);
       };
 
       // map through favouritesCoordinates array and add marker for each place
@@ -144,9 +144,7 @@ const UserMap = (props) => {
       {token && props.home === false && userFavourites.length > 0 && (
         <div id="favourites-container">
           <div id="favouritesListing">
-            <table id="resultsTable">
-              <tbody id="favouritesResults"></tbody>
-            </table>
+            <table id="favouritesTable" cellspacing="0"></table>
           </div>
           <div id="favourite-map" ref={googleMapRef} style={mapStyles} />
         </div>
