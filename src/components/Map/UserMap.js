@@ -144,7 +144,7 @@ const UserMap = (props) => {
       {token && props.home === false && userFavourites.length > 0 && (
         <div id="favourites-container">
           <div id="favouritesListing">
-            <table id="favouritesTable" cellspacing="0"></table>
+            <table id="favouritesTable" cellSpacing="0"></table>
           </div>
           <div id="favourite-map" ref={googleMapRef} style={mapStyles} />
         </div>
