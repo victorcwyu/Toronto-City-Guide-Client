@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import HomeMap from './Map/HomeMap'
+import UserMap from './Map/UserMap'
 import CurvedText from './Map/CurvedText'
 import '../styles/Home.scss'
 
@@ -33,7 +33,7 @@ export default function Home() {
                     }
                 </div>
                 <div className="homeMapContainer">
-                    <HomeMap />
+                    <UserMap home={true} />
                 </div>
             </div>
         </>

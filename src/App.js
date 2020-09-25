@@ -18,8 +18,7 @@ function App() {
   const [userData, setUserData] = useState({
     token: undefined,
     user: undefined,
-    wtf: 0,
-    favourites: []
+    wtf: 0
   });
 
   useEffect(() => {
@@ -45,8 +44,7 @@ function App() {
 
         setUserData({
           token: token,
-          user: userRes.data,
-          favourites: userRes.data.favourites
+          user: userRes.data
         })
       }
     }

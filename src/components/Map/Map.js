@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import Autocomplete from './Autocomplete';
 import "../../styles/Map.scss";
-import FavouritesMap from './FavouritesMap';
+import UserMap from './UserMap';
 import Switch from '@material-ui/core/Switch';
 
 import { loadGoogleMapScript } from "../../helpers/google.js"
@@ -33,7 +33,7 @@ export default function Map() {
       </div>
       {!loadMap && <div>Loading...</div>}
       {searchOn && <Autocomplete />}
-      {!searchOn && <FavouritesMap />}
+      {!searchOn && <UserMap home={false} />}
     </div>
   )
 }
