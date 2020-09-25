@@ -115,6 +115,7 @@ const Autocomplete = () => {
           }
         }
       });
+      localStorage.clear();
     }
     function clearMarkers() {
       for (let i = 0; i < markers.length; i++) {
