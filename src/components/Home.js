@@ -1,12 +1,9 @@
-import React, { useContext, useState, useEffect } from 'react';
-import HomeMap from './Map/HomeMap'
-import FavouritesHomeMap from './Map/FavouritesHomeMap';
+import React, { useState, useEffect } from 'react';
+import UserMap from './Map/UserMap'
 import CurvedText from './Map/CurvedText'
 import '../styles/Home.scss'
-import UserContext from '../context/UserContext';
 
 export default function Home() {
-    const { userData } = useContext(UserContext);
 
     const [windowWidth, setWindowWidth] = useState('');
 
@@ -36,8 +33,7 @@ export default function Home() {
                     }
                 </div>
                 <div className="homeMapContainer">
-                    {!userData.token && <HomeMap />}
-                    {userData.token && <FavouritesHomeMap />}
+                    <UserMap home={true} />
                 </div>
             </div>
         </>
