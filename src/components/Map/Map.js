@@ -18,6 +18,7 @@ export default function Map() {
     loadGoogleMapScript(() => {
       setLoadMap(true);
     });
+    return;
   }, []);
 
   return (
