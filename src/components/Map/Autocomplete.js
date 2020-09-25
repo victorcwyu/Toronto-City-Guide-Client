@@ -1,16 +1,17 @@
 import React, { useEffect, useRef } from "react";
-import {useHistory} from 'react-router-dom';
+import { useHistory } from "react-router-dom";
 import "../../styles/Autocomplete.scss";
-import PlaceTypeSelector from "./PlaceTypeSelector"
+import PlaceTypeSelector from "./PlaceTypeSelector";
 import axios from "axios";
 
-const countryRestrict = { 'country': 'ca' };
+const countryRestrict = { country: "ca" };
 var markers = [];
-var MARKER_PATH = 'https://developers.google.com/maps/documentation/javascript/images/marker_green';
-var hostnameRegexp = new RegExp('^https?://.+?/');
+var MARKER_PATH =
+  "https://developers.google.com/maps/documentation/javascript/images/marker_green";
+var hostnameRegexp = new RegExp("^https?://.+?/");
 const noDisplay = {
   display: "none",
-}
+};
 const mapStyles = {
   width: "70%",
   // height: "430px",
@@ -22,8 +23,8 @@ const Autocomplete = () => {
   const googleMapRef = useRef(null);
 
   useEffect(() => {
-    if (!window.google){
-      history.push('/');
+    if (!window.google) {
+      history.push("/");
     } else {
       initPlaceAPI();
     }
@@ -35,7 +36,7 @@ const Autocomplete = () => {
     const map = new window.google.maps.Map(googleMapRef.current, {
       center: { lat: 43.6560811, lng: -79.3823601 },
       zoom: 14,
-      disableDefaultUI: true
+      disableDefaultUI: true,
     });
 
     // // Initialize central marker
@@ -45,9 +46,11 @@ const Autocomplete = () => {
     // });
 
     // Initialize infoWindow
-    const infoWindow = window.google ? new window.google.maps.InfoWindow({
-      content: document.getElementById('info-content')
-    }) : null;
+    const infoWindow = window.google
+      ? new window.google.maps.InfoWindow({
+          content: document.getElementById("info-content"),
+        })
+      : null;
 
     // Restrict the search to Canada, in the lat/lng bounds of Toronto.
     const bounds = new window.google.maps.LatLngBounds(
@@ -58,34 +61,40 @@ const Autocomplete = () => {
       placeInputRef.current,
       {
         bounds: bounds,
-        componentRestrictions: countryRestrict
-      });
+        componentRestrictions: countryRestrict,
+      }
+    );
 
     // initialize Google Places
     // const places = new window.google.maps.places.PlacesService(map);
     window.places = new window.google.maps.places.PlacesService(map);
 
     // When autocomplete selection made, pan to and zoom in on selected location
-    new window.google.maps.event.addListener(autocomplete, "place_changed", function () {
-      let place = autocomplete.getPlace();     
-      if (place.geometry) {
-        // locationSelection.setMap(null);
-        map.panTo(place.geometry.location);
-        map.setZoom(15);
-        // // Create location marker
-        // locationSelection = new window.google.maps.Marker({
-        //   position: place.geometry.location,
-        //   map: map,
-        // });
-        search();
-      } else {
-        document.getElementById('autocomplete').placeholder = 'Enter a location';
+    new window.google.maps.event.addListener(
+      autocomplete,
+      "place_changed",
+      function () {
+        let place = autocomplete.getPlace();
+        if (place.geometry) {
+          // locationSelection.setMap(null);
+          map.panTo(place.geometry.location);
+          map.setZoom(15);
+          // // Create location marker
+          // locationSelection = new window.google.maps.Marker({
+          //   position: place.geometry.location,
+          //   map: map,
+          // });
+          search();
+        } else {
+          document.getElementById("autocomplete").placeholder =
+            "Enter a location";
+        }
       }
-    });
+    );
 
     // Search for a place type near the selected location, within the viewport of the map.
     function search() {
-      const searchPlaceType = localStorage.getItem('searchPlaceType');
+      const searchPlaceType = localStorage.getItem("searchPlaceType");
 
       var search = {
         bounds: map.getBounds(),
@@ -94,24 +103,30 @@ const Autocomplete = () => {
       // Clear results and markers when a new search is made
       // Ensures the results table is blank if no places are found
       clearResults();
-      clearMarkers(); 
+      clearMarkers();
       window.places.nearbySearch(search, function (results, status) {
         if (status === window.google.maps.places.PlacesServiceStatus.OK) {
           // Create a marker for each place type found, and
           // assign a letter of the alphabetic to each marker icon.
           for (var i = 0; i < results.length; i++) {
-            var markerLetter = String.fromCharCode('A'.charCodeAt(0) + (i % 26));
-            var markerIcon = MARKER_PATH + markerLetter + '.png';
+            var markerLetter = String.fromCharCode(
+              "A".charCodeAt(0) + (i % 26)
+            );
+            var markerIcon = MARKER_PATH + markerLetter + ".png";
             // Use marker animation to drop the icons incrementally on the map.
             markers[i] = new window.google.maps.Marker({
               position: results[i].geometry.location,
               animation: window.google.maps.Animation.DROP,
-              icon: markerIcon
+              icon: markerIcon,
             });
             // If the user clicks a hotel marker, show the details of that hotel
             // in an info window.
             markers[i].placeResult = results[i];
-            window.google.maps.event.addListener(markers[i], 'click', showInfoWindow);
+            window.google.maps.event.addListener(
+              markers[i],
+              "click",
+              showInfoWindow
+            );
             setTimeout(dropMarker(i), i * 100);
             addResult(results[i], i);
           }
@@ -132,20 +147,20 @@ const Autocomplete = () => {
       };
     }
     function addResult(result, i) {
-      var results = document.getElementById('results');
-      var markerLetter = String.fromCharCode('A'.charCodeAt(0) + (i % 26));
-      var markerIcon = MARKER_PATH + markerLetter + '.png';
-      var tr = document.createElement('tr');
-      tr.style.backgroundColor = (i % 2 === 0 ? '#F0F0F0' : '#FFFFFF');
+      var results = document.getElementById("results");
+      var markerLetter = String.fromCharCode("A".charCodeAt(0) + (i % 26));
+      var markerIcon = MARKER_PATH + markerLetter + ".png";
+      var tr = document.createElement("tr");
+      tr.style.backgroundColor = i % 2 === 0 ? "#F0F0F0" : "#FFFFFF";
       tr.onclick = function () {
-        window.google.maps.event.trigger(markers[i], 'click');
+        window.google.maps.event.trigger(markers[i], "click");
       };
-      var iconTd = document.createElement('td');
-      var nameTd = document.createElement('td');
-      var icon = document.createElement('img');
+      var iconTd = document.createElement("td");
+      var nameTd = document.createElement("td");
+      var icon = document.createElement("img");
       icon.src = markerIcon;
-      icon.setAttribute('class', 'placeIcon');
-      icon.setAttribute('className', 'placeIcon');
+      icon.setAttribute("class", "placeIcon");
+      icon.setAttribute("className", "placeIcon");
       var name = document.createTextNode(result.name);
       iconTd.appendChild(icon);
       nameTd.appendChild(name);
@@ -154,7 +169,7 @@ const Autocomplete = () => {
       results.appendChild(tr);
     }
     function clearResults() {
-      var results = document.getElementById('results');
+      var results = document.getElementById("results");
       while (results.childNodes[0]) {
         results.removeChild(results.childNodes[0]);
       }
@@ -164,100 +179,113 @@ const Autocomplete = () => {
     function showInfoWindow() {
       var marker = this;
       window.uniqueId = marker.placeResult.place_id;
-      window.places.getDetails({ placeId: marker.placeResult.place_id },
+      window.places.getDetails(
+        { placeId: marker.placeResult.place_id },
         function (place, status) {
           if (status !== window.google.maps.places.PlacesServiceStatus.OK) {
             return;
           }
           infoWindow.open(map, marker);
           buildIWContent(place);
-        });
+        }
+      );
     }
     // Load the place information into the HTML elements used by the info window.
     function buildIWContent(place) {
-      document.getElementById('iw-icon').innerHTML = '<img class="hotelIcon" ' +
-        'src="' + place.icon + '"/>';
-      document.getElementById('iw-url').innerHTML = '<b><a href="' + place.url +
-        '">' + place.name + '</a></b>';
-      document.getElementById('iw-address').textContent = place.vicinity;
+      document.getElementById("iw-icon").innerHTML =
+        '<img class="hotelIcon" ' + 'src="' + place.icon + '"/>';
+      document.getElementById("iw-url").innerHTML =
+        '<b><a href="' + place.url + '">' + place.name + "</a></b>";
+      document.getElementById("iw-address").textContent = place.vicinity;
       if (place.formatted_phone_number) {
-        document.getElementById('iw-phone-row').style.display = '';
-        document.getElementById('iw-phone').textContent =
+        document.getElementById("iw-phone-row").style.display = "";
+        document.getElementById("iw-phone").textContent =
           place.formatted_phone_number;
       } else {
-        document.getElementById('iw-phone-row').style.display = 'none';
+        document.getElementById("iw-phone-row").style.display = "none";
       }
       // Assign a five-star rating to the place, using a black star ('&#10029;')
       // to indicate the rating the place has earned, and a white star ('&#10025;')
       // for the rating points not achieved.
       if (place.rating) {
-        var ratingHtml = '';
+        var ratingHtml = "";
         for (var i = 0; i < 5; i++) {
-          if (place.rating < (i + 0.5)) {
-            ratingHtml += '&#10025;';
+          if (place.rating < i + 0.5) {
+            ratingHtml += "&#10025;";
           } else {
-            ratingHtml += '&#10029;';
+            ratingHtml += "&#10029;";
           }
-          document.getElementById('iw-rating-row').style.display = '';
-          document.getElementById('iw-rating').innerHTML = ratingHtml;
+          document.getElementById("iw-rating-row").style.display = "";
+          document.getElementById("iw-rating").innerHTML = ratingHtml;
         }
       } else {
-        document.getElementById('iw-rating-row').style.display = 'none';
+        document.getElementById("iw-rating-row").style.display = "none";
       }
       // The regexp isolates the first part of the URL (domain plus subdomain)
       // to give a short URL for displaying in the info window.
       if (place.website) {
         var website = hostnameRegexp.exec(place.website);
         if (website === null) {
-          website = 'http://' + place.website + '/';
+          website = "http://" + place.website + "/";
         }
-        document.getElementById('iw-website-row').style.display = '';
-        document.getElementById('iw-website').textContent = website;
+        document.getElementById("iw-website-row").style.display = "";
+        document.getElementById("iw-website").textContent = website;
       } else {
-        document.getElementById('iw-website-row').style.display = 'none';
+        document.getElementById("iw-website-row").style.display = "none";
       }
     }
   };
 
   // get favourites to check if place has already been added
   // used Axios instead of userData (comes back as object instead of array?)
-  let token = localStorage.getItem("auth-token")
+  let token = localStorage.getItem("auth-token");
   const getFavourites = async () => {
-    let res = await axios.get("https://toronto-city-travel-guide.herokuapp.com/getFavourites", { headers: { "x-auth-token": token } });
+    let res = await axios.get(
+      "https://toronto-city-travel-guide.herokuapp.com/getFavourites",
+      { headers: { "x-auth-token": token } }
+    );
     return res.data.favourites;
   };
 
   const alreadyInFavourites = () =>
     alert("This place is already in your favourites!");
 
-  const handleAddFavourite = async e => {
-    e.preventDefault();   
-    window.places.getDetails({ placeId: window.uniqueId },
-      async function (place, status) {
-        if (status !== window.google.maps.places.PlacesServiceStatus.OK) {
-          return;
-        }
+  const handleAddFavourite = async (e) => {
+    e.preventDefault();
+    window.places.getDetails({ placeId: window.uniqueId }, async function (
+      place,
+      status
+    ) {
+      if (status !== window.google.maps.places.PlacesServiceStatus.OK) {
+        return;
+      }
       let favourites = await getFavourites();
-      let doesFavouriteExist = await favourites.filter(favourite => favourite.place_id !== place.place_id);
-      if ((doesFavouriteExist.length === favourites.length)) {
+      let doesFavouriteExist = await favourites.filter(
+        (favourite) => favourite.place_id !== place.place_id
+      );
+      if (doesFavouriteExist.length === favourites.length) {
         try {
-          axios.post("https://toronto-city-travel-guide.herokuapp.com/addFavourite", { place }, {
-            headers: {
-              "x-auth-token": token
-            }
-          })
-            .then(res => {
+          axios
+            .post(
+              "https://toronto-city-travel-guide.herokuapp.com/addFavourite",
+              { place },
+              {
+                headers: {
+                  "x-auth-token": token,
+                },
+              }
+            )
+            .then((res) => {
               console.log(res);
             });
-        }
-        catch (err) {
+        } catch (err) {
           console.error(err);
-        };
+        }
       } else {
         alreadyInFavourites();
-      };
+      }
     });
-  }
+  };
 
   return (
     <>
@@ -265,7 +293,12 @@ const Autocomplete = () => {
         <div className="hotel-search">
           <PlaceTypeSelector />
           <div id="locationField">
-            <input id="autocomplete" placeholder="Enter a location" type="text" ref={placeInputRef} />
+            <input
+              id="autocomplete"
+              placeholder="Enter a location"
+              type="text"
+              ref={placeInputRef}
+            />
             <div id="listing">
               <table id="resultsTable">
                 <tbody id="results"></tbody>
@@ -273,11 +306,7 @@ const Autocomplete = () => {
             </div>
           </div>
         </div>
-        <div
-          id="map"
-          ref={googleMapRef}
-          style={mapStyles}
-        />
+        <div id="map" ref={googleMapRef} style={mapStyles} />
         <div style={noDisplay}>
           <div id="info-content">
             <table>
@@ -302,15 +331,18 @@ const Autocomplete = () => {
                   <td className="iw_attribute_name">Website:</td>
                   <td id="iw-website"></td>
                 </tr>
-                <button onClick={handleAddFavourite}>
-                  Add to favourites
-                </button>
+                <tr>
+                  <td>
+                    <button onClick={handleAddFavourite}>
+                      Add to favourites
+                    </button>
+                  </td>
+                </tr>
               </tbody>
             </table>
           </div>
         </div>
       </div>
-
     </>
   );
 };
