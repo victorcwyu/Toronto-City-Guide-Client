@@ -115,7 +115,7 @@ const Autocomplete = () => {
           }
         }
       });
-      localStorage.clear();
+      localStorage.removeItem("searchPlaceType");
     }
     function clearMarkers() {
       for (let i = 0; i < markers.length; i++) {
@@ -176,8 +176,9 @@ const Autocomplete = () => {
     }
     // Load the place information into the HTML elements used by the info window.
     function buildIWContent(place) {
-      document.getElementById("iw-icon").innerHTML =
-        '<img class="hotelIcon" ' + 'src="' + place.icon + '"/>';
+      document.getElementById(
+        "iw-icon"
+      ).innerHTML = `<img class="hotelIcon" src="${place.icon}"/>`;
       document.getElementById("iw-url").innerHTML =
         '<b><a href="' + place.url + '">' + place.name + "</a></b>";
       document.getElementById("iw-address").textContent = place.vicinity;
@@ -208,7 +209,7 @@ const Autocomplete = () => {
       // The regexp isolates the first part of the URL (domain plus subdomain)
       // to give a short URL for displaying in the info window.
       if (place.website) {
-        const website = hostnameRegexp.exec(place.website);
+        let website = hostnameRegexp.exec(place.website);
         if (website === null) {
           website = "http://" + place.website + "/";
         }
@@ -249,19 +250,15 @@ const Autocomplete = () => {
       );
       if (doesFavouriteExist.length === favourites.length) {
         try {
-          axios
-            .post(
-              "https://toronto-city-travel-guide.herokuapp.com/addFavourite",
-              { place },
-              {
-                headers: {
-                  "x-auth-token": token,
-                },
-              }
-            )
-            .then((res) => {
-              console.log(res);
-            });
+          axios.post(
+            "https://toronto-city-travel-guide.herokuapp.com/addFavourite",
+            { place },
+            {
+              headers: {
+                "x-auth-token": token,
+              },
+            }
+          );
         } catch (err) {
           console.error(err);
         }

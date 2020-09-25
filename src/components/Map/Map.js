@@ -11,7 +11,6 @@ export default function Map() {
   const [state, setState] = useState({ checked: true });
 
   const handleChange = (event) => {
-    console.log(state);
     setState({ ...state, [event.target.name]: event.target.checked });
   };
 
