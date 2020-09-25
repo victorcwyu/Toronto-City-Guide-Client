@@ -8,10 +8,11 @@ import { loadGoogleMapScript } from "../../helpers/helpers.js";
 
 export default function Map() {
   const [loadMap, setLoadMap] = useState(false);
-  const [searchOn, setSearchOn] = useState(false);
+  const [state, setState] = useState({ checked: true });
 
   const handleChange = (event) => {
-    setSearchOn(!searchOn);
+    console.log(state);
+    setState({ ...state, [event.target.name]: event.target.checked });
   };
 
   useEffect(() => {
@@ -25,15 +26,16 @@ export default function Map() {
       <div id="toggle">
         <h2>Favourites</h2>
         <Switch
-          selection={searchOn}
+          checked={state.checked}
           onChange={handleChange}
+          name="checked"
           inputProps={{ "aria-label": "primary checkbox" }}
         />
         <h2>Search</h2>
       </div>
       {!loadMap && <div>Loading...</div>}
-      {searchOn && <Autocomplete />}
-      {!searchOn && <UserMap home={false} />}
+      {state.checked === true && <Autocomplete />}
+      {state.checked === false && <UserMap home={false} />}
     </div>
   );
 }
