@@ -1,10 +1,10 @@
-import React, { useState, useEffect } from 'react';
-import Autocomplete from './Autocomplete';
+import React, { useState, useEffect } from "react";
+import Autocomplete from "./Autocomplete";
 import "../../styles/Map.scss";
-import UserMap from './UserMap';
-import Switch from '@material-ui/core/Switch';
+import UserMap from "./UserMap";
+import Switch from "@material-ui/core/Switch";
 
-import { loadGoogleMapScript } from "../../helpers/google.js"
+import { loadGoogleMapScript } from "../../helpers/helpers.js";
 
 export default function Map() {
   const [loadMap, setLoadMap] = useState(false);
@@ -27,7 +27,7 @@ export default function Map() {
         <Switch
           selection={searchOn}
           onChange={handleChange}
-          inputProps={{ 'aria-label': 'primary checkbox' }}
+          inputProps={{ "aria-label": "primary checkbox" }}
         />
         <h2>Search</h2>
       </div>
@@ -35,5 +35,5 @@ export default function Map() {
       {searchOn && <Autocomplete />}
       {!searchOn && <UserMap home={false} />}
     </div>
-  )
+  );
 }
