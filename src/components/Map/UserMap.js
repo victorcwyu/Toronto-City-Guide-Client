@@ -22,17 +22,13 @@ const UserMap = (props) => {
   const [userFavourites, setUserFavourites] = useState([]);
 
   useEffect(() => {
-    // loadGoogleMapScript(() => {
-    // initializeGoogleMap(googleMapRef.current);
-    // });
     createUserMap();
   }, [token]);
 
-  //it's here
   const getFavouritesData = async () => {
     if (!token) {
-      return null;
-    } else {
+      return [];
+    } else if (token) {
       const res = await axios.get(
         "https://toronto-city-travel-guide.herokuapp.com/getFavourites",
         { headers: { "x-auth-token": token } }
@@ -43,19 +39,16 @@ const UserMap = (props) => {
       } else if (favourites[0] !== undefined) {
         setUserFavourites(res.data.favourites);
         const favourites = res.data.favourites;
-        console.log("tthis", favourites);
         return favouritesCoordinates(favourites);
       }
     }
   };
 
   const createUserMap = async () => {
-    const data = await getFavouritesData();
-    if (data === null) {
-      return null;
-    } else {
-      const favouritesCoordinates = await getFavouritesData();
-
+    const favouritesCoordinates = await getFavouritesData();
+    if (favouritesCoordinates === []) {
+      initializeGoogleMap(googleMapRef.current);
+    } else if (favouritesCoordinates !== []) {
       const map = initializeGoogleMap(googleMapRef.current);
 
       // create list/table of favourites
@@ -137,12 +130,12 @@ const UserMap = (props) => {
           <div id="homeMap" ref={googleMapRef} />
         </>
       )}
-      {token && props.home === false && userFavourites.length <= 0 && (
+      {token && props.home === false && userFavourites.length === 0 && (
         <div id="no-favourites-container">
           <div id="no-favourite-map" ref={googleMapRef} style={mapStyles2} />
         </div>
       )}
-      {token && props.home === false && userFavourites.length > 0 && (
+      {token && props.home === false && userFavourites.length !== 0 && (
         <div id="favourites-container">
           <div id="favouritesListing">
             <table id="favouritesTable" cellSpacing="0"></table>
