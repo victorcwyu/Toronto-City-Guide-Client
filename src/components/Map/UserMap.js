@@ -3,7 +3,6 @@ import "../../styles/UserMap.scss";
 import axios from "axios";
 
 import {
-  loadGoogleMapScript,
   initializeGoogleMap,
   favouritesCoordinates,
 } from "../../helpers/helpers.js";
@@ -23,40 +22,44 @@ const UserMap = (props) => {
   const [userFavourites, setUserFavourites] = useState([]);
 
   useEffect(() => {
-    loadGoogleMapScript(() => {
-      initializeGoogleMap(googleMapRef.current);
-    });
     createUserMap();
   }, [token]);
 
   const getFavouritesData = async () => {
     if (!token) {
-      return null;
-    } else {
+      return [];
+    } else if (token) {
       const res = await axios.get(
         "https://toronto-city-travel-guide.herokuapp.com/getFavourites",
         { headers: { "x-auth-token": token } }
       );
       const favourites = res.data.favourites;
       if (favourites === null || favourites[0] === undefined) {
-        return null;
+        return [];
       } else if (favourites[0] !== undefined) {
-        setUserFavourites(res.data.favourites);
-        const favourites = res.data.favourites;
+        setUserFavourites(favourites);
         return favouritesCoordinates(favourites);
       }
     }
   };
 
-  const createUserMap = async () => {
-    const data = await getFavouritesData();
-    if (data === null) {
-      return null;
+  const clearResults = () => {
+    const results = document.getElementById("favouritesTable");
+    if (results === null) {
+      return;
     } else {
-      const favouritesCoordinates = await getFavouritesData();
+      while (results.childNodes.length > 0) {
+        results.removeChild(results.childNodes[0]);
+      }
+    }
+  };
 
+  const createUserMap = async () => {
+    const favouritesCoordinates = await getFavouritesData();
+    if (favouritesCoordinates === []) {
+      initializeGoogleMap(googleMapRef.current);
+    } else if (favouritesCoordinates !== []) {
       const map = initializeGoogleMap(googleMapRef.current);
-
       // create list/table of favourites
       const addResults = (place, i) => {
         const favouritesTable = document.getElementById("favouritesTable");
@@ -85,7 +88,10 @@ const UserMap = (props) => {
                   },
                 }
               )
-              .then((res) => setUserFavourites(res.data))
+              .then((res) =>
+                setUserFavourites(res.data.favouritesData.favourites)
+              )
+              .then(() => clearResults())
               .then(() => createUserMap());
           } catch (err) {
             console.error(err);
@@ -136,12 +142,12 @@ const UserMap = (props) => {
           <div id="homeMap" ref={googleMapRef} />
         </>
       )}
-      {token && props.home === false && userFavourites.length <= 0 && (
+      {token && props.home === false && userFavourites.length === 0 && (
         <div id="no-favourites-container">
           <div id="no-favourite-map" ref={googleMapRef} style={mapStyles2} />
         </div>
       )}
-      {token && props.home === false && userFavourites.length > 0 && (
+      {token && props.home === false && userFavourites.length !== 0 && (
         <div id="favourites-container">
           <div id="favouritesListing">
             <table id="favouritesTable" cellSpacing="0"></table>
