@@ -1,4 +1,4 @@
-import React, { useRef, useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { BrowserRouter, Switch, Route } from "react-router-dom";
 import "./App.css";
 import Signup from "./components/auth/Signup";
@@ -34,6 +34,7 @@ function App() {
           googleMapsLoaded: !userData.googleMapsLoaded,
         }));
       });
+      localStorage.setItem("googleMaps", "true");
     };
     onScriptload();
   }, []);
@@ -41,6 +42,8 @@ function App() {
   useEffect(() => {
     const checkLoggedIn = async () => {
       let token = localStorage.getItem("auth-token");
+      let googleMaps = JSON.parse(localStorage.getItem("googleMaps"));
+
       if (token === null) {
         localStorage.setItem("auth-token", "");
         token = "";
@@ -56,7 +59,6 @@ function App() {
       );
 
       if (tokenRes.data) {
-        console.log("hi", tokenRes);
         const userRes = await Axios.post(
           "https://toronto-city-travel-guide.herokuapp.com/getActiveUser",
           null,
@@ -70,12 +72,11 @@ function App() {
         setUserData({
           token: token,
           user: userRes.data,
-          googleMapsLoaded: userData.googleMapsLoaded,
+          googleMapsLoaded: googleMaps,
         });
       }
     };
     checkLoggedIn();
-    console.log("token effect", userData);
   }, [userData.token]);
 
   return (
@@ -102,7 +103,3 @@ function App() {
   );
 }
 export default App;
-
-// why cant we keep state on refresh
-// funtion calling itself on add favourites
-// map rerender

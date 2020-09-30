@@ -37,9 +37,19 @@ const UserMap = (props) => {
       if (favourites === null || favourites[0] === undefined) {
         return [];
       } else if (favourites[0] !== undefined) {
-        setUserFavourites(res.data.favourites);
-        const favourites = res.data.favourites;
+        setUserFavourites(favourites);
         return favouritesCoordinates(favourites);
+      }
+    }
+  };
+
+  const clearResults = () => {
+    const results = document.getElementById("favouritesTable");
+    if (results === null) {
+      return;
+    } else {
+      while (results.childNodes.length > 0) {
+        results.removeChild(results.childNodes[0]);
       }
     }
   };
@@ -50,7 +60,6 @@ const UserMap = (props) => {
       initializeGoogleMap(googleMapRef.current);
     } else if (favouritesCoordinates !== []) {
       const map = initializeGoogleMap(googleMapRef.current);
-
       // create list/table of favourites
       const addResults = (place, i) => {
         const favouritesTable = document.getElementById("favouritesTable");
@@ -79,7 +88,10 @@ const UserMap = (props) => {
                   },
                 }
               )
-              .then((res) => setUserFavourites(res.data))
+              .then((res) =>
+                setUserFavourites(res.data.favouritesData.favourites)
+              )
+              .then(() => clearResults())
               .then(() => createUserMap());
           } catch (err) {
             console.error(err);
