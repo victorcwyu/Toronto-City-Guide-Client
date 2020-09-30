@@ -13,9 +13,12 @@ import index from "./components/Schedule/index";
 import Messages from "./components/Messages";
 import FAQ from "./components/FAQ";
 
+import { initializeGoogleMap } from "./helpers/helpers.js";
+
 const GOOGLE_MAP_API_KEY = process.env.REACT_APP_GOOGLE_MAPS_API_KEY;
 
 function App() {
+  const googleMapRef = useRef(null);
   const [userData, setUserData] = useState({
     token: undefined,
     user: undefined,
@@ -76,6 +79,7 @@ function App() {
       }
     };
     checkLoggedIn();
+    console.log("token effect", userData);
   }, [userData.token]);
 
   return (

@@ -3,7 +3,6 @@ import "../../styles/UserMap.scss";
 import axios from "axios";
 
 import {
-  // loadGoogleMapScript,
   initializeGoogleMap,
   favouritesCoordinates,
 } from "../../helpers/helpers.js";
@@ -29,6 +28,7 @@ const UserMap = (props) => {
     createUserMap();
   }, [token]);
 
+  //it's here
   const getFavouritesData = async () => {
     if (!token) {
       return null;
@@ -39,10 +39,11 @@ const UserMap = (props) => {
       );
       const favourites = res.data.favourites;
       if (favourites === null || favourites[0] === undefined) {
-        return null;
+        return [];
       } else if (favourites[0] !== undefined) {
         setUserFavourites(res.data.favourites);
         const favourites = res.data.favourites;
+        console.log("tthis", favourites);
         return favouritesCoordinates(favourites);
       }
     }
