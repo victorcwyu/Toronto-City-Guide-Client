@@ -3,7 +3,7 @@ import "../../styles/UserMap.scss";
 import axios from "axios";
 
 import {
-  loadGoogleMapScript,
+  // loadGoogleMapScript,
   initializeGoogleMap,
   favouritesCoordinates,
 } from "../../helpers/helpers.js";
@@ -23,9 +23,9 @@ const UserMap = (props) => {
   const [userFavourites, setUserFavourites] = useState([]);
 
   useEffect(() => {
-    loadGoogleMapScript(() => {
-      initializeGoogleMap(googleMapRef.current);
-    });
+    // loadGoogleMapScript(() => {
+    // initializeGoogleMap(googleMapRef.current);
+    // });
     createUserMap();
   }, [token]);
 

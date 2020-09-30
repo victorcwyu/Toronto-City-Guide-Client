@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useRef, useState, useEffect } from "react";
 import { BrowserRouter, Switch, Route } from "react-router-dom";
 import "./App.css";
 import Signup from "./components/auth/Signup";
@@ -13,12 +13,33 @@ import index from "./components/Schedule/index";
 import Messages from "./components/Messages";
 import FAQ from "./components/FAQ";
 
+const GOOGLE_MAP_API_KEY = process.env.REACT_APP_GOOGLE_MAPS_API_KEY;
+
 function App() {
   const [userData, setUserData] = useState({
     token: undefined,
     user: undefined,
     wtf: 0,
+    googleMapsLoaded: false,
   });
+
+  // this function loads the google maps JavaScript API and adds it to the state and the global window object
+  const onScriptload = () => {
+    const googleMapScript = document.createElement("script");
+    googleMapScript.src = `https://maps.googleapis.com/maps/api/js?key=${GOOGLE_MAP_API_KEY}&libraries=places`;
+    // document.body.appendChild(googleMapScript);
+    window.document.body.appendChild(googleMapScript);
+    googleMapScript.addEventListener("load", function () {
+      // initializeGoogleMap(googleMapRef.current);
+      setUserData((userData) => ({
+        googleMapsLoaded: !userData.googleMapsLoaded,
+      }));
+    });
+  };
+
+  useEffect(() => {
+    onScriptload();
+  }, []);
 
   useEffect(() => {
     const checkLoggedIn = async () => {
