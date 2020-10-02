@@ -9,6 +9,7 @@ const initializeGoogleMap = (ref) => {
 const favouritesCoordinates = function (favouritesArr) {
   const coordinates = favouritesArr.map((favourite) => {
     return [
+      favourite.place_id,
       {
         lat: favourite.geometry.location.lat,
         lng: favourite.geometry.location.lng,
