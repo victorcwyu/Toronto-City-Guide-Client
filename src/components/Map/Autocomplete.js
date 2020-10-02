@@ -23,11 +23,7 @@ const Autocomplete = () => {
   const googleMapRef = useRef(null);
 
   useEffect(() => {
-    if (!window.google) {
-      history.push("/");
-    } else {
-      initPlaceAPI();
-    }
+    initPlaceAPI();
   }, []);
 
   // Initialize the Google Place autocomplete

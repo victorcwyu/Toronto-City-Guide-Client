@@ -91,7 +91,9 @@ function App() {
             )}
             <Route path="/login" exact component={Login} />
             <Route path="/signup" exact component={Signup} />
-            <Route path="/map" exact component={Map} />
+            {userData.googleMapsLoaded === true && (
+              <Route path="/map" exact component={Map} />
+            )}
             <Route path="/userProfile" exact component={UserProfile} />
             <Route path="/schedule" exact component={index} />
             <Route path="/messages" exact component={Messages} />
