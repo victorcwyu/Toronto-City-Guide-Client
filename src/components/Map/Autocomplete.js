@@ -1,5 +1,4 @@
 import React, { useEffect, useRef } from "react";
-import { useHistory } from "react-router-dom";
 import "../../styles/Autocomplete.scss";
 import { initializeGoogleMap } from "../../helpers/helpers.js";
 import PlaceTypeSelector from "./PlaceTypeSelector";
@@ -18,7 +17,6 @@ const mapStyles = {
 };
 
 const Autocomplete = () => {
-  const history = useHistory();
   const placeInputRef = useRef(null);
   const googleMapRef = useRef(null);
 
