@@ -94,7 +94,6 @@ function App() {
             {userData.googleMapsLoaded === true && (
               <Route path="/map" exact component={Map} />
             )}
-            {/* <Route path="/map" exact component={Map} /> */}
             <Route path="/userProfile" exact component={UserProfile} />
             <Route path="/schedule" exact component={index} />
             <Route path="/messages" exact component={Messages} />
