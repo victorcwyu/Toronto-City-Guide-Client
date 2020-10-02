@@ -99,7 +99,7 @@ const UserMap = (props) => {
         };
 
         // create text node which is the favourite place name
-        const name = document.createTextNode(place[1]);
+        const name = document.createTextNode(place[2]);
         // attach name to td element
         nameTd.appendChild(name);
         // attach name to associated row
