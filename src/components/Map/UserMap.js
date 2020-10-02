@@ -113,13 +113,13 @@ const UserMap = (props) => {
       // map through favouritesCoordinates array and add marker for each place
       favouritesCoordinates.forEach((place, i) => {
         markers[i] = new window.google.maps.Marker({
-          position: place[0],
+          position: place[1],
           map: map,
         });
         infowindows[i] = new window.google.maps.InfoWindow({
-          content: `<b>${place[1]}</b>
+          content: `<b>${place[2]}</b>
           <br>
-          ${place[2]}
+          ${place[3]}
           <br>
         `,
         });
