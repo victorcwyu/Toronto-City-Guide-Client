@@ -43,6 +43,10 @@ export default function Signup() {
   const handleSignUp = async (e) => {
     try {
       e.preventDefault();
+      // alert if no username is entered
+      if (userInfo.username === "") {
+        alert("Please enter a username!");
+      }
       const signUpRes = await axios.post(
         "https://toronto-city-travel-guide.herokuapp.com/auth/signup",
         userInfo
